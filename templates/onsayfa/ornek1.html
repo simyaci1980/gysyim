@@ -1,0 +1,953 @@
+{% extends  'layout.html'%}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	
+	.navbar {
+		margin-left: 0 !important;
+	}
+	
+	
+	header{
+		display:run-in ; 
+		width: 100%;
+		margin: 0;
+	top: 0;
+	position: fixed;
+	border-radius: 10px;
+	
+		}
+
+	body{ background-color: rgb(1, 53, 37); color: whitesmoke; font-size: large; }
+
+.renki{color: rgb(202, 150, 221);}
+
+ul li {	float: left;margin-right: 20px;}
+a{color: white;}
+
+div {padding-left: 10px; border-style: groove; border-color: black; padding-left: 10px;  overflow: hidden; margin-left: 20px; margin-bottom: 10px; text-align: justify;}
+
+hr{margin-bottom: 15px;}	
+
+.span{color: chocolate; font-size: larger; }
+
+.ark{background-color:black; font-size: larger; border-radius: 20px;}
+
+.sadeceborder{border-style: dashed; margin: 0; margin-bottom: 10px; margin-top: 10px;}
+.mavi{background-color : darkcyan; border-radius: 20px; color: darkred ; font-size: x-large; }
+.dik{background-color: darkred; border-radius: 10px; font-size: larger; color: white; }
+.kim{color: aqua; background-color: brown; font-size: larger; }
+strong{font-size: larger; }	
+.soruContainer {
+			display: none;
+            background-color: rgba(247, 244, 244, 0.781);
+            color:black;
+            padding: 10px;
+            border-radius: 20px;           
+            left: 30%;
+            top: 30%;
+            max-width: 800px;
+			max-height: 800px;
+            text-align: justify;
+			position: fixed;
+			font-size: large;
+	  }	
+.balon1{
+			position: absolute;
+            display: none;
+            background-color: #076423;
+            color: #e6dede;
+            padding: 10px;
+            border-radius: 20px;           
+            left: 70%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            text-align: justify;
+			position:fixed;
+
+}	  
+.balonnöyap {
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;  
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	  }	
+.balonnnsap {
+		background-color:rgb(1, 53, 37);
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;  
+		height: 250px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	  }	
+ .metinArk{
+	    position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;  
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+	
+	}	
+.metinDik{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;  
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}	
+
+.metinMavi{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;  
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}	
+	
+	
+
+.but{
+	background-color: darkblue;
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+	}	
+.reset{
+	background-color: rgb(0, 123, 139);
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+
+}	
+.siyah{
+	background-color: black;
+	height: 25px;
+	width: 60px;
+	color: white;
+	font-size: 15px;
+	}
+.edt{
+	background-color:rgb(1, 53, 37);
+	color:white;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;		
+	}
+.bey{background-color:white;
+	color:black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+	.uyp{
+	background-color: rgb(191, 234, 244);
+	color: black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.yen{
+	background-color: rgb(209, 231, 85);
+	color: black;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.dhyen{
+	background-color: rgb(236, 170, 188);
+	color: rgb(9, 9, 9);
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.yaz{
+	background-color: yellowgreen;
+	text-align: center;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+    }
+		
+.asi{
+		background-color: rgba(1, 53, 37,0.1); 
+		color:white;
+		float: right;
+		height: 30px;
+		cursor: pointer;
+		border-radius: 10px;
+		border-color: black;
+		
+	}
+.beyaz{
+	background-image: url"{% static 'img/bayrak2.jpg' %}";
+	background-position: center;	
+	top: 5;
+	width: 100%;
+	position: fixed ; 
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 10px;
+	border-style: groove;
+	border-color: white;
+	margin-bottom: 5px;
+	}
+.kal{	
+	background-color: rgb(173, 24, 44);
+	background-position: center;	
+	color: white;
+	width: 100%;
+	position: solid; 
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 10px;
+	border-style: groove;
+	border-color: white;
+      }		
+.butt{
+	color:white;
+	height: 30px;
+	cursor: pointer;	
+	border-radius: 10px;
+	right: 1px;
+	background-color:rgba(7, 7, 7, 0.1)
+	}	
+.soru{
+	cursor: pointer;	
+	color: rgb(24, 22, 22);
+	border-radius: 10px;
+	background-color:rgba(120, 219, 166, 0.893)	}	
+
+.cevapp{ color: darkred;
+	}
+
+.cevap{ background-color: chocolate;
+}
+
+.demo{
+	background-color: rgb(206, 237, 244);
+	float: right;
+	border-style:double;
+	border-radius: 15px;
+	border-color: brown;
+	border-width: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+	}	
+
+
+	
+.ort{
+	text-align: center;
+	}	
+</style>
+<title>Örnek sayfa 1</title>
+<script>
+	function kapat() {
+		if (balon.style.display === "block") {
+			balon.style.display = "none"; cevaps.style.display="none" ; 
+		} }
+	     
+	
+	
+	
+	function sınıf()	{ // bütü spanları seçip tek tek rengini değiştiren fonksiyon 
+	    var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="red"}}
+
+	function metinSifirla(){ // editör görünümü için 		
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metinSıfırla(){  // spanlar için 
+		
+		document.getElementById("bady").style.backgroundColor = "rgb(1, 53, 37)"
+		document.getElementById("bady").style.color="white"
+		metinSifirla()
+		metınArk()
+		metınDık()
+		metınEDİ() 
+		metınKim() 	}
+
+	function metınKim(){		
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }	
+
+	function kimmorlasss(){		
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }  
+		
+	function kimuyp(){		
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }	
+		
+	function kimdahe(){		
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} } 
+		
+	function kimyes(){		
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="white"} } 	
+		
+	function metınArk(){		
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınKim(){		
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }	
+	
+	function metınDık(){		
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }	
+		
+	function metınEDİ(){		
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }	
+		
+	function metınYes(){		
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="whitesmoke"} }	
+
+	function metındmavi(){		
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkblue";
+		panDivs[i].style.color="white"} }	
+	
+	function metınkır(){		
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }	
+
+	function morlas(){		
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }	
+	
+	function dikcho(){		
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="chocolate";
+		panDivs[i].style.color="whitesmoke"} }	
+
+	function dikuyp(){		
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }		
+
+	function dikkırmızı(){		
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }			
+	
+	function morlasss(){		
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }				
+	
+	function arkuyp(){		
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }	
+		
+	function arkdahe(){		
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }	
+
+	function metınmavi(){		
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkcyan";
+		panDivs[i].style.color="whitesmoke"} }	
+	
+	function dikles(){		
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="whitesmoke"} }			
+		
+	function chola(){		
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="chocolate"} }			
+	
+	function dahadayeni(){		
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="rgb(212, 12, 126"} }	
+	 
+	setInterval(tarıh, 1000);
+	function tarıh(){
+			 var an = new Date()
+			 var yıl= Number( an.getFullYear() )
+			 var ay = Number( an.getMonth().toString(). padStart(2,'0')) + 1 // sadece ay da bir artırmak gerekiyor 
+			 var gün= Number( an.getDate()).toString(). padStart(2,'0') // day değil date !!!!!
+			 var saat= Number( an. getHours().toString(). padStart(2,'0'))	
+			 var dk=  an.getMinutes().toString(). padStart(2,'0')		 
+			document.getElementById("demo").innerHTML=" TARİH : " + gün + "/"+ ay+ "/"+ yıl + "<br>" + "SAAT  "+ saat + ":" + dk // ekitekin içini değiştirmeyi sağladık 
+			} 
+    function badyMavi(){
+		document.getElementById("bady").style.backgroundColor = "darkblue"
+		document.getElementById("bady").style.color = "white"
+		sınıf()
+		arkuyp()
+		dikcho()
+		metınkır()
+		kimdahe()	}
+	function badyEditör(){
+		document.getElementById("bady").style.backgroundColor = " rgb(1, 53, 37)"
+		document.getElementById("bady").style.color = "white"
+		chola()
+		arkuyp()
+		dikkırmızı()
+		morlas()
+		kimuyp()}
+	
+	function badysiyah(){
+		document.getElementById("bady").style.backgroundColor = "black"
+		document.getElementById("bady").style.color = "whitesmoke";
+		chola()
+		arkdahe()
+		dikuyp()
+		metınYes()
+		kimmorlasss()	}
+
+	function beyaz(){
+		document.getElementById("bady").style.backgroundColor = " white"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metındmavi()
+		kimyes()	}
+	
+	
+	function uyap(){
+		document.getElementById("bady").style.backgroundColor = " rgb(191, 234, 244"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metınmavi()
+		kimdahe()	}
+
+	function yeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(209, 231, 85)"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		arkdahe()
+		metınDık()
+		metınmavi()
+		kimyes()	}
+
+	function dahayeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(236, 170, 188)"
+		document.getElementById("bady").style.color = "black"
+		dahadayeni()
+		morlasss()
+		dikles()
+		metınEDİ()
+		kimyes()}
+
+	function soruGetır(){
+	
+	}	
+
+	function calıs(element){ //  element yazmayınca çalışmıyor onmouseover den geldiğinden  orada da this yazmak gerekiyor 
+		element.style.color="red";
+		element.style.fontWeight="bold"}	 
+	 
+	function YAZDIR(){
+	  document.getElementById("kal").style.position="relative" 	
+	  document.getElementById("beyaz").style.position="relative"
+	   window.print()
+	       }
+	
+	   function DivResetle(){
+		
+		const allDivs=document.querySelectorAll('div')
+		allDivs.forEach(function(div){ const currentBordersStyle= div.style.borderStyle || "grove" ; 
+		div.style.borderStyle=currentBordersStyle==="none"?"groove" : "none";
+		//div.style.borderStyle="none"
+		})  } 
+	
+</script>
+</head>
+ 
+<body id="bady"  onload="tarıh()">
+	
+	<br>
+	
+	<div id="beyaz" class="beyaz" id="byz" >   	<button  id="acButtonnSAP" name="butt" value="butt" class="butt" > SAYFA ARKA PLAN</button>
+	<button id="demo" class="demo" ></button>
+	<button id="eag" class="asi" onclick="location.reload()" title="Bu Butona basarak editör görünümüne dönebilirsiniz">EDİTÖR ANA GÖRÜNÜM </button> 
+	</div> 
+
+<br><br><br> 
+
+<div id="kal" class="kal"> 	RESMÎ YAZIŞMALARDA UYGULANACAK 
+USUL VE ESASLAR HAKKINDA YÖNETMELİK <br>
+Cumhurbaşkanı Kararının Tarihi : 9/6/2020 Sayısı : 2646 <br>
+Yayımlandığı Resmî Gazetenin Tarihi : 10/6/2020 Sayısı : 31151</div> 
+<div id="balonnnsap"  class="balonnnsap" style="display: none;" >
+		
+	<p> 
+	  <button class="but" onclick= "badyMavi()" >Mavi</button> <br>	
+	  <button class="siyah" onclick='badysiyah()'> Siyah </button> <br>
+	  <button class="edt" onclick='badyEditör()'> Editör </button>  <br>
+	  <button class="bey" onclick="beyaz()"> Beyaz </button>  <br>
+	  <button class="uyp" onclick="uyap()"> Uyap </button> <br>
+	  <button class="yen" onclick="yeni()"> Yeni </button> <br>
+	  <button class="dhyen" onclick="dahayeni()"> Daha </button> <br>
+	  <button onclick="metinSıfırla()" class="yaz" title=" TAMAMEN SIFIRLAMAK İÇİN EDİTÖR ANA GÖRÜNÜMDEN SONRA YAPMANIZ GEREKİYOR " >Sıfırla</button> <br>
+	  <button id="borderreset" class="reset" onclick="DivResetle()" >Çerçeveler</button>
+	</p></div>
+	  
+	<script>			
+	  acButtonnSAP.addEventListener('click', function() {if (balonnnsap.style.display === "none") {balonnnsap.style.display = "block";	} else {balonnnsap.style.display = "none";};}); 		
+	  </script> 
+	  
+  
+	  
+	  <div id="soruContainer" class="soruContainer">
+		  <div id="soruDiv">
+			  <!-- Soru metni ve cevap seçenekleri burada yer alacak -->
+		  </div>
+		  <div id="cevaplar"></div> <!-- Bu div'i ekledim -->
+		  <button id="cevaplaButton" style="display: none;" onclick="cevapla()">Cevapla</button>
+		  <button id="kapatButton" style="display: none;" onclick="kapat()">Kapat</button>
+		  <br><br>
+		  <p id="dogruCevap" class="cevap" style="display: none;"></p>
+	  </div>	
+	  <script src="static/js/script.js"></script> <br> <br><br><br><br><br><br><br><br><br> <hr>
+	   
+
+
+BİRİNCİ BÖLÜM
+Genel Hükümler
+
+<div> 
+Amaç ve kapsam<div> 
+MADDE 1- <div> (1) Bu Yönetmeliğin amacı; <span class="ark"> güvenli elektronik imza kullanılarak
+elektronik ortamda</span> veya <span class="ark"> el yazısıyla atılan imza ile fiziksel ortamda yapılan</span> <span class="mavi"> resmî
+yazışmalara ilişkin kuralları belirlemek</span>, <span class="kim"> bilgi veya belge alışverişini</span> , <span class="ark"> hızlı </span>ve  <span class="ark"> güvenli</span> bir
+biçimde <span class="mavi"> yürütmek ve uygulama birliğini sağlamaktır.</span> <br>
+(2) Bu Yönetmelik, <span class="mavi"> bütün kamu kurum ve kuruluşlarını kapsar</span>.</div></div></div>
+
+<div> 
+Dayanak<div> 
+MADDE 2- (1) Bu Yönetmelik, 1 sayılı Cumhurbaşkanlığı Teşkilatı Hakkında
+<span class="mavi"> Cumhurbaşkanlığı Kararnamesinin 6 ncı ve 7 nci maddeleri hükümlerine dayanılarak
+hazırlanmıştır</span> .</div></div>
+
+<div> 
+Tanımlar ve kısaltmalar<div> 
+MADDE 3- (1) Bu Yönetmelikte geçen;<div> 
+a) <span class="kim"> Aidiyet zinciri:</span> <span class="mavi"> Belgenin hazırlanmasından tasfiyesine kadar olan sürecini</span>, <br><br>
+b) <span class="kim"> Arşiv imza:</span> <span class="ark"> Kriptografik metodların zaman içerisinde koruyucu özelliğini
+yitirmesine karşı,</span> <span class="mavi"> periyodik olarak alınan zaman damgası ile korunan elektronik imzayı,</span>  <br><br>
+c) <span class="kim"> Belge:</span>  Herhangi bir bireysel işlemin, kurumsal fonksiyonun veya kurumsal işlemin
+yerine getirilmesi için alınmış ya da idare tarafından hazırlanmış; içerik, ilişki ve formatı ile
+ait olduğu fonksiyon veya işlem için delil teşkil ederek aidiyet zincirini muhafaza eden, <span class="mavi">
+güvenli elektronik imza ya da el yazısıyla imzalanmış ve kayıt altına alınmış her türlü bilgiyi,</span>  <br><br>
+
+ç) <span class="kim"> Devlet Teşkilatı Merkezi Kayıt Sistemi (DETSİS):</span> <span class="ark"> Dijital Dönüşüm Ofisi
+Başkanlığı tarafından yürütülen ve idarelerin merkez, taşra ve yurt dışı teşkilatındaki
+birimlerinin</span> <span class="mavi"> Türkiye Cumhuriyeti Devlet Teşkilatı Numarası ile tanımlandığı sistemi</span> , <br><br>
+
+d) <span class="kim"> Elektronik Belge Yönetim Sistemi (EBYS):</span>  İdarelerin faaliyetlerini yerine
+getirirken hazırladıkları ve faaliyetlerinin delili olabilecek  <span class="ark">e-Yazışma Teknik Rehberi’ne
+uygun belgelerin içerik, üstveri, format ve ilişkisel özelliklerini koruyan</span> ,  <span class="ark">belgelerin ait olduğu
+fonksiyon veya işlem için delil teşkil eden</span>  ve <span class="mavi"> aidiyet zinciri içerisindeki yönetimini elektronik
+ortamda sağlayan sistemi</span>, <br><br>
+
+e) <span class="kim"> Elektronik onay:</span> <span class="ark"> Güvenli elektronik imza kullanılmayan durumlarda</span> <span class="mavi"> paraf yerine
+geçecek kaydın elektronik ortamda alınmasını</span>, <br><br>
+
+f) <span class="kim"> Elektronik ortam:</span> <span class="ark">  EBYS içerisinde e-Yazışma Teknik Rehberi’ne uygun olarak
+güvenli elektronik imza ile imzalanmış belgelerin</span>  <span class="dik"> hazırlandığı</span>, <span class="dik"> kayıt altına alındığı</span>, <span class="dik"> saklandığı</span>
+ve <span class="dik"> gönderildiği</span> <span class="mavi"> ortamı,</span>  <br><br>
+
+g) <span class="kim"> e-Yazışma Teknik Rehberi:</span>  Elektronik ortamda yapılacak resmî yazışmalar
+kapsamında oluşturulan <span class="ark"> belgelerin yapısı</span> , <span class="ark"> formatı</span>, <span class="ark"> imzalama ve şifreleme mekanizmaları</span>  gibi <span class="mavi">
+teknik hususları tanımlayan ve <span class="dik"> Dijital Dönüşüm Ofisi Başkanlığı tarafından yayımlanan</span> 
+güncel rehberi, </span> <br><br>
+
+ğ) <span class="kim"> Fiziksel ortam:</span> <span class="mavi"> Kâğıt ortamında yapılan işlemleri</span>, <br><br>
+h) <span class="kim"> Form:</span> <span class="mavi"> Biçimli belgeyi</span>, <br><br>
+ı) <span class="kim"> Format:</span> <span class="mavi"> Elektronik dosya türlerini,</span> <br><br>
+i) <span class="kim"> Günlük rapor:</span> EBYS’de yapılan <span class="ark"> ekleme, değiştirme, silme, arama, görüntüleme, <br>
+gönderme ve alma</span>  gibi işlemlerin <span class="mavi"> hangi EBYS elemanı üzerinde ve kim tarafından
+gerçekleştirildiği ile işlemin gerçekleştirildiği tarih ve saat bilgisini ihtiva eden kayıtları</span> , <br><br>
+j) <span class="kim"> Güvenli elektronik imza:</span> <span class="ark"> Münhasıran imza sahibine bağlı</span> olan, <span class="ark"> sadece imza
+sahibinin tasarrufunda bulunan</span>  <span class="ark">güvenli elektronik imza oluşturma aracı ile oluşturulan</span> , <span class="ark">
+nitelikli elektronik sertifikaya dayanarak imza sahibinin kimliğinin ve imzalanmış elektronik
+veride sonradan herhangi bir değişiklik yapılıp yapılmadığının tespitini sağlayan</span> <span class="mavi"> elektronik
+imzayı,</span>  <br><br>
+k) <span class="kim"> İdare:</span> <span class="mavi"> Kamu kurum ve kuruluşlarını,</span> <br><br>
+l) <span class="kim"> İmza sahibi:</span> <span class="ark"> Güvenli elektronik imza oluşturmak amacıyla bir imza oluşturma
+aracını kullanan</span> veya <span class="ark"> zorunlu hâllerde ya da olağanüstü durumlarda hazırlanan belgeyi el
+yazısıyla imzalayan</span> <span class="mavi"> gerçek kişiyi,</span> <br><br>
+m) <span class="kim"> Kurumsal belge kayıt sistemi:</span> <span class="ark"> Mevzuatı sebebiyle EBYS kullanamayan</span>  idare
+tarafından ya da <span class="ark"> “Çok Gizli” nitelikteki belgeler ile olağanüstü durumlarda hazırlanan
+belgelere </span> <span class="mavi">  sayı almak için kullanılan defter ve benzeri fiziksel veya EBYS harici tutulan
+elektronik kaydı,</span> <br><br>
+n) <span class="kim"> Olağanüstü durum:</span>  Gerçekleşmesi hâlinde devleti veya <span class="ark"> kurumları olumsuz
+etkileyerek güvenlik zafiyeti oluşturabilecek</span>  veya uzun süreli elektrik kesintileri, donanım ve
+yazılım sorunları gibi <span class="ark"> teknik gerekçelerle EBYS’nin uzun süreli olarak çalışmamasından
+dolayı</span> <span class="mavi"> belgenin fiziksel ortamda hazırlanması gereken durumları,</span> <br><br>
+o) <span class="kim"> Resmî yazışma:</span>  İdarelerin <span class="ark"> kendi içlerinde , birbirleriyle</span> <span class="kim"> veya</span> <span class="ark"> gerçek ya da tüzel
+kişiler ile</span>  iletişim sağlamak amacıyla güvenli elektronik imza kullanarak elektronik ortamda
+ve zorunlu hâllerde veya olağanüstü durumlarda el yazısıyla atılan imza ile fiziksel ortamda <span class="mavi">
+yürüttükleri süreci, </span><br><br>
+ö) <span class="kim"> Standart dosya planı:</span> Kurumsal işlemler ve bu işlemler sonucunda oluşturulan veya
+alınan belgelerin üretim yerleri ile olan ilişkisi belirtilerek <span class="mavi"> konu veya fonksiyon esasına göre
+dosyalanmasını sağlamak amacıyla geliştirilen ve <span class="dik"> Devlet Arşivleri Başkanlığı</span>  tarafından
+yayımlanan sınıflama şemasını</span>, <br><br>
+p) <span class="kim"> Üstveri:</span>  Bir belgeyi tanımlayan <span class="ark"> gönderici</span>, <span class="ark"> konu</span>, <span class="ark"> tarih</span>, <span class="ark"> sayı</span> ve <span class="mavi"> benzeri tüm bilgileri</span>, <br><br>
+r) <span class="kim"> Üst yazı:</span>  Belgenin, varsa <span class="mavi"> ek veya ekleri hariç kısmını,</span> <br>
+s) <span class="kim"> Yetkili makam:</span>  Mevzuatta belirtilen görevleri yerine getirme hususunda <span class="mavi"> yürütme ve
+karar verme yetkisine sahip görevlileri,</span> <br><br>
+ş) <span class="kim"> Zaman damgası:</span>  <span class="span"> Bir elektronik verinin</span> <span class="ark"> üretildiği</span>, <span class="ark"> değiştirildiği</span>, <span class="ark"> gönderildiği</span>, 
+<span class="ark"> alındığı</span>  ve/veya <span class="ark"> kaydedildiği</span>  <span class="mavi"> zamanın tespit edilmesi amacıyla elektronik sertifika hizmet
+sağlayıcısı tarafından güvenli elektronik imza ile doğrulanan zaman kaydını</span>, <br><br>
+t) <span class="kim"> Zorunlu hâl:</span>  İlgili mevzuattaki özel hükümlere göre <span class="mavi"> belgenin fiziksel ortamda
+hazırlanması gereken hâlleri</span>, <br><br>
+<span class="mavi"> ifade eder.</span></div></div></div>
+
+
+
+İKİNCİ BÖLÜM
+Belgenin Özellikleri
+
+<div> 
+Resmî yazışma ortamları<div> 
+MADDE 4- <div> (1) <span class="kim"> Kamu kurum ve kuruluşlarınca resmî yazışmalar</span>, <span class="ark"> elektronik ortamda</span>
+e-Yazışma Teknik <span class="ark"> Rehberi’ne uygun</span>  olarak hazırlanan ve <span class="ark"> güvenli elektronik imza ile
+imzalanan</span> <span class="mavi"> belgelerle yapılır</span>. Bu belgeler , <span class="mavi"> elektronik ortamda muhatapları ile paylaşılır</span> ve
+<span class="mavi"> elektronik ortamda saklanır</span> . Ayrıca <span class="ark"> güvenli elektronik imza ile imzalanan belgeler</span> , <span class="mavi"> çıktısı
+alınarak el yazısıyla atılan imza ile imzalanmaz ve fiziksel ortamda saklanmaz</span> . <br>
+(2) <span class="kim"> Zorunlu hâllerde veya olağanüstü durumlarda resmî yazışmalar</span>,<span class="mavi"> el yazısıyla
+imzalanan belgelerle yapılır.</span>  Bu belgelerin gönderilmesi ve saklanması fiziksel ortam
+şartlarına göre gerçekleştirilir.</div></div></div>
+
+<div> 
+Nüsha sayısı<div> 
+MADDE 5-<div>  (1) <span class="kim"> Elektronik ortamda güvenli elektronik imza ile imzalanan belgeler</span> <span class="mavi"> <span class="dik"> tek</span>
+nüsha olarak hazırlanır</span>. <br> <br>
+(2) <span class="kim"> Zorunlu hâllerde veya olağanüstü durumlarda hazırlanacak belgeler,</span> <span class="ark"> paraflı nüshası
+hazırlayan idarede kalacak şekilde</span> <span class="mavi"> en az iki nüsha olarak düzenlenir</span>.</div></div></div>
+
+<div> 
+Belgenin şeklî özellikleri<div> 
+MADDE 6- <div> (1) <span class="mavi"> Belgeler, <span class="dik"> A4 (210x297 mm)</span> boyutu dikkate alınarak hazırlanır</span>. <br> <br>
+(2) <span class="kim"> Belge ekleri  farklı</span> <span class="ark"> form</span>, <span class="ark"> format</span> veya <span class="ark"> ebatlarda</span>  <span class="mavi"> hazırlanabilir.</span> <br>
+(3) <span class="kim"> Zorunlu hâllerde veya olağanüstü durumlarda hazırlanacak belgelerin</span> <span class="mavi"> üst yazıları
+için kâğıdın bir yüzü kullanılır. </span> <span class="kim"> Ancak üst yazının ekleri için </span> <span class="mavi"> kâğıdın her iki yüzü de
+kullanılabilir</span> </div></div></div>
+
+<div> 
+Yazı tipi ve harf büyüklüğü<div> 
+MADDE 7- (1) Hazırlanan belgelerde <span class="ark"> “Times New Roman”</span> veya <span class="ark"> “Arial” </span> yazı tipi <span class="mavi">
+normal yazı stilinde kullanılır</span> . Harf büyüklüğünün <span class="ark"> Times New Roman </span> <span class="mavi"> için 12 punto</span> , <span class="ark"> Arial</span> <span class="mavi">
+için 11 punto olması esastır</span> . <span class="kim"> Ancak</span> gerekli hâllerde <span class="ark"> yazı alanında harf büyüklüğü</span> <span class="mavi"> 9 puntoya</span>,
+<span class="ark"> iletişim bilgileri kısmında ise</span> <span class="mavi"> 8 puntoya kadar düşürülebilir</span> . <span class="kim"> Belge eklerinde</span> <span class="mavi"> farklı yazı tipi ve
+harf büyüklüğü kullanılabilir</span>.</div></div>
+
+
+
+ÜÇÜNCÜ BÖLÜM
+Belgenin Bölümleri
+<div> 
+Yazı alanı<div> 
+MADDE 8- (1) <span class="kim"> Belgenin yazı alanı</span>  sayfanın <span class="ark"> üst</span>, <span class="ark"> sol</span> ve <span class="ark"> sağ</span> <span class="mavi"> kenarından  <span class="dik"> 1,5</span> cm boşluk
+bırakılarak düzenlenir</span>. <span class="kim"> İdare, logo kullanmak istediğinde </span> <span class="mavi"> sayfanın üst boşluğu <span class="dik"> 0,5 </span> cm olarak
+düzenlenir</span>.</div></div>
+
+<div> 
+Kurumsal logo<div> 
+MADDE 9- (1) <span class="mavi"> İdareler, tercihen kurumsal logo kullanabilir.</span> <span class="kim"> Logo, tek
+kullanıldığında</span> <span class="ark"> belgenin en üst orta kısmında “T.C.” ibaresini ortalayacak şekilde</span> veya <span class="ark">
+“Başlık” alanını ortalayacak şekilde belgenin üst sol kısmında yer alır</span>  (Örnek 1). <br> <img src="static/img/logo.png" height="180"> <br> <img src="static/img/teksolda.PNG" alt="" height="150"> <br> <span class="kim">
+Belge üzerinde iki ayrı logo kullanıldığında ise</span>  “Başlık” alanını ortalayacak şekilde <span class="mavi"> hiyerarşi 
+yönünden üst olan idareye ait logo solda, alt olan idareye ait logo sağda kullanılır. <br></span> <img src="static/img/ikilogo.PNG" height="150"> <br> <span class="kim"> Bir kavram veya etkinlik gibi hususlarla ilgili logo kullanılmak istendiğinde</span> , “Başlık” alanını ortalayacak
+şekilde <span class="mavi"> idareye ait olan logo solda; diğer logo sağda kullanılır. <br></span> <img src="static/img/etkinliklogo.PNG" height="150"> <br> <br>  <span class="mavi">Belge üzerinde en fazla <span class="dik"> iki</span>
+logo kullanılabilir</span> (Örnek 1).</div></div>
+
+<div> 
+Başlık<div>  <div> <!--<button  onclick="soruyuGoster(1)" class="soru" >2023 Yılı çıkmış soru</button>--> </div> 
+MADDE 10-<div>  (1) <span class="kim"> Başlık (antet),</span> <span class="mavi"> belgeyi gönderen idarenin adının belirtildiği
+bölümdür.</span>  <br>
+(2) Başlık, <span class="ark"> belgenin yazı alanının üst kısmına ortalanarak yazılır</span> . <span class="span"> İlk satıra “T.C.”</span>
+kısaltması,  <span class="span"> ikinci satıra idarenin adı büyük harflerle</span>, <span class="span"> üçüncü satıra birimin adı ilk harfleri
+büyük diğerleri küçük harflerle</span> <span class="mavi"> ortalanarak yazılır. <br></span> <img src="static/img/başlık1.PNG" height="200"> <br>
+
+
+<span class="kim">
+Ancak</span>  bağlı veya ilgili idarelerde ilk satıra
+“T.C.” kısaltması, ikinci satıra bağlı veya ilgili olunan idarenin adı büyük harflerle, üçüncü
+satıra idarenin adı ilk harfleri büyük diğerleri küçük harflerle ve <span class="mavi"> dördüncü satıra da birimin
+adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak yazılabilir</span>  (Örnek 2). <br> <img src="static/img/başlık2.PNG" height="200"> <br>
+
+(3) İdarelerin il ve ilçe teşkilatlarında kullanılan başlıklar, 10/6/1949 tarihli ve 5442 sayılı İl İdaresi Kanunu hükümlerine uygun larak, ilk satıra “T.C.” kısaltması, ikinci satıra bağlı olunan mülki idarenin adı büyük harflerle, üçüncü satıra ilgili birimin adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak yazılır. <span class="mavi"> Dış temsilciliklerde başlıklar, il ve ilçe teşkilatında olduğu gibi yazılır</span> (Örnek 2). <br> <img src="static/img/il.PNG" height="120"> <img src="static/img/ilçe.PNG" height="150"> <img src="static/img/dış.PNG" height="150"> <br><br>
+
+
+(4) <span class="mavi"> Bölge müdürlüklerinde hangi bölge teşkilatı olduğu yazılır</span> (Örnek 2). <br> <img src="static/img/bölge.PNG" height=""> <br><br>
+(5) <span class="mavi"> Doğrudan merkezî teşkilata bağlı taşra birimlerinde, başlıkta merkezî teşkilat ve taşra teşkilatı adlarına yer verilir</span>  (Örnek 2). <br> <img src="static/img/doğrudanböl.PNG" alt=""> <br> <br>
+(6) <span class="mavi"> Başlığın yazımında DETSİS’te yer alan başlık kayıtları esas alınır</span> .</div></div></div>
+
+<div> 
+Sayı<div> 
+MADDE 11-<div>  (1) <span class="kim"> Belgelerde sayı bulunması zorunludur.</span>  “Sayı:” sırasıyla; belgenin hazırlanma süreçlerini ifade eden <span class="ark"> elektronik ortam  için </span> <span class="mavi">“E”</span>, <span class="ark"> zorunlu hâller için</span> <span class="mavi"> “Z”</span>  veya <span class="ark"> olağanüstü durumlar için</span> <span class="mavi"> “O”</span>  ibarelerinden uygun olanı, DETSİS’te belirtilen Türkiye Cumhuriyeti Devlet Teşkilatı Numarası, standart dosya planı kodu ile kayıt numarasından oluşur ve <span class="mavi"> bunların arasına kısa çizgi işareti (-) konulur</span>  (Örnek 3). <br> <img src="static/img/sayı.PNG" height="300" width="600"> <br><br>
+
+(2) “Sayı:” yan başlığı, başlığın son satırından itibaren <span class="mavi"> iki satır boşluk bırakılarak ve yazı alanının solundan başlanarak yazılır </span> (Örnek 3). <br> <img src="static/img/sayıb.PNG" alt=""> <br><br>
+
+<span class="kim">
+Kayıt numarası,</span> <span class="ark"> belge hazırlanırken</span> <span class="mavi"> EBYS üzerinden alınır ve belge üzerinde gösterilir</span>  <span class="kim"> (Örnek: E-67915368-903.07.02-4752).</span>  <br><br>
+<span class="kim">
+Zorunlu hâllerde hazırlanan belgenin kayıt numarası</span>, <span class="ark"> el yazısıyla imzalandıktan sonra</span> <span class="mavi"> EBYS veya kurumsal belge kayıt sistemi üzerinden alınır</span> <span class="kim"> (Örnek: Z-67915368-804.02-4757).</span>  <br><br>
+
+İdarece kullanılan <span class="ark"> EBYS</span> veya <span class="ark"> kurumsal belge kayıt sistemi içerisinde</span>  <span class="mavi"> her bir belgenin hazırlanma sürecine göre kayıt numarasının eşsiz olması zorunludur.</span>  <br><br>
+
+
+(3) <span class="kim"> Olağanüstü durumlarda belge</span> , <span class="mavi"> fiziksel ortam esaslarına uygun olarak hazırlanır</span>  ve belgeye yetkili birim tarafından <span class="mavi"> kurumsal belge kayıt sisteminden kayıt numarası alınır</span>  
+<span class="kim">
+(Örnek: O-67915368-952.02.05-10)</span> .<br><br>
+<span class="mavi">
+EBYS’ye erişim sağlandığında ise belge ve üstveri bilgileri EBYS’ye kaydedilir</span> .</div></div></div>
+<div> <!--<button  onclick="soruyuGoster(3)" class="soru" >2023 Yılı çıkmış soru</button>--> </div>
+<div> 
+Tarih<div> 
+MADDE 12- <div> (1) <span class="mavi"> Tarih; sayı ile aynı satırda olmak üzere yazı alanının en sağında gün, ay, yıl olarak rakamla ve aralarına nokta işareti “.” konularak yazılır </span> (Örnek 3). <br><img src="{% static 'img/tarih.PNG' %}" alt="Tarih"> <br>
+	
+	
+<span class="mavi">	Gün ve ay iki haneli, yıl ise dört haneli olarak düzenlenir </span> <span class="kim">  (Örnek: 01.09.2019).</span>
+<span class="mavi"> Ay adları, harfle de yazılabilir.</span>  <br>
+<span class="mavi"> Bu durumda gün, ay ve yıl arasına herhangi bir işaret konulmaz</span> <span class="kim"> (Örnek: 10 Ekim 2019).</span>  <br> <br>
+
+(2) <span class="kim"> Belgenin <strong> en son yetkili tarafından</strong> güvenli elektronik imza ile imzalandığı zamanı gösteren</span> <span class="mavi"> zaman damgasındaki tarih bilgisi, belge tarihi olarak esas alınır ve <span class="dik"> tarih bilgisi üstveri alanında yer alır</span> </span>. <span class="kim"> Elektronik ortamdaki belgede,</span> <span class="mavi"> birinci fıkrada belirtilen alanda tarih bilgisine belge görüntüsünde yer verilir.</span>  <br><br>
+
+(3) <span class="kim"> Zorunlu hâllerde veya olağanüstü durumlarda hazırlanan belgede tarih</span> , <span class="mavi"> belgenin imzalandığı zamanı belirtir ve belge imzalandığı tarihte kayıt altına alınır.</span>  <br> <br>
+
+(4) <span class="ark"> Tutanak, rapor, tebliğ-tebellüğ belgesi ve benzeri belgelerde</span> <span class="mavi"> tarih, metnin bitiminde yer alabilir</span> .</div></div></div>
+
+<div> 
+Konu<div> 
+MADDE 13- <div> (1) <span class="mavi"> “Konu:” yan başlığı, “Sayı:” yan başlığının bir alt satırına yazılır</span>. <br>
+ Belgenin konusu, yazı alanının dikey orta hizasını geçmeyecek biçimde <span class="mavi"> kelimelerin baş harfleri büyük olarak ve sonuna herhangi bir noktalama işareti konulmaksızın yazılır</span> (Örnek 3). <br> <img src="static/img/konu.PNG" height="100" width="300"> <br>
+ 
+ <span class="mavi"> Konu, bir satırı geçerse ikinci ve devamındaki satırlar “Konu:” yan başlığının altı boş bırakılarak yazılır.</span> bu örnek ekte yok   <br> 
+(2) <span class="mavi"> Konu, belgenin içeriği hakkında kısa ve öz bilgi barındırır</span>  (Örnek 3). <br> <img src="static/img/konu.PNG" height="100" width="300"></div></div></div>
+
+
+<div> 
+Muhatap<div> 
+MADDE 14- <div> (1) <span class="mavi"> Muhatap, belgenin gönderildiği idareyi veya kişiyi belirtir.</span>  Bu bölüm <span class="ark"> konunun son satırından itibaren, iki satır boşluk bırakılarak</span> ve <span class="ark"> sayfa ortalanarak</span> <span class="mavi"> yazılır</span>. <br> <img src="muhatap.PNG" alt=""> <br>
+
+(2) Muhatabın idare veya özel hukuk tüzel kişisi olması durumunda,  <span class="ark">adı büyük harflerle ve sonuna yönelme hâl eklerinden uygun olanı getirilerek</span>  yazılır. <span class="mavi"> Muhatap idarenin adının yazımında DETSİS’te yer alan kayıtlar esas alınır</span> . <span class="kiim"> İhtiyaç duyulması hâlinde muhataba ilişkin birim adı</span> <span class="mavi"> bilgileri parantez içinde ilk harfleri büyük diğerleri küçük harflerle bir alt satıra yazılır</span> (Örnek 4). <br> <img src="static/img/muhatapbirim.PNG" > <br><br>
+
+<span class="mavi">
+Cumhurbaşkanı Yardımcısı’nın muhatap olduğu belgelerde “CUMHURBAŞKANI YARDIMCISINA” ibaresi yazılır </span> (Örnek 4). <br> <img src="static/img/cyardımcısı.PNG" > <br><br>
+
+<span class="kim">
+Cumhurbaşkanı Yardımcısı’nın birden fazla olması hâlinde </span> <span class="ark"> ilk satıra “CUMHURBAŞKANI YARDIMCISINA” ibaresi</span>, <span class="kim"> bir alt satıra ise</span> <span class="mavi"> parantez içinde “Sayın” ibaresinden sonra Cumhurbaşkanı Yardımcısı’nın adı ilk harfi büyük diğerleri küçük, soyadı ise büyük harflerle yazılır</span>  (Örnek 4). <br>  <img src="static/img/cbaşkanı2.PNG"> <br> <br>
+
+(3) <span class="kim"> İdare dışına gönderilen belgelerde,</span> <span class="ark"> gerekiyorsa belgenin gideceği yerin adresi,</span> <span class="mavi"> muhatap satırının altına, satır ortalanarak ilk harfleri büyük diğerleri küçük harflerle yazılır.</span>  Adres bilgisi uzun ise birden fazla satıra yazılabilir. <span class="mavi"> Muhatap gerçek kişi ise muhatap bölümüne “Sayın” ibaresinden sonra muhatabın adı ilk harfi büyük diğerleri küçük harflerle, soyadı ise büyük harflerle yazılır</span>  (Örnek 5). <br> <img src="static/img/muhadres.PNG" > <br> <img src="static/img/gercek.PNG" > <br><br>
+
+
+(4) <span class="mavi"> Bağlı, ilgili veya ilişkili idarelere gönderilecek belgeler doğrudan o idareye gönderilebilir.</span>  <span class="kim"> Ancak idarenin bağlı veya ilgili olduğu idarenin bilgi sahibi olmasının gerekli görüldüğü durumlarda belge,</span> <span class="mavi"> söz konusu bağlı veya ilgili olunan idare aracılığıyla gönderilir.</span> <br> (Örnek 6/A). <br> <img src="static/img/baglı.PNG" > <br> <img src="static/img/ilgili.PNG" > <br> <img src="static/img/ilişkili.PNG" alt="">  <br>(Örnek 6/B)  <br><img src="static/img/baglı1.PNG" alt=""> <br> <img src="static/img/ilgili1.PNG" > <br><br>
+
+(5) <span class="kim"> Mülki idareye veya dış temsilciliğe bağlı teşkilatlarda</span> <span class="mavi">  ilk satıra bağlı olunan mülki idarenin veya dış temsilciliğin adı büyük harflerle, ikinci satıra ilgili birimin adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak parantez içerisinde yazılır.</span>  Ancak aynı mülki idareye veya dış temsilciliğe bağlı birimler arasında gerçekleştirilen yazışmalarda, bağlı olunan mülki idarenin veya dış temsilciliğin <span class="mavi"> bilgi sahibi olmasının gerekli görüldüğü durumlar haricinde belge, doğrudan muhatap birime gönderilir. </span> <br><br>
+
+(6) <span class="kim"> Birden fazla muhataba iletilecek dağıtımlı belgelerin</span> <span class="mavi"> muhatap bölümüne “DAĞITIM YERLERİNE” ibaresi yazılır</span>  (Örnek 15, 16). <br> <img src="static/img/dagıtım.PNG" > <br><br> </div></div></div>
+
+<div> 
+İlgi<div> 
+MADDE 15- <div> (1) <span class="kim"> İlgi,</span>  <span class="mavi"> belgenin bağlantılı olduğu diğer belge veya belgelerin belirtildiği bölümdür.</span> <br><br>
+
+(2) <span class="kim"> “İlgi:” yan başlığı,</span>  <span class="mavi"> muhatap bölümünün son satırından itibaren iki satır boşluk bırakılarak ve yazı alanının solundan başlanarak yazılır</span>  (Örnek 7).  <br> <img src="static/img/ilgi.PNG" > <br> <br>
+
+(3) <span class="kim"> “Sayı”, “Konu” ve “İlgi” yan başlıklarından sonra kullanılan iki nokta “:”</span> <span class="mavi">  işareti aynı hizada yazılır</span>  (Örnek 7). <br> <img src="static/img/ilgisk.PNG" > <br><br>
+
+(4) <span class="kim"> İlgide yer alan bilgiler bir satırı geçerse, devamı</span> <span class="mavi"> “İlgi:” yan başlığının ve sıralamayı gösteren harflerin altı boş bırakılarak alt satıra yazılır</span> (Örnek 7). <br> <img src="static/img/ilgibos.PNG" > <br><br>
+
+(5) <span class="kim"> İlginin birden fazla olması durumunda,</span> <span class="mavi"> belgeler önceki tarihli olandan başlanarak tarih sırasına göre sıralanır.</span>  <span class="kim"> Sıralamada,</span> <span class="mavi"> Türk alfabesinde yer alan bütün küçük harfler, kendilerinden sonra kapama parantez işareti “)” konularak kullanılır</span>  (Örnek 7). <br> <img src="static/img/ilgiharf.PNG" > <br><br>
+
+(6) <span class="mavi"> İlgide, ilgi tutulan belgeyi gönderen idarenin adı ile belgenin tarihi ve sayısı belirtilir.</span> <span class="kim"> Ancak ilgi tutulan belgenin, muhatap idarenin daha önce gönderdiği bir belge veya muhatap idareye daha önce gönderilen bir belge olması durumunda</span> <span class="mavi"> idare adı belirtilmez</span>
+(Örnek 7). <br> <img src="static/img/ilgidaha.PNG" > <br><br>
+
+(7) <span class="mavi"> İlgide, <span class="dik"> “… tarihli ve … sayılı …” ibaresi kullanılır</span>  ve ilginin sonuna nokta (.) işareti konulur</span>  (Örnek 7). <br> <img src="static/img/iltasay.PNG" > <br><br>
+
+(8) <span class="kim"> İlgide belirtilen belge, muhatapta bulunmadığı durumlarda</span> <span class="mavi"> söz konusu belge, ek olarak muhatabına iletilebilir</span>  (Örnek 7). <br> <img src="static/img/ilgia.PNG" > <br> <img src="static/img/ilgiaa.PNG" > <br><br>
+
+(9) <span class="kim"> İlgide belirtilen belge, gerçek kişiden geliyorsa</span> <span class="mavi"> ilgi bölümü <span class="dik"> “…’ın … tarihli başvurusu/dilekçesi.”</span>  biçiminde yazılır</span>  (Örnek 9). <br> <img src="static/img/ilgitar.PNG" > <br> <br>
+
+<span class="kim"> Ancak belgenin muhatabı, ilgi tutulan başvurunun veya dilekçenin sahibi ise</span> <span class="mavi"> ilgi bölümünde gerçek kişinin isim bilgisine yer verilmez</span> . <br> <br>
+
+(10) <span class="kim"> Gerçek kişi ve tarih bilgisi bulunmayan başvuru/dilekçe ilgi tutulmak istendiğinde</span>,  <span class="mavi">ilgi bölümü “İsimsiz ve tarihsiz başvuru/dilekçe.” biçiminde yazılır.</span>  Söz konusu başvurunun/dilekçenin <span class="mavi"> işleme alınıp alınmayacağı ilgili mevzuat hükümlerine göre değerlendirilir</span>.</div></div></div>
+
+<div> 
+Metin<div> 
+MADDE 16-<div>  (1) <span class="kim"> Metin alanı,</span> <span class="mavi"> “Muhatap” veya varsa “İlgi” ile “İmza” arasındaki kısımdır.</span>  <br><br>
+(2) <span class="kim"> “İlgi” ile metin başlangıcı arasında</span> <span class="mavi"><span class="dik"> bir</span> satır</span>, <span class="kim"> “İlgi” yoksa</span> <span class="mavi"> belgenin muhatabı ile metin başlangıcı arasında <span class="dik"> iki</span> satır boşluk bulunur</span>  (Örnek 8). <br> <img src="static/img/metin1.PNG" ><br> <img src="metin2.PNG" > <br> <img src="static/img/metin3.PNG"> <br> <img src="static/img/metin4.PNG" > <br><br>
+
+(3) <span class="mavi"> Metindeki kelime aralarında ve noktalama işaretlerinden sonra bir karakter boşluk bırakılır.</span>  <span class="mavi">Noktalama işaretleri kendinden önce gelen harfe bitişik yazılır.</span>  <br><br>
+
+(4) <span class="mavi"> Paragrafa 1,25 cm içeriden başlanır ve metin iki yana hizalanır.</span> <span class="mavi"> Paragraflar arasında satır boşluğu bırakılmaz</span>  (Örnek 8). <br> <img src="static/img/parag.PNG" > <br><br>
+
+<span class="mavi">
+İhtiyaç duyulması hâlinde paragraflar harf veya rakam ile sıralanabilir.</span>  <br><br>
+
+(5) <span class="kim"> Birden fazla sayfa tutan üst yazılarda </span> <span class="ark"> sayı, tarih, konu, muhatap ve ilgi bilgilerine</span> <span class="mavi"> sadece ilk sayfada;</span> <span class="ark"> imza, ek ve dağıtım ilgilerine ise</span> <span class="mavi"> sadece son sayfada yer verilir</span>  (Örnek 9). <br> <img src="static/img/örnek9.PNG"> <br> <img src="static/img/örnek92.PNG"> <br><br>
+
+<span class="kim">
+İletişim bilgisine ve belge doğrulama bilgilerine</span> <span class="mavi"> her sayfanın en alt kısmında yer verilir</span>  (Örnek 9). <br> <img src="static/img/bilgi1.PNG" > <br> <img src="static/img/bilgi2.PNG" > <br><br>
+ <span class="kim">
+Zorunlu hâllerde veya olağanüstü durumlarda hazırlanan ve birden fazla sayfadan oluşan belgelerde ise</span> <span class="mavi"> her sayfanın en alt kısmında iletişim bilgisine yer verilir.</span>  <br><br>
+
+(6) <span class="kim"> Metin içinde geçen sayılar,</span> <span class="mavi"> rakamla veya harfle yazılabilir.</span> <span class="kim"> Gerekli görülmesi hâlinde </span> <span class="mavi">sayılar rakamla yazıldıktan sonra parantez içinde harfle de gösterilebilir.</span> <br><br>
+
+(7) <span class="kim">  Dört ve dörtten çok haneli sayılar</span> <span class="mavi"> sondan sayılmak üzere üçlü gruplara ayrılarak yazılır ve araya nokta (.) işareti konulur</span> <span class="kim"> (Örnek: 1.452; 25.126; 326.197).</span> <span class="mavi"> Sayılarda kesirler virgül (,) ile ayrılır</span> <span class="kim"> (Örnek: 10.545,72).</span>  <br><br>
+
+(8) Belge, <span class="ark"> Türk Dil Kurumu tarafından hazırlanan Yazım Kılavuzu</span> ve <span class="ark"> Türkçe Sözlük’ün </span> <span class="mavi"> güncel yayımı esas alınarak dil bilgisi kurallarına göre anlamlı ve özlü olarak yazılır</span> . <span class="mavi"> Belge içinde zorunlu olmadıkça <span class="dik"> yabancı kelimeye</span> yer verilmez</span> ,  <span class="mavi"> verildiği durumda ise <span class="dik"> parantez içinde</span>  anlamı belirtilir</span>. <span class="kim"> Ancak muhatabı yabancı ülke veya uluslararası kuruluş olan resmî yazışmalarda yabancı dil kullanılabilir.</span> <span class="mavi"> Bu durumda belge varsa uluslararası yazışma usullerine göre hazırlanabilir.</span> <span class="kim"> Ayrıca yabancı dille yazılan belgenin</span> <span class="mavi"> Türkçe tercümesi oluşturulur ve yabancı dille hazırlanan belge ile ilişkilendirilerek saklanır.</span>  <br><br>
+
+
+
+(9) <span class="kim"> Metin içinde yer alan alıntılar</span> <span class="mavi"> tırnak içinde ve/veya eğik (italik) olarak yazılabilir</span> . <br><br>
+
+(10) <span class="kim"> Metin içinde harfler kullanılarak maddelendirmeye/numaralandırmaya ihtiyaç duyulduğunda,</span> <span class="mavi"> Türk alfabesinde yer alan <span class="dik"> bütün küçük harfler</span>  kendilerinden sonra kapama parantez işareti “)” konularak kullanılır.</span>  <br><br>
+
+(11) <span class="kim"> Metin içinde kısaltma kullanılacak ise</span> <span class="mavi"> ifadenin ilk kullanıldığı yerde açık biçimi, sonra parantez içinde kısaltılmış biçimi yazılır</span> <span class="kim"> (Örnek: Türkiye Büyük Millet Meclisi (TBMM), Kayıtlı Elektronik Posta (KEP)).</span>  <br><br>
+<!--<div> <button  onclick="soruyuGoster(2)" class="soru" > 2023 Yılı çıkmış soru</button>--> </div>
+(12) <span class="kim"> Metnin son bölümü:</span> <div> 
+a) Yazışma yapan makamlar arasındaki hiyerarşi yönünden <span class="ark"> alt makamlara</span>  <span class="mavi">“… rica ederim.”</span>, <span class="ark"> üst ve aynı düzeydeki makamlara</span> <span class="mavi"> “… arz ederim.” ibaresiyle bitirilir.</span> <br>
+
+b) <span class="ark"> Üst, aynı düzey ve alt makamlara birlikte dağıtımlı olarak yapılan yazışmalar</span> <span class="mavi"> “… arz ve rica ederim.” veya “… arz/rica ederim.” ibaresiyle bitirilir.</span>  <br>
+
+c) <span class="kim"> Muhatap kısmında ikinci satırda parantez içerisinde birim veya idare ismi belirtilen yazışmalar</span>, <span class="ark"> birinci satırda yer alan muhatap idare dikkate alınarak</span> <span class="mavi"> arz veya rica ibarelerinden uygun olanı ile bitirilir</span> . <br>
+
+ç) <span class="kim"> 1 sayılı Cumhurbaşkanlığı Kararnamesinin 6 ncı maddesi gereğince <span class="dik"> bakanlıklarla yapılan</span>  yazışmalar,</span>  <span class="mavi"> Cumhurbaşkanlığı <span class="dik"> İdari İşler Başkanı tarafından veya adına imzalandığında</span>  “Rica ederim.” ibaresiyle bitirilir.</span>  <br>
+
+d) <span class="kim"> Belge, imza yetkisini devreden makam adına imzalandığında,</span> <span class="ark"> yetkiyi devreden makamın hiyerarşik durumu dikkate alınarak arz veya rica ibarelerinden uygun olanı ile bitirilir.</span>  <br>
+
+e) <span class="ark"> Muhatabı gerçek kişi olan yazışmalar</span> <span class="mavi"> “Saygılarımla.”, “İyi dileklerimle.” veya “Bilgilerinize sunulur.” ibareleriyle bitirilebilir</span> .</div></div></div></div>
+
+
+<div class="ort" >	<button onclick="YAZDIR()" class="yaz" >YAZDIR</button> 
+</div>
+
+<script>				
+var surukleniyor = false;
+var offsetX, offsetY;
+	
+// Tüm soru göster butonlarını seç
+const soruGosterButtons = document.querySelectorAll('.soru');
+
+// Her bir buton için event listener ekle
+soruGosterButtons.forEach(function (button, index) {
+button.addEventListener('click', function() {
+const soruContainer = document.querySelector('.soruContainer');
+
+// Eğer gösteriliyorsa gizle, gizliyse göster
+	if (soruContainer.style.display === "none") {
+	  soruContainer.style.display = "block";
+	} else {
+	  soruContainer.style.display = "none";
+}
+});
+});
+
+	
+soruContainer.addEventListener('mousedown', function(e) {  surukleniyor = true;	  offsetX = e.clientX - soruContainer.getBoundingClientRect().left;	  offsetY = e.clientY - soruContainer.getBoundingClientRect().top;});
+	
+document.addEventListener('mousemove', function(e) {  if (surukleniyor) {soruContainer.style.left = (e.clientX - offsetX) + 'px';
+		soruContainer.style.top = (e.clientY - offsetY) + 'px'; }});
+	
+	document.addEventListener('mouseup', function() { surukleniyor = false;	}); 
+</script>
+ <h1 class="bg-danger text-white">ARKADAŞLAR BU YÖNETMELİĞİN DEVAMI BAŞKA İÇERİKLERİMİZ NOTLARI SATIN ALDIĞINIZDA GÖREBİLECEKSİNİZ <img width="100px" src="static/img/el.PNG" ><img width="100px" src="static/img/el.PNG" ><img  width="100px" src="static/img/el.PNG" > </h1>
+ 
+</body>
+</html>  
+    <!-- LAYOUT HTML DE  BLOCK ETİKETİ VAR BLOCK ARASINA  AHA BUNU YAP -->
+{% endblock%}
