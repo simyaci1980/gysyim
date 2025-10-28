@@ -71,11 +71,12 @@ def fetch_telegram_messages():
             user_name = update["message"]["from"].get("first_name", "Admin")
 
             # 🔹 Adminin cevabında session=(...) var mı kontrol et
-            match = re.match(r"\(session=(?P<sid>[a-zA-Z0-9]+)\)\s*(?P<msg>.*)", text)
+            # Artık \n sonrası metni de yakalar (DOTALL)
+            match = re.match(r"\(session=(?P<sid>[a-zA-Z0-9]+)\)\s*(?P<msg>.*)", text, re.DOTALL)
 
             if match:
                 session_key = match.group("sid")
-                pure_text = match.group("msg")
+                pure_text = match.group("msg").strip()  # Başta/sonda boşluk temizle
 
                 # Aynı admin mesajı DB'de yoksa ekle
                 if not ChatMessage.objects.filter(
@@ -171,22 +172,13 @@ def chat_api(request):
                 session_key=session_key
             )
 
-        # Telegram’a da gönder
-        telegram_text = f"(session={session_key})\n{name}: {text}"
+    # Telegram’a tek seferde session ile birlikte gönder
+    telegram_text = f"(session={session_key})\n{name}: {text}"
+    requests.get(
+        f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+        params={"chat_id": CHAT_ID, "text": telegram_text}
+    )
 
-
-                # Önce session bilgisini gönder
-        requests.get(
-          f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-          params={"chat_id": CHAT_ID, "text": f"(session={session_key})"}
-        )
-#Ardından mesaj içeriğini gönder
-        requests.get(
-            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-            params={"chat_id": CHAT_ID, "text": f"{name}: {text}"}
-)
-
-
-        return JsonResponse({"status": "ok"})
+    return JsonResponse({"status": "ok"})
 
 
