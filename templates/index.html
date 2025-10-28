@@ -1,79 +1,119 @@
 {% extends 'layout.html' %}
-{% load static %}
-
 {% block content %}
 
-<div class="container mt-5">
+<div class="text-center mb-4">
+    <h1>Yazı İşleri Müdürlüğü Notları</h1>
+    <p>Türkiye’de sınava hazırlayanlar için hazırlanmış notlar ve rehber içerikler.</p>
+</div>
 
-    <!-- Başlık ve açıklama -->
-    <div class="text-center mb-4">
-        <h1>Yazı İşleri Müdürlüğü Notları</h1>
-        <p>Türkiye’de sınava hazırlananlar için hazırlanmış notlar ve rehber içerikler.</p>
+<!-- Chat Kutusu -->
+<div id="chat-container" class="border rounded p-3 mb-4 w-100" style="max-width:1000px; background:#fafafa;">
+    <div id="chat-box" style="height:300px; overflow-y:auto; margin-bottom:10px;">
+        <p><em>Merhaba! Sorularınızı buradan iletebilirsiniz.</em></p>
     </div>
-
-    <!-- Chat Kutusu -->
-    <div id="chat-container" class="border rounded p-3 mb-4" style="background:#fafafa;">
-        <div id="chat-box" style="height:300px; overflow-y:auto; margin-bottom:10px;">
-            <p><em>Merhaba! Sorularınızı buradan iletebilirsiniz.</em></p>
-        </div>
-        <form id="chat-form" style="display:flex;">
-            <input type="text" id="chat-input" class="form-control me-2" placeholder="Mesajınızı yazın...">
-            <button type="submit" class="btn btn-primary">Gönder</button>
-        </form>
-    </div>
-
-    <!-- Ödeme Bildirimi -->
-    <div class="border rounded p-3 mb-4" style="background:#e9f7ef;">
-        <h4>Ödeme Yap</h4>
-        <p>Ödeme için aşağıdaki IBAN’a havale/EFT yapın
-           <strong style="color: darkred; font-size: 1.2em;">Alıcı ismi: Ali Altınsoy</strong>
-        </p>
-
-        <div class="input-group mb-2">
-            <input type="text" id="ibanInput" class="form-control" value="TR140001500158007286281178" readonly>
-            <button class="btn btn-outline-secondary" type="button" onclick="copyIBAN()">Kopyala</button>
-        </div>
-
-        {% if user.is_authenticated %}
-        <form method="post" action="{% url 'odeme_bildirim' %}">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-success w-100">Ödeme Bildirimi Gönder</button>
-        </form>
-        {% else %}
-        
-        {% endif %}
-    </div>
-
-    <!-- Örnek Sayfalar -->
-    <div class="border rounded p-3 mb-4" style="background:#fef9e7;">
-        <h4>Örnek Sayfalar</h4>
-        <ul>
-            <li><a href="{% url 'ornek1' %}">Örnek Sayfa 1</a></li>
-            <li><a href="{% url 'darisureler' %}">Örnek Sayfa 2</a></li>
-            <li><a href="{% url 'bim5mad' %}">Örnek Sayfa 3</a></li>
-        </ul>
-    </div>
-
-    <!-- Faydalı Linkler -->
-    <div class="border rounded p-3 mb-4" style="background:#f2d7d5;">
-        <h4>Faydalı Linkler</h4>
-        <ul>
-            <li><a href="https://www.adalet.gov.tr/" target="_blank">Adalet Bakanlığı</a></li>
-            <li><a href="https://pgm.adalet.gov.tr/" target="_blank">Personel Genel Müdürlüğü</a></li>
-            <li><a href="https://odsgm.meb.gov.tr/" target="_blank">Milli Eğitim Bakanlığı</a></li>
-        </ul>
-    </div>
-
+    <form id="chat-form" class="d-flex">
+        <input type="text" id="chat-input" class="form-control me-2" placeholder="Mesajınızı yazın...">
+        <button type="submit" class="btn btn-primary">Gönder</button>
+    </form>
 </div>
 
 <script>
-function copyIBAN() {
-    const copyText = document.getElementById("ibanInput");
-    copyText.select();
-    copyText.setSelectionRange(0,99999);
-    navigator.clipboard.writeText(copyText.value);
-    alert("IBAN kopyalandı: " + copyText.value);
+const chatForm = document.getElementById("chat-form");
+const chatInput = document.getElementById("chat-input");
+const chatBox = document.getElementById("chat-box");
+
+// 🔒 XSS koruması için güvenli metin ekleme fonksiyonu
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
+
+function fetchMessages() {
+    fetch("{% url 'chat_api' %}")
+        .then(res => res.json())
+        .then(data => {
+            chatBox.innerHTML = "";
+            data.forEach(msg => {
+                const p = document.createElement("p");
+                // 🔒 textContent kullanarak XSS önlenir
+                const strong = document.createElement("strong");
+                strong.textContent = msg.user + ":";
+                const messageText = document.createTextNode(" " + msg.message + " ");
+                const small = document.createElement("small");
+                small.textContent = msg.time;
+                
+                p.appendChild(strong);
+                p.appendChild(messageText);
+                p.appendChild(small);
+                chatBox.appendChild(p);
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+}
+
+fetchMessages();
+setInterval(fetchMessages, 3000);
+
+chatForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    const text = chatInput.value.trim();
+    if(!text) return;
+
+    fetch("{% url 'chat_api' %}", {
+        method: "POST",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: `text=${encodeURIComponent(text)}`
+    }).then(res => res.json())
+      .then(data => {
+        if(data.status === "ok") chatInput.value = "";
+      });
+});
+
 </script>
+
+<!-- Ödeme Bildirimi -->
+<div class="border rounded p-3 mb-4 w-100" style="max-width:1000px; background:#e9f7ef;">
+    <h4>Ödeme Yap</h4>
+    <p>Ödeme için aşağıdaki IBAN’a havale/EFT yapın
+       <strong style="color: darkred; font-size: 1.2em;">Alıcı ismi: Ali Altınsoy</strong>
+    </p>
+
+    <div class="input-group mb-2">
+        <input type="text" id="ibanInput" class="form-control" value="TR140001500158007286281178" readonly>
+        <button class="btn btn-outline-secondary" type="button" onclick="copyIBAN()">Kopyala</button>
+    </div>
+
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'odeme_bildirim' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success w-100">Ödeme Bildirimi Gönder</button>
+    </form>
+    {% else %}
+    <p class="mt-2">Ödeme bildiriminde bulunmak için <a href="">giriş yapın</a>.</p>
+    {% endif %}
+</div>
+
+<!-- Örnek Sayfalar -->
+<div class="border rounded p-3 mb-4 w-100" style="max-width:1000px; background:#fef9e7;">
+    <h4>Örnek Sayfalar</h4>
+    <ul class="list-unstyled">
+        <li><a href="{% url 'ornek1' %}">Örnek Sayfa 1</a></li>
+        <li><a href="{% url 'darisureler' %}">Örnek Sayfa 2</a></li>
+        <li><a href="{% url 'bim5mad' %}">Örnek Sayfa 3</a></li>
+    </ul>
+</div>
+
+<!-- Faydalı Linkler -->
+<div class="border rounded p-3 mb-4 w-100" style="max-width:1000px; background:#f2d7d5;">
+    <h4>Faydalı Linkler</h4>
+    <ul class="list-unstyled">
+        <li><a href="https://www.adalet.gov.tr/" target="_blank">Adalet Bakanlığı</a></li>
+        <li><a href="https://pgm.adalet.gov.tr/" target="_blank">Personel Genel Müdürlüğü</a></li>
+        <li><a href="https://odsgm.meb.gov.tr/" target="_blank">Milli Eğitim Bakanlığı</a></li>
+    </ul>
+</div>
+
+
 
 {% endblock %}

@@ -211,28 +211,36 @@ strong{font-size: larger; }
     }
 		
 .asi{
-		background-color: rgba(1, 53, 37,0.1); 
-		color:white;
+		background-color: #27ae60; /* Yeşil buton */
+		color: white;
 		float: right;
-		height: 30px;
+		height: 35px;
 		cursor: pointer;
-		border-radius: 10px;
-		border-color: black;
-		
+		border-radius: 8px;
+		border: 2px solid #229954;
+		font-weight: bold;
+		padding: 5px 15px;
+		transition: all 0.3s ease;
+	}
+.asi:hover{
+		background-color: #229954;
+		transform: scale(1.05);
 	}
 .beyaz{
+	background-color: #2c3e50; /* Koyu mavi-gri arka plan */
 	background-image: url"{% static 'img/bayrak2.jpg' %}";
 	background-position: center;	
-	top: 5;
+	top: 0;
+	left: 0;
 	width: 100%;
-	position: fixed ; 
+	position: sticky; /* Sabit kalması için sticky */
+	z-index: 999; /* En üstte görünsün */
 	float: left;
 	margin-left: 0;
-	padding: 5px;
-	border-radius: 10px;
-	border-bottom: 10px;
-	border-style: groove;
-	border-color: white;
+	padding: 10px;
+	border-radius: 0px;
+	border-bottom: 3px solid #34495e;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Gölge efekti */
 	margin-bottom: 5px;
 	}
 .kal{	
@@ -250,12 +258,20 @@ strong{font-size: larger; }
 	border-color: white;
       }		
 .butt{
-	color:white;
-	height: 30px;
+	color: white;
+	height: 35px;
 	cursor: pointer;	
-	border-radius: 10px;
+	border-radius: 8px;
 	right: 1px;
-	background-color:rgba(7, 7, 7, 0.1)
+	background-color: #e74c3c; /* Kırmızı buton */
+	border: 2px solid #c0392b;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+	}
+.butt:hover{
+	background-color: #c0392b;
+	transform: scale(1.05);
 	}	
 .soru{
 	cursor: pointer;	
@@ -270,14 +286,20 @@ strong{font-size: larger; }
 }
 
 .demo{
-	background-color: rgb(206, 237, 244);
+	background-color: #3498db; /* Mavi buton (tarih/saat gösterimi için) */
+	color: white;
 	float: right;
-	border-style:double;
-	border-radius: 15px;
-	border-color: brown;
-	border-width: 5px;
+	border: 2px solid #2980b9;
+	border-radius: 8px;
 	cursor: pointer;
+	font-weight: bold;
+	padding: 5px 15px;
+	height: 35px;
 	margin-right: 10px;
+	transition: all 0.3s ease;
+	}
+.demo:hover{
+	background-color: #2980b9;
 	}	
 
 
@@ -464,7 +486,7 @@ strong{font-size: larger; }
 			 var gün= Number( an.getDate()).toString(). padStart(2,'0') // day değil date !!!!!
 			 var saat= Number( an. getHours().toString(). padStart(2,'0'))	
 			 var dk=  an.getMinutes().toString(). padStart(2,'0')		 
-			document.getElementById("demo").innerHTML=" TARİH : " + gün + "/"+ ay+ "/"+ yıl + "<br>" + "SAAT  "+ saat + ":" + dk // ekitekin içini değiştirmeyi sağladık 
+			document.getElementById("demo").innerHTML=" TARİH : " + gün + "/"+ ay+ "/"+ yıl + "  " + "SAAT  "+ saat + ":" + dk // ekitekin içini değiştirmeyi sağladık 
 			} 
     function badyMavi(){
 		document.getElementById("bady").style.backgroundColor = "darkblue"
@@ -599,7 +621,7 @@ Yayımlandığı Resmî Gazetenin Tarihi : 10/6/2020 Sayısı : 31151</div>
 		  <br><br>
 		  <p id="dogruCevap" class="cevap" style="display: none;"></p>
 	  </div>	
-	  <script src="static/js/script.js"></script> <br> <br><br><br><br><br><br><br><br><br> <hr>
+	  <!-- script.js kaldırıldı - güvenlik riski -->
 	   
 
 
@@ -748,10 +770,10 @@ düzenlenir</span>.</div></div>
 Kurumsal logo<div> 
 MADDE 9- (1) <span class="mavi"> İdareler, tercihen kurumsal logo kullanabilir.</span> <span class="kim"> Logo, tek
 kullanıldığında</span> <span class="ark"> belgenin en üst orta kısmında “T.C.” ibaresini ortalayacak şekilde</span> veya <span class="ark">
-“Başlık” alanını ortalayacak şekilde belgenin üst sol kısmında yer alır</span>  (Örnek 1). <br> <img src="static/img/logo.png" height="180"> <br> <img src="static/img/teksolda.PNG" alt="" height="150"> <br> <span class="kim">
+“Başlık” alanını ortalayacak şekilde belgenin üst sol kısmında yer alır</span>  (Örnek 1). <br> <img src="{% static 'img/logo.png' %}" height="180"> <br> <img src="{% static 'img/teksolda.PNG' %}" alt="" height="150"> <br> <span class="kim">
 Belge üzerinde iki ayrı logo kullanıldığında ise</span>  “Başlık” alanını ortalayacak şekilde <span class="mavi"> hiyerarşi 
-yönünden üst olan idareye ait logo solda, alt olan idareye ait logo sağda kullanılır. <br></span> <img src="static/img/ikilogo.PNG" height="150"> <br> <span class="kim"> Bir kavram veya etkinlik gibi hususlarla ilgili logo kullanılmak istendiğinde</span> , “Başlık” alanını ortalayacak
-şekilde <span class="mavi"> idareye ait olan logo solda; diğer logo sağda kullanılır. <br></span> <img src="static/img/etkinliklogo.PNG" height="150"> <br> <br>  <span class="mavi">Belge üzerinde en fazla <span class="dik"> iki</span>
+yönünden üst olan idareye ait logo solda, alt olan idareye ait logo sağda kullanılır. <br></span> <img src="{% static 'img/ikilogo.PNG' %}" height="150"> <br> <span class="kim"> Bir kavram veya etkinlik gibi hususlarla ilgili logo kullanılmak istendiğinde</span> , “Başlık” alanını ortalayacak
+şekilde <span class="mavi"> idareye ait olan logo solda; diğer logo sağda kullanılır. <br></span> <img src="{% static 'img/etkinliklogo.PNG' %}" height="150"> <br> <br>  <span class="mavi">Belge üzerinde en fazla <span class="dik"> iki</span>
 logo kullanılabilir</span> (Örnek 1).</div></div>
 
 <div> 
@@ -760,27 +782,27 @@ MADDE 10-<div>  (1) <span class="kim"> Başlık (antet),</span> <span class="mav
 bölümdür.</span>  <br>
 (2) Başlık, <span class="ark"> belgenin yazı alanının üst kısmına ortalanarak yazılır</span> . <span class="span"> İlk satıra “T.C.”</span>
 kısaltması,  <span class="span"> ikinci satıra idarenin adı büyük harflerle</span>, <span class="span"> üçüncü satıra birimin adı ilk harfleri
-büyük diğerleri küçük harflerle</span> <span class="mavi"> ortalanarak yazılır. <br></span> <img src="static/img/başlık1.PNG" height="200"> <br>
+büyük diğerleri küçük harflerle</span> <span class="mavi"> ortalanarak yazılır. <br></span> <img src="{% static 'img/başlık1.PNG' %}" height="200"> <br>
 
 
 <span class="kim">
 Ancak</span>  bağlı veya ilgili idarelerde ilk satıra
 “T.C.” kısaltması, ikinci satıra bağlı veya ilgili olunan idarenin adı büyük harflerle, üçüncü
 satıra idarenin adı ilk harfleri büyük diğerleri küçük harflerle ve <span class="mavi"> dördüncü satıra da birimin
-adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak yazılabilir</span>  (Örnek 2). <br> <img src="static/img/başlık2.PNG" height="200"> <br>
+adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak yazılabilir</span>  (Örnek 2). <br> <img src="{% static 'img/başlık2.PNG' %}"height="200"> <br>
 
-(3) İdarelerin il ve ilçe teşkilatlarında kullanılan başlıklar, 10/6/1949 tarihli ve 5442 sayılı İl İdaresi Kanunu hükümlerine uygun larak, ilk satıra “T.C.” kısaltması, ikinci satıra bağlı olunan mülki idarenin adı büyük harflerle, üçüncü satıra ilgili birimin adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak yazılır. <span class="mavi"> Dış temsilciliklerde başlıklar, il ve ilçe teşkilatında olduğu gibi yazılır</span> (Örnek 2). <br> <img src="static/img/il.PNG" height="120"> <img src="static/img/ilçe.PNG" height="150"> <img src="static/img/dış.PNG" height="150"> <br><br>
+(3) İdarelerin il ve ilçe teşkilatlarında kullanılan başlıklar, 10/6/1949 tarihli ve 5442 sayılı İl İdaresi Kanunu hükümlerine uygun larak, ilk satıra “T.C.” kısaltması, ikinci satıra bağlı olunan mülki idarenin adı büyük harflerle, üçüncü satıra ilgili birimin adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak yazılır. <span class="mavi"> Dış temsilciliklerde başlıklar, il ve ilçe teşkilatında olduğu gibi yazılır</span> (Örnek 2). <br> <img src="{% static 'img/il.PNG' %}" height="120"> <img src="{% static 'img/ilçe.PNG' %}" height="150"> <img src="{% static 'img/dış.PNG' %}" height="150"> <br><br>
 
 
-(4) <span class="mavi"> Bölge müdürlüklerinde hangi bölge teşkilatı olduğu yazılır</span> (Örnek 2). <br> <img src="static/img/bölge.PNG" height=""> <br><br>
-(5) <span class="mavi"> Doğrudan merkezî teşkilata bağlı taşra birimlerinde, başlıkta merkezî teşkilat ve taşra teşkilatı adlarına yer verilir</span>  (Örnek 2). <br> <img src="static/img/doğrudanböl.PNG" alt=""> <br> <br>
+(4) <span class="mavi"> Bölge müdürlüklerinde hangi bölge teşkilatı olduğu yazılır</span> (Örnek 2). <br> <img src="{% static 'img/bölge.PNG' %}" height=""> <br><br>
+(5) <span class="mavi"> Doğrudan merkezî teşkilata bağlı taşra birimlerinde, başlıkta merkezî teşkilat ve taşra teşkilatı adlarına yer verilir</span>  (Örnek 2). <br> <img src="{% static 'img/doğrudanböl.PNG' %}" alt=""> <br> <br>
 (6) <span class="mavi"> Başlığın yazımında DETSİS’te yer alan başlık kayıtları esas alınır</span> .</div></div></div>
 
 <div> 
 Sayı<div> 
-MADDE 11-<div>  (1) <span class="kim"> Belgelerde sayı bulunması zorunludur.</span>  “Sayı:” sırasıyla; belgenin hazırlanma süreçlerini ifade eden <span class="ark"> elektronik ortam  için </span> <span class="mavi">“E”</span>, <span class="ark"> zorunlu hâller için</span> <span class="mavi"> “Z”</span>  veya <span class="ark"> olağanüstü durumlar için</span> <span class="mavi"> “O”</span>  ibarelerinden uygun olanı, DETSİS’te belirtilen Türkiye Cumhuriyeti Devlet Teşkilatı Numarası, standart dosya planı kodu ile kayıt numarasından oluşur ve <span class="mavi"> bunların arasına kısa çizgi işareti (-) konulur</span>  (Örnek 3). <br> <img src="static/img/sayı.PNG" height="300" width="600"> <br><br>
+MADDE 11-<div>  (1) <span class="kim"> Belgelerde sayı bulunması zorunludur.</span>  “Sayı:” sırasıyla; belgenin hazırlanma süreçlerini ifade eden <span class="ark"> elektronik ortam  için </span> <span class="mavi">“E”</span>, <span class="ark"> zorunlu hâller için</span> <span class="mavi"> “Z”</span>  veya <span class="ark"> olağanüstü durumlar için</span> <span class="mavi"> “O”</span>  ibarelerinden uygun olanı, DETSİS’te belirtilen Türkiye Cumhuriyeti Devlet Teşkilatı Numarası, standart dosya planı kodu ile kayıt numarasından oluşur ve <span class="mavi"> bunların arasına kısa çizgi işareti (-) konulur</span>  (Örnek 3). <br> <img src="{% static 'img/sayı.PNG' %}" height="300" width="600"> <br><br>
 
-(2) “Sayı:” yan başlığı, başlığın son satırından itibaren <span class="mavi"> iki satır boşluk bırakılarak ve yazı alanının solundan başlanarak yazılır </span> (Örnek 3). <br> <img src="static/img/sayıb.PNG" alt=""> <br><br>
+(2) “Sayı:” yan başlığı, başlığın son satırından itibaren <span class="mavi"> iki satır boşluk bırakılarak ve yazı alanının solundan başlanarak yazılır </span> (Örnek 3). <br> <img src="{% static 'img/sayıb.PNG' %}" alt=""> <br><br>
 
 <span class="kim">
 Kayıt numarası,</span> <span class="ark"> belge hazırlanırken</span> <span class="mavi"> EBYS üzerinden alınır ve belge üzerinde gösterilir</span>  <span class="kim"> (Örnek: E-67915368-903.07.02-4752).</span>  <br><br>
@@ -814,53 +836,53 @@ MADDE 12- <div> (1) <span class="mavi"> Tarih; sayı ile aynı satırda olmak ü
 <div> 
 Konu<div> 
 MADDE 13- <div> (1) <span class="mavi"> “Konu:” yan başlığı, “Sayı:” yan başlığının bir alt satırına yazılır</span>. <br>
- Belgenin konusu, yazı alanının dikey orta hizasını geçmeyecek biçimde <span class="mavi"> kelimelerin baş harfleri büyük olarak ve sonuna herhangi bir noktalama işareti konulmaksızın yazılır</span> (Örnek 3). <br> <img src="static/img/konu.PNG" height="100" width="300"> <br>
+ Belgenin konusu, yazı alanının dikey orta hizasını geçmeyecek biçimde <span class="mavi"> kelimelerin baş harfleri büyük olarak ve sonuna herhangi bir noktalama işareti konulmaksızın yazılır</span> (Örnek 3). <br> <img src="{% static 'img/konu.PNG' %}" height="100" width="300"> <br>
  
  <span class="mavi"> Konu, bir satırı geçerse ikinci ve devamındaki satırlar “Konu:” yan başlığının altı boş bırakılarak yazılır.</span> bu örnek ekte yok   <br> 
-(2) <span class="mavi"> Konu, belgenin içeriği hakkında kısa ve öz bilgi barındırır</span>  (Örnek 3). <br> <img src="static/img/konu.PNG" height="100" width="300"></div></div></div>
+(2) <span class="mavi"> Konu, belgenin içeriği hakkında kısa ve öz bilgi barındırır</span>  (Örnek 3). <br> <img src="{% static 'img/konu.PNG' %} " height="100" width="300"></div></div></div>
 
 
 <div> 
 Muhatap<div> 
-MADDE 14- <div> (1) <span class="mavi"> Muhatap, belgenin gönderildiği idareyi veya kişiyi belirtir.</span>  Bu bölüm <span class="ark"> konunun son satırından itibaren, iki satır boşluk bırakılarak</span> ve <span class="ark"> sayfa ortalanarak</span> <span class="mavi"> yazılır</span>. <br> <img src="muhatap.PNG" alt=""> <br>
+MADDE 14- <div> (1) <span class="mavi"> Muhatap, belgenin gönderildiği idareyi veya kişiyi belirtir.</span>  Bu bölüm <span class="ark"> konunun son satırından itibaren, iki satır boşluk bırakılarak</span> ve <span class="ark"> sayfa ortalanarak</span> <span class="mavi"> yazılır</span>. <br> <img src="{% static 'img/muhatap.PNG' %}" alt=""> <br>
 
-(2) Muhatabın idare veya özel hukuk tüzel kişisi olması durumunda,  <span class="ark">adı büyük harflerle ve sonuna yönelme hâl eklerinden uygun olanı getirilerek</span>  yazılır. <span class="mavi"> Muhatap idarenin adının yazımında DETSİS’te yer alan kayıtlar esas alınır</span> . <span class="kiim"> İhtiyaç duyulması hâlinde muhataba ilişkin birim adı</span> <span class="mavi"> bilgileri parantez içinde ilk harfleri büyük diğerleri küçük harflerle bir alt satıra yazılır</span> (Örnek 4). <br> <img src="static/img/muhatapbirim.PNG" > <br><br>
+(2) Muhatabın idare veya özel hukuk tüzel kişisi olması durumunda,  <span class="ark">adı büyük harflerle ve sonuna yönelme hâl eklerinden uygun olanı getirilerek</span>  yazılır. <span class="mavi"> Muhatap idarenin adının yazımında DETSİS’te yer alan kayıtlar esas alınır</span> . <span class="kiim"> İhtiyaç duyulması hâlinde muhataba ilişkin birim adı</span> <span class="mavi"> bilgileri parantez içinde ilk harfleri büyük diğerleri küçük harflerle bir alt satıra yazılır</span> (Örnek 4). <br> <img src="{% static 'img/muhatapbirim.PNG' %}" > <br><br>
 
 <span class="mavi">
-Cumhurbaşkanı Yardımcısı’nın muhatap olduğu belgelerde “CUMHURBAŞKANI YARDIMCISINA” ibaresi yazılır </span> (Örnek 4). <br> <img src="static/img/cyardımcısı.PNG" > <br><br>
+Cumhurbaşkanı Yardımcısı’nın muhatap olduğu belgelerde “CUMHURBAŞKANI YARDIMCISINA” ibaresi yazılır </span> (Örnek 4). <br> <img src="{% static 'img/yardımcısı.PNG' %} " > <br><br>
 
 <span class="kim">
-Cumhurbaşkanı Yardımcısı’nın birden fazla olması hâlinde </span> <span class="ark"> ilk satıra “CUMHURBAŞKANI YARDIMCISINA” ibaresi</span>, <span class="kim"> bir alt satıra ise</span> <span class="mavi"> parantez içinde “Sayın” ibaresinden sonra Cumhurbaşkanı Yardımcısı’nın adı ilk harfi büyük diğerleri küçük, soyadı ise büyük harflerle yazılır</span>  (Örnek 4). <br>  <img src="static/img/cbaşkanı2.PNG"> <br> <br>
+Cumhurbaşkanı Yardımcısı’nın birden fazla olması hâlinde </span> <span class="ark"> ilk satıra “CUMHURBAŞKANI YARDIMCISINA” ibaresi</span>, <span class="kim"> bir alt satıra ise</span> <span class="mavi"> parantez içinde “Sayın” ibaresinden sonra Cumhurbaşkanı Yardımcısı’nın adı ilk harfi büyük diğerleri küçük, soyadı ise büyük harflerle yazılır</span>  (Örnek 4). <br>  <img src="{% static 'img/cbaşkanı2.PNG' %}"> <br> <br>
 
-(3) <span class="kim"> İdare dışına gönderilen belgelerde,</span> <span class="ark"> gerekiyorsa belgenin gideceği yerin adresi,</span> <span class="mavi"> muhatap satırının altına, satır ortalanarak ilk harfleri büyük diğerleri küçük harflerle yazılır.</span>  Adres bilgisi uzun ise birden fazla satıra yazılabilir. <span class="mavi"> Muhatap gerçek kişi ise muhatap bölümüne “Sayın” ibaresinden sonra muhatabın adı ilk harfi büyük diğerleri küçük harflerle, soyadı ise büyük harflerle yazılır</span>  (Örnek 5). <br> <img src="static/img/muhadres.PNG" > <br> <img src="static/img/gercek.PNG" > <br><br>
+(3) <span class="kim"> İdare dışına gönderilen belgelerde,</span> <span class="ark"> gerekiyorsa belgenin gideceği yerin adresi,</span> <span class="mavi"> muhatap satırının altına, satır ortalanarak ilk harfleri büyük diğerleri küçük harflerle yazılır.</span>  Adres bilgisi uzun ise birden fazla satıra yazılabilir. <span class="mavi"> Muhatap gerçek kişi ise muhatap bölümüne “Sayın” ibaresinden sonra muhatabın adı ilk harfi büyük diğerleri küçük harflerle, soyadı ise büyük harflerle yazılır</span>  (Örnek 5). <br> <img src="{% static 'img/muhadres.PNG' %}" > <br> <img src="{% static 'img/gercek.PNG' %}" > <br><br>
 
 
-(4) <span class="mavi"> Bağlı, ilgili veya ilişkili idarelere gönderilecek belgeler doğrudan o idareye gönderilebilir.</span>  <span class="kim"> Ancak idarenin bağlı veya ilgili olduğu idarenin bilgi sahibi olmasının gerekli görüldüğü durumlarda belge,</span> <span class="mavi"> söz konusu bağlı veya ilgili olunan idare aracılığıyla gönderilir.</span> <br> (Örnek 6/A). <br> <img src="static/img/baglı.PNG" > <br> <img src="static/img/ilgili.PNG" > <br> <img src="static/img/ilişkili.PNG" alt="">  <br>(Örnek 6/B)  <br><img src="static/img/baglı1.PNG" alt=""> <br> <img src="static/img/ilgili1.PNG" > <br><br>
+(4) <span class="mavi"> Bağlı, ilgili veya ilişkili idarelere gönderilecek belgeler doğrudan o idareye gönderilebilir.</span>  <span class="kim"> Ancak idarenin bağlı veya ilgili olduğu idarenin bilgi sahibi olmasının gerekli görüldüğü durumlarda belge,</span> <span class="mavi"> söz konusu bağlı veya ilgili olunan idare aracılığıyla gönderilir.</span> <br> (Örnek 6/A). <br> <img src="{% static 'img/baglı.PNG' %}" > <br> <img src="{% static 'img/ilgili.PNG' %}" > <br> <img src="s{% static 'img/ilişkili.PNG' %}" alt="">  <br>(Örnek 6/B)  <br><img src="{% static 'img/baglı1.PNG' %}" alt=""> <br> <img src="{% static 'img/ilgili1.PNG' %}" > <br><br>
 
 (5) <span class="kim"> Mülki idareye veya dış temsilciliğe bağlı teşkilatlarda</span> <span class="mavi">  ilk satıra bağlı olunan mülki idarenin veya dış temsilciliğin adı büyük harflerle, ikinci satıra ilgili birimin adı ilk harfleri büyük diğerleri küçük harflerle ortalanarak parantez içerisinde yazılır.</span>  Ancak aynı mülki idareye veya dış temsilciliğe bağlı birimler arasında gerçekleştirilen yazışmalarda, bağlı olunan mülki idarenin veya dış temsilciliğin <span class="mavi"> bilgi sahibi olmasının gerekli görüldüğü durumlar haricinde belge, doğrudan muhatap birime gönderilir. </span> <br><br>
 
-(6) <span class="kim"> Birden fazla muhataba iletilecek dağıtımlı belgelerin</span> <span class="mavi"> muhatap bölümüne “DAĞITIM YERLERİNE” ibaresi yazılır</span>  (Örnek 15, 16). <br> <img src="static/img/dagıtım.PNG" > <br><br> </div></div></div>
+(6) <span class="kim"> Birden fazla muhataba iletilecek dağıtımlı belgelerin</span> <span class="mavi"> muhatap bölümüne “DAĞITIM YERLERİNE” ibaresi yazılır</span>  (Örnek 15, 16). <br> <img src="{% static 'img/dagıtım.PNG' %}" > <br><br> </div></div></div>
 
 <div> 
 İlgi<div> 
 MADDE 15- <div> (1) <span class="kim"> İlgi,</span>  <span class="mavi"> belgenin bağlantılı olduğu diğer belge veya belgelerin belirtildiği bölümdür.</span> <br><br>
 
-(2) <span class="kim"> “İlgi:” yan başlığı,</span>  <span class="mavi"> muhatap bölümünün son satırından itibaren iki satır boşluk bırakılarak ve yazı alanının solundan başlanarak yazılır</span>  (Örnek 7).  <br> <img src="static/img/ilgi.PNG" > <br> <br>
+(2) <span class="kim"> “İlgi:” yan başlığı,</span>  <span class="mavi"> muhatap bölümünün son satırından itibaren iki satır boşluk bırakılarak ve yazı alanının solundan başlanarak yazılır</span>  (Örnek 7).  <br> <img src="{% static 'img/ilgi.PNG' %}" > <br> <br>
 
-(3) <span class="kim"> “Sayı”, “Konu” ve “İlgi” yan başlıklarından sonra kullanılan iki nokta “:”</span> <span class="mavi">  işareti aynı hizada yazılır</span>  (Örnek 7). <br> <img src="static/img/ilgisk.PNG" > <br><br>
+(3) <span class="kim"> “Sayı”, “Konu” ve “İlgi” yan başlıklarından sonra kullanılan iki nokta “:”</span> <span class="mavi">  işareti aynı hizada yazılır</span>  (Örnek 7). <br> <img src="{% static 'img/ilgisk.PNG' %}" > <br><br>
 
-(4) <span class="kim"> İlgide yer alan bilgiler bir satırı geçerse, devamı</span> <span class="mavi"> “İlgi:” yan başlığının ve sıralamayı gösteren harflerin altı boş bırakılarak alt satıra yazılır</span> (Örnek 7). <br> <img src="static/img/ilgibos.PNG" > <br><br>
+(4) <span class="kim"> İlgide yer alan bilgiler bir satırı geçerse, devamı</span> <span class="mavi"> “İlgi:” yan başlığının ve sıralamayı gösteren harflerin altı boş bırakılarak alt satıra yazılır</span> (Örnek 7). <br> <img src="{% static 'img/ilgibos.PNG' %}" > <br><br>
 
-(5) <span class="kim"> İlginin birden fazla olması durumunda,</span> <span class="mavi"> belgeler önceki tarihli olandan başlanarak tarih sırasına göre sıralanır.</span>  <span class="kim"> Sıralamada,</span> <span class="mavi"> Türk alfabesinde yer alan bütün küçük harfler, kendilerinden sonra kapama parantez işareti “)” konularak kullanılır</span>  (Örnek 7). <br> <img src="static/img/ilgiharf.PNG" > <br><br>
+(5) <span class="kim"> İlginin birden fazla olması durumunda,</span> <span class="mavi"> belgeler önceki tarihli olandan başlanarak tarih sırasına göre sıralanır.</span>  <span class="kim"> Sıralamada,</span> <span class="mavi"> Türk alfabesinde yer alan bütün küçük harfler, kendilerinden sonra kapama parantez işareti “)” konularak kullanılır</span>  (Örnek 7). <br> <img src="{% static 'img/ilgiharf.PNG' %}" > <br><br>
 
 (6) <span class="mavi"> İlgide, ilgi tutulan belgeyi gönderen idarenin adı ile belgenin tarihi ve sayısı belirtilir.</span> <span class="kim"> Ancak ilgi tutulan belgenin, muhatap idarenin daha önce gönderdiği bir belge veya muhatap idareye daha önce gönderilen bir belge olması durumunda</span> <span class="mavi"> idare adı belirtilmez</span>
-(Örnek 7). <br> <img src="static/img/ilgidaha.PNG" > <br><br>
+(Örnek 7). <br> <img src="{% static 'img/ilgidaha.PNG' %}" > <br><br>
 
-(7) <span class="mavi"> İlgide, <span class="dik"> “… tarihli ve … sayılı …” ibaresi kullanılır</span>  ve ilginin sonuna nokta (.) işareti konulur</span>  (Örnek 7). <br> <img src="static/img/iltasay.PNG" > <br><br>
+(7) <span class="mavi"> İlgide, <span class="dik"> “… tarihli ve … sayılı …” ibaresi kullanılır</span>  ve ilginin sonuna nokta (.) işareti konulur</span>  (Örnek 7). <br> <img src="{% static 'img/iltasay.PNG' %}" > <br><br>
 
-(8) <span class="kim"> İlgide belirtilen belge, muhatapta bulunmadığı durumlarda</span> <span class="mavi"> söz konusu belge, ek olarak muhatabına iletilebilir</span>  (Örnek 7). <br> <img src="static/img/ilgia.PNG" > <br> <img src="static/img/ilgiaa.PNG" > <br><br>
+(8) <span class="kim"> İlgide belirtilen belge, muhatapta bulunmadığı durumlarda</span> <span class="mavi"> söz konusu belge, ek olarak muhatabına iletilebilir</span>  (Örnek 7). <br> <img src="{% static 'img/ilgia.PNG' %}" > <br> <img src="{% static 'img/ilgiaa.PNG' %}" > <br><br>
 
-(9) <span class="kim"> İlgide belirtilen belge, gerçek kişiden geliyorsa</span> <span class="mavi"> ilgi bölümü <span class="dik"> “…’ın … tarihli başvurusu/dilekçesi.”</span>  biçiminde yazılır</span>  (Örnek 9). <br> <img src="static/img/ilgitar.PNG" > <br> <br>
+(9) <span class="kim"> İlgide belirtilen belge, gerçek kişiden geliyorsa</span> <span class="mavi"> ilgi bölümü <span class="dik"> “…’ın … tarihli başvurusu/dilekçesi.”</span>  biçiminde yazılır</span>  (Örnek 9). <br> <img src="{% static 'img/ilgitar.' %}" > <br> <br>
 
 <span class="kim"> Ancak belgenin muhatabı, ilgi tutulan başvurunun veya dilekçenin sahibi ise</span> <span class="mavi"> ilgi bölümünde gerçek kişinin isim bilgisine yer verilmez</span> . <br> <br>
 
@@ -869,19 +891,19 @@ MADDE 15- <div> (1) <span class="kim"> İlgi,</span>  <span class="mavi"> belgen
 <div> 
 Metin<div> 
 MADDE 16-<div>  (1) <span class="kim"> Metin alanı,</span> <span class="mavi"> “Muhatap” veya varsa “İlgi” ile “İmza” arasındaki kısımdır.</span>  <br><br>
-(2) <span class="kim"> “İlgi” ile metin başlangıcı arasında</span> <span class="mavi"><span class="dik"> bir</span> satır</span>, <span class="kim"> “İlgi” yoksa</span> <span class="mavi"> belgenin muhatabı ile metin başlangıcı arasında <span class="dik"> iki</span> satır boşluk bulunur</span>  (Örnek 8). <br> <img src="static/img/metin1.PNG" ><br> <img src="metin2.PNG" > <br> <img src="static/img/metin3.PNG"> <br> <img src="static/img/metin4.PNG" > <br><br>
+(2) <span class="kim"> “İlgi” ile metin başlangıcı arasında</span> <span class="mavi"><span class="dik"> bir</span> satır</span>, <span class="kim"> “İlgi” yoksa</span> <span class="mavi"> belgenin muhatabı ile metin başlangıcı arasında <span class="dik"> iki</span> satır boşluk bulunur</span>  (Örnek 8). <br> <img src="{% static 'img/metin1.PNG' %}" ><br> <img src="{% static 'img/metin2.PNG' %}" > <br> <img src="{% static 'img/metin3.PNG' %}"> <br> <img src="{% static 'img/metin4.PNG' %}" > <br><br>
 
 (3) <span class="mavi"> Metindeki kelime aralarında ve noktalama işaretlerinden sonra bir karakter boşluk bırakılır.</span>  <span class="mavi">Noktalama işaretleri kendinden önce gelen harfe bitişik yazılır.</span>  <br><br>
 
-(4) <span class="mavi"> Paragrafa 1,25 cm içeriden başlanır ve metin iki yana hizalanır.</span> <span class="mavi"> Paragraflar arasında satır boşluğu bırakılmaz</span>  (Örnek 8). <br> <img src="static/img/parag.PNG" > <br><br>
+(4) <span class="mavi"> Paragrafa 1,25 cm içeriden başlanır ve metin iki yana hizalanır.</span> <span class="mavi"> Paragraflar arasında satır boşluğu bırakılmaz</span>  (Örnek 8). <br> <img src="{% static 'img/parag.PNG' %}"> <br><br>
 
 <span class="mavi">
 İhtiyaç duyulması hâlinde paragraflar harf veya rakam ile sıralanabilir.</span>  <br><br>
 
-(5) <span class="kim"> Birden fazla sayfa tutan üst yazılarda </span> <span class="ark"> sayı, tarih, konu, muhatap ve ilgi bilgilerine</span> <span class="mavi"> sadece ilk sayfada;</span> <span class="ark"> imza, ek ve dağıtım ilgilerine ise</span> <span class="mavi"> sadece son sayfada yer verilir</span>  (Örnek 9). <br> <img src="static/img/örnek9.PNG"> <br> <img src="static/img/örnek92.PNG"> <br><br>
+(5) <span class="kim"> Birden fazla sayfa tutan üst yazılarda </span> <span class="ark"> sayı, tarih, konu, muhatap ve ilgi bilgilerine</span> <span class="mavi"> sadece ilk sayfada;</span> <span class="ark"> imza, ek ve dağıtım ilgilerine ise</span> <span class="mavi"> sadece son sayfada yer verilir</span>  (Örnek 9). <br> <img src="{% static 'img/örnek9.PNG' %}"> <br> <img src="{% static 'img/örnek92.PNG' %}"> <br><br>
 
 <span class="kim">
-İletişim bilgisine ve belge doğrulama bilgilerine</span> <span class="mavi"> her sayfanın en alt kısmında yer verilir</span>  (Örnek 9). <br> <img src="static/img/bilgi1.PNG" > <br> <img src="static/img/bilgi2.PNG" > <br><br>
+İletişim bilgisine ve belge doğrulama bilgilerine</span> <span class="mavi"> her sayfanın en alt kısmında yer verilir</span>  (Örnek 9). <br> <img src="{% static 'img/bilgi1.PNG' %}" > <br> <img src="{% static 'img/bilgi2.PNG' %}" > <br><br>
  <span class="kim">
 Zorunlu hâllerde veya olağanüstü durumlarda hazırlanan ve birden fazla sayfadan oluşan belgelerde ise</span> <span class="mavi"> her sayfanın en alt kısmında iletişim bilgisine yer verilir.</span>  <br><br>
 
@@ -945,7 +967,7 @@ document.addEventListener('mousemove', function(e) {  if (surukleniyor) {soruCon
 	
 	document.addEventListener('mouseup', function() { surukleniyor = false;	}); 
 </script>
- <h1 class="bg-danger text-white">ARKADAŞLAR BU YÖNETMELİĞİN DEVAMI BAŞKA İÇERİKLERİMİZ NOTLARI SATIN ALDIĞINIZDA GÖREBİLECEKSİNİZ <img width="100px" src="static/img/el.PNG" ><img width="100px" src="static/img/el.PNG" ><img  width="100px" src="static/img/el.PNG" > </h1>
+ <h1 class="bg-danger text-white">ARKADAŞLAR BU YÖNETMELİĞİN DEVAMI BAŞKA İÇERİKLERİMİZ NOTLARI SATIN ALDIĞINIZDA GÖREBİLECEKSİNİZ <img width="100px" src="s{% static 'img/el.PNG' %}"><img width="100px" src="{% static 'img/el.PNG' %}" ><img  width="100px" src="{% static 'img/el.PNG' %}" > </h1>
  
 </body>
 </html>  

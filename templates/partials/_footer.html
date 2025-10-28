@@ -1,3 +1,36 @@
-<footer class="bg-dark text-white text-center py-3 mt-4">
-  <small>© 2025 Yazı İşleri Müdürlüğü — Tüm hakları saklıdır.</small>
+{% load static %}
+
+<footer class="bg-dark text-white text-center py-4 mt-5 w-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h6>Hızlı Linkler</h6>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'index' %}" class="text-secondary text-decoration-none">Ana Sayfa</a></li>
+          <li><a href="{% url 'about' %}" class="text-secondary text-decoration-none">Hakkımızda</a></li>
+          <li><a href="{% url 'contact' %}" class="text-secondary text-decoration-none">İletişim</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Yasal</h6>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'privacy' %}" class="text-secondary text-decoration-none">Gizlilik Politikası</a></li>
+          <li><a href="{% url 'terms' %}" class="text-secondary text-decoration-none">Kullanım Koşulları</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Sosyal Medya</h6>
+        <a href="https://github.com/simyaci1980/gysyim" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="text-secondary text-decoration-none">
+          <i class="bi bi-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+    <hr class="bg-secondary">
+    <small>
+      © 2025 <strong>Yazı İşleri Müdürlüğü Sınavı Hazırlık</strong> — Tüm hakları saklıdır.
+    </small>
+  </div>
 </footer>

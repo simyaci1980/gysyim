@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% block title %}Hakkımızda - Yazı İşleri Müdürlüğü{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">Hakkımızda</h1>
+
+    <div class="mt-4">
+        <h2>Biz Kimiz?</h2>
+        <p>
+            Yazı İşleri Müdürlüğü Sınavı Hazırlık Platformu, Türkiye'de kamu sınavlarına 
+            hazırlanan adaylar için özel olarak tasarlanmış bir eğitim platformudur.
+        </p>
+
+        <h2 class="mt-4">Misyonumuz</h2>
+        <p>
+            Sınava hazırlanan adaylara kaliteli, güncel ve erişilebilir eğitim materyalleri 
+            sunarak başarılarına katkıda bulunmak.
+        </p>
+
+        <h2 class="mt-4">Vizyonumuz</h2>
+        <p>
+            Türkiye'nin en güvenilir ve kapsamlı Yazı İşleri Müdürlüğü sınavı hazırlık 
+            platformu olmak.
+        </p>
+
+        <h2 class="mt-4">Neler Sunuyoruz?</h2>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">📚 Kapsamlı İçerik</h5>
+                        <p class="card-text">
+                            Sınav müfredatına uygun hazırlanmış detaylı notlar ve açıklamalar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">💬 Canlı Destek</h5>
+                        <p class="card-text">
+                            Chat sistemi ile sorularınıza hızlı cevaplar.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">🔄 Güncel İçerik</h5>
+                        <p class="card-text">
+                            Mevzuat ve sınav değişikliklerine göre sürekli güncellenen içerikler.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">🔒 Güvenli Platform</h5>
+                        <p class="card-text">
+                            Verilerinizin güvenliği için modern güvenlik önlemleri.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mt-4">Değerlerimiz</h2>
+        <ul>
+            <li><strong>Kalite:</strong> En yüksek standartlarda içerik üretimi</li>
+            <li><strong>Güvenilirlik:</strong> Doğru ve güncel bilgi sunumu</li>
+            <li><strong>Erişilebilirlik:</strong> Herkes için ulaşılabilir eğitim</li>
+            <li><strong>Şeffaflık:</strong> Açık ve dürüst iletişim</li>
+            <li><strong>Süreklilik:</strong> Devamlı gelişim ve iyileştirme</li>
+        </ul>
+
+        <h2 class="mt-4">Başarı Hikayelerimiz</h2>
+        <p>
+            Platformumuz, yüzlerce adayın Yazı İşleri Müdürlüğü sınavında başarılı olmasına 
+            katkıda bulunmuştur. Kullanıcılarımızın başarısı bizim motivasyonumuzdur.
+        </p>
+
+        <h2 class="mt-4">İletişim</h2>
+        <p>
+            Bizimle iletişime geçmek için <a href="{% url 'contact' %}">İletişim Sayfasını</a> ziyaret edebilirsiniz.
+        </p>
+
+        <div class="alert alert-info mt-4">
+            <h5>🎯 Hedefimiz Basit:</h5>
+            <p class="mb-0">
+                Sınava hazırlanan her adayın başarılı olması için gereken tüm desteği sağlamak 
+                ve bu süreçte yanlarında olmak.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

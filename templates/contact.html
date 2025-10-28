@@ -1,0 +1,128 @@
+{% extends 'layout.html' %}
+{% block title %}İletişim - Yazı İşleri Müdürlüğü{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="mb-4">İletişim</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">📧 E-posta</h5>
+                    <p class="card-text">
+                        <a href="mailto:info@yaziislerisinavlari.com">info@yaziislerisinavlari.com</a>
+                    </p>
+                    <p class="text-muted">Sorularınız için e-posta gönderebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">💬 Canlı Destek</h5>
+                    <p class="card-text">
+                        <a href="{% url 'index' %}">Ana sayfadaki chat</a> üzerinden anlık destek alabilirsiniz.
+                    </p>
+                    <p class="text-muted">Hızlı yanıt için chat sistemini kullanın.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">📝 İletişim Formu</h5>
+                    
+                    <form id="contactForm">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Adınız Soyadınız</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-posta Adresiniz</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Konu</label>
+                            <select class="form-control" id="subject" name="subject" required>
+                                <option value="">Konu seçiniz...</option>
+                                <option value="genel">Genel Bilgi</option>
+                                <option value="teknik">Teknik Destek</option>
+                                <option value="icerik">İçerik Hatası</option>
+                                <option value="oneri">Öneri/İstek</option>
+                                <option value="diger">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Mesajınız</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Gönder</button>
+                    </form>
+
+                    <div id="formMessage" class="mt-3" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">⏰ Yanıt Süreleri</h5>
+                    <ul>
+                        <li><strong>Canlı Chat:</strong> Anlık - 5 dakika</li>
+                        <li><strong>E-posta:</strong> 24-48 saat içinde</li>
+                        <li><strong>İletişim Formu:</strong> 24-48 saat içinde</li>
+                    </ul>
+                    <p class="text-muted mb-0">
+                        <small>* Hafta sonları ve resmi tatillerde yanıt süreleri uzayabilir.</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                <h5>💡 Sık Sorulan Sorular</h5>
+                <p>
+                    Mesaj göndermeden önce <strong>Sık Sorulan Sorular</strong> bölümünü kontrol etmek 
+                    isteyebilirsiniz. Birçok sorunun cevabını orada bulabilirsiniz.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// İletişim formu gönderimi (şu an sadece bilgi gösterir, backend entegrasyonu eklenebilir)
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formMessage = document.getElementById('formMessage');
+    formMessage.style.display = 'block';
+    formMessage.className = 'alert alert-success';
+    formMessage.innerHTML = '<strong>Teşekkürler!</strong> Mesajınız alındı. En kısa sürede size dönüş yapacağız.';
+    
+    // Formu temizle
+    this.reset();
+    
+    // 5 saniye sonra mesajı gizle
+    setTimeout(function() {
+        formMessage.style.display = 'none';
+    }, 5000);
+});
+</script>
+{% endblock %}

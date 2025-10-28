@@ -13,18 +13,6 @@ def bim5mad(request):
 def darisureler(request):
 	return render (request, 'onsayfa/darisureler.html')
 
-def privacy(request):
-	return render(request, 'privacy.html')
-
-def terms(request):
-	return render(request, 'terms.html')
-
-def about(request):
-	return render(request, 'about.html')
-
-def contact(request):
-	return render(request, 'contact.html')
-
 import os, re, requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -37,7 +25,7 @@ LAST_UPDATE_FILE = "last_update.txt"
 TELEGRAM_TOKEN = config('TELEGRAM_TOKEN')
 CHAT_ID = config('TELEGRAM_CHAT_ID')
 
-# Telegram’dan mesajları çek
+# Telegram'dan mesajları çek
 def fetch_telegram_messages():
     last_update_id = 0
     if os.path.exists(LAST_UPDATE_FILE):
@@ -50,7 +38,6 @@ def fetch_telegram_messages():
         last_update_id = 0            
 
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getUpdates?offset={last_update_id + 1}"
-    r = requests.get(url).json()
     
     try:
         # 🛡 Telegram API çağrısı
@@ -76,6 +63,9 @@ def fetch_telegram_messages():
             if match:
                 session_key = match.group("sid")
                 pure_text = match.group("msg")
+                
+                # 🔒 XSS koruması
+                pure_text = bleach.clean(pure_text, tags=[], strip=True)
 
                 # Aynı admin mesajı DB'de yoksa ekle
                 if not ChatMessage.objects.filter(
@@ -90,28 +80,12 @@ def fetch_telegram_messages():
                         is_admin=True
                     )
 
-        # Güncel offset’i sakla
+        # Güncel offset'i sakla
         last_update_id = update_id
 
-    # ✅ Son ID’yi güncelle
+    # ✅ Son ID'yi güncelle
     with open(LAST_UPDATE_FILE, "w") as f:
         f.write(str(last_update_id))
-
-
-
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import ChatMessage
-import requests
-from django.db.models import Q
-from decouple import config
-import bleach
-
-# Telegram bilgilerin - artık .env'den geliyor
-TELEGRAM_TOKEN = config('TELEGRAM_TOKEN')
-CHAT_ID = config('TELEGRAM_CHAT_ID')
-
-
 
 
 @csrf_exempt
@@ -122,16 +96,12 @@ def chat_api(request):
         request.session.create()
         session_key = request.session.session_key
 
-    # ❌ Artık burada çağırmaya gerek yok - scheduler otomatik çalışıyor
-    # fetch_telegram_messages()
-
-
     if request.method == "GET":
         # 🔹 Ziyaretçi kendi mesajlarını görecek
         # 🔹 Admin mesajları sadece aynı session_key için gözükecek
         messages = ChatMessage.objects.filter(
             Q(session_key=session_key, is_admin=False) |  # Ziyaretçinin kendi mesajları
-            Q(session_key=session_key, is_admin=True)    # O session’a özel admin cevapları
+            Q(session_key=session_key, is_admin=True)    # O session'a özel admin cevapları
         ).order_by("timestamp")
 
         data = [
@@ -151,19 +121,27 @@ def chat_api(request):
         if not text:
             return JsonResponse({"status": "error", "message": "Mesaj boş"}, status=400)
 
+        # 🔒 XSS koruması - HTML etiketlerini temizle
+        text = bleach.clean(text, tags=[], strip=True)
+        
+        # 🔒 Maksimum mesaj uzunluğu kontrolü
+        if len(text) > 1000:
+            return JsonResponse({"status": "error", "message": "Mesaj çok uzun"}, status=400)
+
         if request.user.is_authenticated:
             # 🔹 Kullanıcı giriş yaptıysa
+            name = bleach.clean(request.user.username, tags=[], strip=True)
             ChatMessage.objects.create(
                 user=request.user,
-                visitor_name=request.user.username,  # kullanıcı adı yazılsın
+                visitor_name=name,
                 message=text,
                 is_admin=False,
                 session_key=session_key
             )
-            name = request.user.username
         else:
             # 🔹 Giriş yapmamışsa ziyaretçi
             name = request.POST.get("name", "Ziyaretçi").strip()
+            name = bleach.clean(name, tags=[], strip=True)[:50]  # İsim max 50 karakter
             ChatMessage.objects.create(
                 visitor_name=name,
                 message=text,
@@ -171,22 +149,21 @@ def chat_api(request):
                 session_key=session_key
             )
 
-        # Telegram’a da gönder
-        telegram_text = f"(session={session_key})\n{name}: {text}"
-
-
-                # Önce session bilgisini gönder
-        requests.get(
-          f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-          params={"chat_id": CHAT_ID, "text": f"(session={session_key})"}
-        )
-#Ardından mesaj içeriğini gönder
-        requests.get(
-            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-            params={"chat_id": CHAT_ID, "text": f"{name}: {text}"}
-)
-
+        # Telegram'a da gönder
+        try:
+            # Önce session bilgisini gönder
+            requests.get(
+                f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+                params={"chat_id": CHAT_ID, "text": f"(session={session_key})"},
+                timeout=5
+            )
+            # Ardından mesaj içeriğini gönder
+            requests.get(
+                f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+                params={"chat_id": CHAT_ID, "text": f"{name}: {text}"},
+                timeout=5
+            )
+        except Exception as e:
+            print(f"Telegram gönderim hatası: {e}")
 
         return JsonResponse({"status": "ok"})
-
-
