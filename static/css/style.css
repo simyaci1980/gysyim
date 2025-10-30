@@ -1,0 +1,40 @@
+/* Body ve main */
+body {
+    background-color: #f8f9fa;
+}
+
+main {
+    margin: 2rem auto;
+    width: 80%; /* Ekranın %80'i kadar genişlik */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Kutular */
+.kutu {
+    border-style: groove;
+    border-width: 2px;
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    margin: 20px;
+    padding: 10px;
+    background-color: #1dbde0;
+    color: #0d0d0e;
+    box-shadow: 2px 2px 5px black;
+    overflow: auto;
+}
+
+/* Ayırıcı */
+.separator {
+    height: 20px;
+    width: 100%;
+    clear: both;
+}
+
+/* Navbar ve footer ortalama ayar */
+.navbar, footer {
+    width: 80%;
+    margin: 0 auto;
+}

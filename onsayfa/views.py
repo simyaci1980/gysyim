@@ -71,14 +71,11 @@ def fetch_telegram_messages():
             user_name = update["message"]["from"].get("first_name", "Admin")
 
             # 🔹 Adminin cevabında session=(...) var mı kontrol et
-            # Artık \n sonrası metni de yakalar (DOTALL)
-            match = re.match(r"\(session=(?P<sid>[a-zA-Z0-9]+)\)\s*(?P<msg>.*)", text, re.DOTALL)
-
+            # Tek satırda: (session=abc123) Mesaj veya (session=abc123)Mesaj
+            match = re.match(r"\(session=([a-zA-Z0-9]+)\)\s*(.+)", text, re.DOTALL)
             if match:
-                session_key = match.group("sid")
-                pure_text = match.group("msg").strip()  # Başta/sonda boşluk temizle
-
-                # Aynı admin mesajı DB'de yoksa ekle
+                session_key = match.group(1)  # İlk grup session key
+                pure_text = match.group(2).strip()  # İkinci grup mesaj
                 if not ChatMessage.objects.filter(
                     session_key=session_key,
                     message=pure_text,
@@ -152,32 +149,24 @@ def chat_api(request):
         if not text:
             return JsonResponse({"status": "error", "message": "Mesaj boş"}, status=400)
 
-        if request.user.is_authenticated:
-            # 🔹 Kullanıcı giriş yaptıysa
-            ChatMessage.objects.create(
-                user=request.user,
-                visitor_name=request.user.username,  # kullanıcı adı yazılsın
-                message=text,
-                is_admin=False,
-                session_key=session_key
-            )
-            name = request.user.username
-        else:
-            # 🔹 Giriş yapmamışsa ziyaretçi
-            name = request.POST.get("name", "Ziyaretçi").strip()
-            ChatMessage.objects.create(
-                visitor_name=name,
-                message=text,
-                is_admin=False,
-                session_key=session_key
-            )
+        # Hep ziyaretçi olarak kaydet
+        name = "Ziyaretçi"
+        ChatMessage.objects.create(
+            visitor_name=name,
+            message=text,
+            is_admin=False,
+            session_key=session_key
+        )
 
-    # Telegram’a tek seferde session ile birlikte gönder
-    telegram_text = f"(session={session_key})\n{name}: {text}"
-    requests.get(
-        f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-        params={"chat_id": CHAT_ID, "text": telegram_text}
-    )
+        # Telegram'a gönder
+        requests.get(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            params={"chat_id": CHAT_ID, "text": f"(session={session_key})"}
+        )
+        requests.get(
+            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+            params={"chat_id": CHAT_ID, "text": f"{name}: {text}"}
+        )
 
     return JsonResponse({"status": "ok"})
 

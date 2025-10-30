@@ -35,18 +35,74 @@ function fetchMessages() {
         .then(data => {
             chatBox.innerHTML = "";
             data.forEach(msg => {
-                const p = document.createElement("p");
-                // 🔒 textContent kullanarak XSS önlenir
-                const strong = document.createElement("strong");
-                strong.textContent = msg.user + ":";
-                const messageText = document.createTextNode(" " + msg.message + " ");
-                const small = document.createElement("small");
-                small.textContent = msg.time;
+                const messageDiv = document.createElement("div");
+                messageDiv.style.marginBottom = "10px";
+                messageDiv.style.display = "flex";
                 
-                p.appendChild(strong);
-                p.appendChild(messageText);
-                p.appendChild(small);
-                chatBox.appendChild(p);
+                // Admin mesajı mı, kullanıcı mesajı mı kontrol et
+                if (msg.user === "Admin") {
+                    // Admin mesajı - sağda, yeşil arka plan
+                    messageDiv.style.justifyContent = "flex-end";
+                    const bubble = document.createElement("div");
+                    bubble.style.backgroundColor = "#d4edda";
+                    bubble.style.border = "1px solid #c3e6cb";
+                    bubble.style.padding = "8px 12px";
+                    bubble.style.borderRadius = "10px";
+                    bubble.style.maxWidth = "70%";
+                    bubble.style.textAlign = "right";
+                    
+                    const strong = document.createElement("strong");
+                    strong.textContent = "Admin";
+                    strong.style.color = "#155724";
+                    
+                    const messageText = document.createElement("div");
+                    messageText.textContent = msg.message;
+                    messageText.style.marginTop = "4px";
+                    
+                    const small = document.createElement("small");
+                    small.textContent = msg.time;
+                    small.style.color = "#6c757d";
+                    small.style.fontSize = "0.85em";
+                    small.style.marginTop = "4px";
+                    small.style.display = "block";
+                    
+                    bubble.appendChild(strong);
+                    bubble.appendChild(messageText);
+                    bubble.appendChild(small);
+                    messageDiv.appendChild(bubble);
+                } else {
+                    // Kullanıcı/Ziyaretçi mesajı - solda, gri arka plan
+                    messageDiv.style.justifyContent = "flex-start";
+                    const bubble = document.createElement("div");
+                    bubble.style.backgroundColor = "#f8f9fa";
+                    bubble.style.border = "1px solid #dee2e6";
+                    bubble.style.padding = "8px 12px";
+                    bubble.style.borderRadius = "10px";
+                    bubble.style.maxWidth = "70%";
+                    bubble.style.textAlign = "left";
+                    
+                    const strong = document.createElement("strong");
+                    strong.textContent = msg.user;
+                    strong.style.color = "#495057";
+                    
+                    const messageText = document.createElement("div");
+                    messageText.textContent = msg.message;
+                    messageText.style.marginTop = "4px";
+                    
+                    const small = document.createElement("small");
+                    small.textContent = msg.time;
+                    small.style.color = "#6c757d";
+                    small.style.fontSize = "0.85em";
+                    small.style.marginTop = "4px";
+                    small.style.display = "block";
+                    
+                    bubble.appendChild(strong);
+                    bubble.appendChild(messageText);
+                    bubble.appendChild(small);
+                    messageDiv.appendChild(bubble);
+                }
+                
+                chatBox.appendChild(messageDiv);
             });
             chatBox.scrollTop = chatBox.scrollHeight;
         });
@@ -72,6 +128,32 @@ chatForm.addEventListener("submit", function(e){
 
 </script>
 
+<script>
+function copyIBAN() {
+    // Gerçek IBAN numarası
+    const fullIBAN = "TR140001500158007286281178";
+    
+    // Panoya kopyala
+    navigator.clipboard.writeText(fullIBAN).then(() => {
+        // Başarı mesajı göster
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = "✓ Kopyalandı";
+        button.classList.remove("btn-outline-secondary");
+        button.classList.add("btn-success");
+        
+        // 2 saniye sonra eski haline döndür
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove("btn-success");
+            button.classList.add("btn-outline-secondary");
+        }, 2000);
+    }).catch(err => {
+        alert("Kopyalama başarısız oldu. Lütfen manuel olarak kopyalayın.");
+    });
+}
+</script>
+
 <!-- Ödeme Bildirimi -->
 <div class="border rounded p-3 mb-4 w-100" style="max-width:1000px; background:#e9f7ef;">
     <h4>Ödeme Yap</h4>
@@ -80,7 +162,7 @@ chatForm.addEventListener("submit", function(e){
     </p>
 
     <div class="input-group mb-2">
-        <input type="text" id="ibanInput" class="form-control" value="TR140001500158007286281178" readonly>
+        <input type="text" id="ibanInput" class="form-control" value="TR14 **** **** **** **81 1178" readonly>
         <button class="btn btn-outline-secondary" type="button" onclick="copyIBAN()">Kopyala</button>
     </div>
 

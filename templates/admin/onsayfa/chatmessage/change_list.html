@@ -1,0 +1,12 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    {% if show_chat_button %}
+    <li>
+        <a href="{% url 'admin:chat_view' %}" class="btn btn-success" style="margin-left: 10px;">
+            💬 Chat Yönetimi
+        </a>
+    </li>
+    {% endif %}
+{% endblock %}

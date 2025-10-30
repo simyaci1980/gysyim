@@ -1,0 +1,63 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Chat Yönetimi{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding: 20px;">
+    <h1>💬 Chat Yönetimi</h1>
+    <p>Ziyaretçilerle olan tüm konuşmaları buradan görebilir ve cevap verebilirsiniz.</p>
+    
+    <div class="row">
+        {% if chat_sessions %}
+            {% for session in chat_sessions %}
+            <div class="col-md-6 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            👤 {{ session.visitor_name }}
+                            {% if session.unread_count > 0 %}
+                            <span class="badge bg-danger">{{ session.unread_count }} yeni</span>
+                            {% endif %}
+                        </h5>
+                        <p class="card-text text-muted">
+                            <small>Session: {{ session.session_key|slice:":12" }}...</small>
+                        </p>
+                        <p class="card-text">
+                            <strong>Son mesaj:</strong> {{ session.last_message }}...
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ session.last_time|date:"d.m.Y H:i" }} - 
+                                Toplam {{ session.message_count }} mesaj
+                            </small>
+                        </p>
+                        <a href="{% url 'admin:chat_detail_view' session.session_key %}" 
+                           class="btn btn-primary btn-sm">
+                            Görüntüle & Cevapla
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    Henüz hiç mesaj yok.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: box-shadow 0.3s;
+}
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+</style>
+{% endblock %}

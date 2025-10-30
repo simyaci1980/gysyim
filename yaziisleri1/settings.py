@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'middlewares',
     'onsayfa',
     'user',
-    'django_apscheduler',
 ]
 
 
