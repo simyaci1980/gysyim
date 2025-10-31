@@ -33,7 +33,7 @@ from .models import ChatMessage
 from decouple import config
 import bleach
 
-LAST_UPDATE_FILE = "last_update.txt"
+LAST_UPDATE_FILE = os.path.join(os.path.dirname(__file__), "../last_update.txt")
 TELEGRAM_TOKEN = config('TELEGRAM_TOKEN')
 CHAT_ID = config('TELEGRAM_CHAT_ID')
 
