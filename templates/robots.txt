@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# İsteğe bağlı: Eğer bir sitemap.xml oluşturursanız aşağıdaki satırı güncelleyin
+# Sitemap: https://gysyim.pythonanywhere.com/sitemap.xml
