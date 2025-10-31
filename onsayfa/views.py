@@ -120,8 +120,8 @@ def chat_api(request):
         request.session.create()
         session_key = request.session.session_key
 
-    # ❌ Artık burada çağırmaya gerek yok - scheduler otomatik çalışıyor
-    # fetch_telegram_messages()
+    # ✅ Her GET isteğinde Telegram'dan mesajları kontrol et (scheduler yerine)
+    fetch_telegram_messages()
 
 
     if request.method == "GET":
