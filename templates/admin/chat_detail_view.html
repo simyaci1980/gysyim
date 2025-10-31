@@ -75,9 +75,25 @@ document.addEventListener('DOMContentLoaded', function() {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
-// Her 5 saniyede bir otomatik yenile
+// Yenileme kontrolü
+let isTyping = false;
+const replyTextarea = document.getElementById('reply_text');
+
+// Kullanıcı yazmaya başladığında yenilemeyi durdur
+replyTextarea.addEventListener('focus', function() {
+    isTyping = true;
+});
+
+// Kullanıcı textarea'dan çıktığında yenilemeyi devam ettir
+replyTextarea.addEventListener('blur', function() {
+    isTyping = false;
+});
+
+// Her 5 saniyede bir otomatik yenile (sadece yazmıyorsa)
 setInterval(function() {
-    location.reload();
+    if (!isTyping) {
+        location.reload();
+    }
 }, 5000);
 </script>
 
