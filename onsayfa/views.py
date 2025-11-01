@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+# Telegram performans optimizasyonu için
+last_telegram_check = 0
+
 
 def index(request):
     return render(request, 'index.html')
@@ -120,8 +123,12 @@ def chat_api(request):
         request.session.create()
         session_key = request.session.session_key
 
-    # ✅ Her GET isteğinde Telegram'dan mesajları kontrol et (scheduler yerine)
-    fetch_telegram_messages()
+    # ✅ Telegram'dan mesajları sadece 30 saniyede bir kontrol et (performans için)
+    global last_telegram_check
+    current_time = __import__('time').time()
+    if current_time - last_telegram_check > 30:
+        fetch_telegram_messages()
+        last_telegram_check = current_time
 
 
     if request.method == "GET":
