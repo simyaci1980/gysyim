@@ -28,4 +28,8 @@ urlpatterns = [
     # Robots.txt ve ads.txt
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('ads.txt', TemplateView.as_view(template_name='ads.txt', content_type='text/plain')),
+    # Google Search Console (HTML file verification)
+    path('google05fd7b47d086e48a.html', TemplateView.as_view(
+        template_name='google05fd7b47d086e48a.html', content_type='text/html')
+    ),
 ]
