@@ -11,14 +11,19 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         # Allow self resources; inline scripts/styles allowed for current templates
         csp = " ; ".join([
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline'",
+            # Allow Google Tag Manager and Meta Pixel scripts
+            "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net",
             "style-src 'self' 'unsafe-inline'",
-            "img-src 'self' data:",
-            "connect-src 'self'",
+            # Allow images from self, data URIs, Google analytics/tag and Facebook pixel
+            "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com",
+            # Allow XHR/fetch to GA/GTM and Facebook endpoints
+            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://graph.facebook.com",
             "font-src 'self' data:",
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'",
+            # Send CSP violation reports to our endpoint for diagnostics
+            "report-uri /csp-report/",
         ])
         response.setdefault('Content-Security-Policy', csp)
 

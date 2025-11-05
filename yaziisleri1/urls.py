@@ -21,10 +21,13 @@ from onsayfa import views
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from middlewares import views as mw_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('onsayfa.urls')),  # ana sayfa ve diğer sayfalar için
+    # CSP report endpoint (for diagnostics)
+    path('csp-report/', mw_views.csp_report, name='csp-report'),
     # Robots.txt ve ads.txt
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('ads.txt', TemplateView.as_view(template_name='ads.txt', content_type='text/plain')),
