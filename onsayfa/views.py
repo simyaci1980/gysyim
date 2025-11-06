@@ -124,11 +124,13 @@ def chat_api(request):
         session_key = request.session.session_key
 
     # ✅ Telegram'dan mesajları sadece 30 saniyede bir kontrol et (performans için)
-    global last_telegram_check
-    current_time = __import__('time').time()
-    if current_time - last_telegram_check > 30:
-        fetch_telegram_messages()
-        last_telegram_check = current_time
+    # Sadece RUN_TELEGRAM_SCHEDULER=true ise Telegram API'ye bağlan
+    if os.environ.get('RUN_TELEGRAM_SCHEDULER', 'false').lower() == 'true':
+        global last_telegram_check
+        current_time = __import__('time').time()
+        if current_time - last_telegram_check > 30:
+            fetch_telegram_messages()
+            last_telegram_check = current_time
 
 
     if request.method == "GET":
@@ -165,15 +167,16 @@ def chat_api(request):
             session_key=session_key
         )
 
-        # Telegram'a gönder
-        requests.get(
-            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-            params={"chat_id": CHAT_ID, "text": f"(session={session_key})"}
-        )
-        requests.get(
-            f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-            params={"chat_id": CHAT_ID, "text": f"{name}: {text}"}
-        )
+        # Telegram'a gönder (sadece RUN_TELEGRAM_SCHEDULER=true ise)
+        if os.environ.get('RUN_TELEGRAM_SCHEDULER', 'false').lower() == 'true':
+            requests.get(
+                f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+                params={"chat_id": CHAT_ID, "text": f"(session={session_key})"}
+            )
+            requests.get(
+                f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+                params={"chat_id": CHAT_ID, "text": f"{name}: {text}"}
+            )
 
     return JsonResponse({"status": "ok"})
 
