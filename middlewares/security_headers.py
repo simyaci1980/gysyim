@@ -15,9 +15,9 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://googleads.g.doubleclick.net",
             "style-src 'self' 'unsafe-inline'",
             # Allow images from self, data URIs, Google analytics/tag/ads and Facebook pixel
-            "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://www.google.com https://googleads.g.doubleclick.net",
+            "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://*.google.com https://googleads.g.doubleclick.net",
             # Allow XHR/fetch to GA/GTM, Google Ads endpoints, and Facebook
-            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://graph.facebook.com https://www.google.com https://googleads.g.doubleclick.net",
+            "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://www.facebook.com https://graph.facebook.com https://*.google.com https://googleads.g.doubleclick.net",
             "font-src 'self' data:",
             # Allow GTM iframes for conversion tracking
             "frame-src https://www.googletagmanager.com",
