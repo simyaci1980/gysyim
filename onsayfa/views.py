@@ -169,8 +169,13 @@ def chat_api(request):
             session_key=session_key
         )
 
-        # E-posta bildirimi gönder
-        if settings.ADMIN_EMAIL:
+        # E-posta bildirimi sadece admin henüz cevap vermediyse gönder
+        admin_replied = ChatMessage.objects.filter(
+            session_key=session_key,
+            is_admin=True
+        ).exists()
+        
+        if settings.ADMIN_EMAIL and not admin_replied:
             try:
                 send_mail(
                     subject=f'Yeni Mesaj: {name}',
