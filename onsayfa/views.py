@@ -34,6 +34,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from .models import ChatMessage
 from decouple import config
+from django.core.mail import send_mail
+from django.conf import settings
 import bleach
 
 LAST_UPDATE_FILE = os.path.join(os.path.dirname(__file__), "../last_update.txt")
@@ -166,6 +168,19 @@ def chat_api(request):
             is_admin=False,
             session_key=session_key
         )
+
+        # E-posta bildirimi gönder
+        if settings.ADMIN_EMAIL:
+            try:
+                send_mail(
+                    subject=f'Yeni Mesaj: {name}',
+                    message=f'Yeni bir ziyaretçi mesajı geldi:\n\nGönderen: {name}\nSession: {session_key}\nMesaj: {text}\n\nAdmin panelinden görüntüle: https://gysyim.pythonanywhere.com/admin/',
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.ADMIN_EMAIL],
+                    fail_silently=True,
+                )
+            except Exception:
+                pass  # E-posta hatası uygulamayı çökertmez
 
         # Telegram'a gönder (sadece RUN_TELEGRAM_SCHEDULER=true ise)
         if os.environ.get('RUN_TELEGRAM_SCHEDULER', 'false').lower() == 'true':
