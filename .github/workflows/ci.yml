@@ -1,0 +1,57 @@
+name: CI — Tests & Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.11]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install black==23.9.1 flake8==6.0.0
+
+      - name: Run Black (check)
+        run: |
+          black --version
+          black --check .
+
+      - name: Run flake8
+        run: flake8 . || true
+
+      - name: Run Django migrations (test DB)
+        env:
+          DJANGO_SETTINGS_MODULE: yaziisleri1.settings
+        run: |
+          python manage.py migrate --noinput
+
+      - name: Run Django tests
+        env:
+          DJANGO_SETTINGS_MODULE: yaziisleri1.settings
+        run: python manage.py test --verbosity=2
