@@ -170,3 +170,6 @@ last_update.txt
 *.pem
 *.key
 secrets.json
+ 
+# Ignore build output of staticfiles collector
+staticfiles/
