@@ -7,7 +7,48 @@
 </div>
 
 <!-- Günün Sorusu -->
+{% if daily_question %}
+<div id="daily-question" class="mb-4">
+    <div class="card mb-4 w-100" style="max-width:1000px;">
+        <div class="card-body">
+            <h5 class="card-title">Günün Sorusu</h5>
+            <p class="card-text">{{ daily_question.metin }}</p>
+            <div id="daily-options">
+                {% for opt in daily_question.secenekler %}
+                    <button type="button" class="btn btn-outline-primary d-block mb-2 daily-option" style="width:100%;" data-answer="{{ opt|escape }}">{{ opt }}</button>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+        (function(){
+            const container = document.getElementById('daily-question');
+            if(!container) return;
+            const correct = "{{ daily_question.dogruCevap|escapejs }}".trim().toUpperCase();
+            container.addEventListener('click', function(e){
+                const btn = e.target.closest('.daily-option');
+                if(!btn) return;
+                // mark choices
+                Array.from(container.querySelectorAll('.daily-option')).forEach(b=>{
+                    b.disabled = true;
+                    const txt = b.dataset.answer.trim().toUpperCase();
+                    if(txt === correct){
+                        b.className = 'btn btn-success d-block mb-2 daily-option';
+                        b.textContent = '✓ ' + b.textContent.replace(/^✗ |^✓ /,'');
+                    } else if(b === btn){
+                        b.className = 'btn btn-danger d-block mb-2 daily-option';
+                        b.textContent = '✗ ' + b.textContent.replace(/^✗ |^✓ /,'');
+                    } else {
+                        b.className = 'btn btn-outline-secondary d-block mb-2 daily-option';
+                    }
+                });
+            });
+        })();
+    </script>
+</div>
+{% else %}
 <div id="daily-question" class="mb-4"></div>
+{% endif %}
 
 <!-- Chat Kutusu -->
 <div id="chat-container" class="border rounded p-3 mb-4 w-100" style="max-width:1000px; background:#fafafa;">

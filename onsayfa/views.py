@@ -5,7 +5,15 @@ last_telegram_check = 0
 
 
 def index(request):
-    return render(request, 'index.html')
+    # Basit server-side günlük soru: daily_questions.get_daily_question()
+    try:
+        from .daily_questions import get_daily_question
+
+        dq = get_daily_question()
+    except Exception:
+        dq = None
+
+    return render(request, 'index.html', {'daily_question': dq})
 
 def ornek1(request):
 	return render (request, 'onsayfa/ornek1.html') 
