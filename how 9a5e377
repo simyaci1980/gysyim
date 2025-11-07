@@ -1,0 +1,10 @@
+[33ma675bc7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m feat(seo): add Google Search Console HTML verification route and file
+[33m666d03e[m 📊 Google Ads etiket (AW-16694853975) eklendi - conversion tracking aktif
+[33m9a5e377[m 🚀 Performans optimizasyonu: Telegram API çağrısı 30 saniyede bir yapılacak şekilde düzenlendi - site hızı artırıldı
+[33m937973d[m Add deployment steps documentation
+[33mdf61371[m Security hardening: Add CSP middleware, robots.txt, ads.txt, enhanced security headers
+[33m036cdf4[m Update index.html: fix typo and simplify payment heading
+[33m809e739[m Correct Turkish text in index.html
+[33m05de872[m Yazarken sayfa yenilenmeyi durdur
+[33m634a657[m Scheduler yerine direkt fetch telegram
+[33m3621661[m Telegram fetch dosya yolu düzeltildi
