@@ -1,0 +1,1583 @@
+
+
+
+{% extends  'layout.html'%}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Navbar'ı ders sayfasında gizle - div#beyaz zaten navigasyon sağlıyor */
+.navbar {
+	display: none !important;
+}
+
+header{
+	display:run-in ;
+	width: 100%;
+	margin: 0;
+	top: 0;
+	position: fixed;
+	border-radius: 10px;
+}
+
+body{
+	background-color: rgb(1, 53, 37); 
+	color: white; 
+	font-size: large;
+	padding-top: 0px; /* Navbar gizli olduğu için padding'e gerek yok */
+}
+
+.beyaz{
+	background-color: #2c3e50;
+	background-image: url("{% static 'img/bayrak2.jpg' %}");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	left: 0;
+	width: 100%;
+	position: sticky; /* Sayfayı scroll ederken üstte kalsın */
+	top: 0;
+	z-index: 1030;
+	float: left;
+	margin-left: 0;
+	margin-top: 0;
+	padding: 10px;
+	border-radius: 0px;
+	border-bottom: 3px solid #34495e;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.butt{
+	color: white;
+	height: 35px;
+	cursor: pointer;	
+	border-radius: 8px;
+	right: 1px;
+	background-color: #e74c3c;
+	border: 2px solid #c0392b;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+}
+.butt:hover{
+	background-color: #c0392b;
+	transform: scale(1.05);
+}
+
+.asi{
+	background-color: #27ae60;
+	color: white;
+	float: right;
+	height: 35px;
+	cursor: pointer;
+	border-radius: 8px;
+	border: 2px solid #229954;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+}
+.asi:hover{
+	background-color: #229954;
+	transform: scale(1.05);
+}
+
+.demo{
+	background-color: #3498db;
+	color: white;
+	float: right;
+	border: 2px solid #2980b9;
+	border-radius: 8px;
+	cursor: pointer;
+	height: 35px;
+	padding: 5px 15px;
+	font-weight: bold;
+}
+
+.renki{color: rgb(202, 150, 221);}
+
+ul li {	float: left;margin-right: 20px;}
+a{color: white;}
+
+div {padding-left: 10px; padding-right: 3px;   border-color:black; padding-left: 10px;  overflow: hidden; margin-left: 20px; margin-bottom: 10px; text-align: justify; border-style: groove;}
+
+hr{margin-bottom: 15px;}
+
+.span{color:rgb(237, 125, 45)}
+
+.ark{background-color:black;}
+.br{color: brown;}
+.sadeceborder{border-style: dashed; margin: 0; margin-bottom: 10px; margin-top: 10px;}
+.mavi{background-color : darkcyan; border-radius: 20px; color: rgb(133, 3, 3) ; font-size: x-large; }
+.dik{background-color: darkred; border-radius: 10px; color: white; }
+
+
+input[type="radio"] {
+            transform: scale(1.5); /* Radio buton boyutunu 1.5 kat büyüt */
+}
+
+.cevapp{ background-color: darkcyan;
+		color: white;
+		font-size: x-large;
+   }
+
+
+.soruContainer {
+    display: none;
+    background-color: rgb(236, 170, 188);
+    color: black;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 90%; /* En fazla ekran genişliğinin %90'ı kadar olabilir */
+    max-height: 90%; /* Ekranın %90 yüksekliği kadar olabilir */
+    text-align: justify;
+    font-size: large;
+    position: fixed;
+    top: 50%; /* Sayfanın yarısında dikey olarak konumlandırma */
+    left: 35%; /* Sayfanın yarısında yatay olarak konumlandırma */
+    transform: translate(-50%, -50%); /* Merkezlemek için */
+    overflow: auto
+}
+
+.balon1{
+			position: absolute;
+            display: none;
+            background-color: #076423;
+            color: #e6dede;
+            padding: 10px;
+            border-radius: 20px;
+            left: 70%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            text-align: justify;
+			position:fixed;
+
+}
+.balonnöyap {
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	  }
+.balonnnsap {
+		background-color:rgb(1, 53, 37);
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 250px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+		overflow-y: auto;
+
+	  }
+ .metinArk{
+	    position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	}
+.metinDik{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}
+
+.metinMavi{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}
+
+
+
+
+
+
+.asi{
+		background-color: rgba(1, 53, 37,0.1);
+		color:white;
+		float: right;
+		height: 30px;
+		cursor: pointer;
+		border-radius: 10px;
+		border-color: black;
+
+	}
+/* .beyaz tanımı yukarıda zaten var - bu eski tanımı kaldırdık */
+/*.beyaz{
+	background-image: url("static/img/bayrak2.jpg");
+	background-position: center;
+	top: 5;
+	width: 100%;
+	position: fixed;
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 5px;
+	border-style: groove;
+	border-color:  white;
+	margin-bottom: 5px;
+	}*/
+.butt{
+	color:white;
+	height: 30px;
+	cursor: pointer;
+	border-radius: 10px;
+	right: 1px;
+	background-color:rgba(7, 7, 7, 0.1)
+	}
+.soru{
+	cursor: pointer;
+	color: rgb(24, 22, 22);
+	border-radius: 10px;
+	background-color:rgba(120, 219, 166, 0.893)
+		}
+
+.cevapp{ color: darkred;
+	}
+
+
+
+.demo{
+	background-color: rgb(206, 237, 244);
+	float: right;
+	border-style:double;
+	border-radius: 15px;
+	border-color: brown;
+	border-width: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+	}
+
+ .but{
+	background-color: darkblue;
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+	}
+.reset{
+	background-color: rgb(0, 123, 139);
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+
+}
+.siyah{
+	background-color: black;
+	height: 25px;
+	width: 60px;
+	color: white;
+	font-size: 15px;
+	}
+.edt{
+	background-color:rgb(1, 53, 37);
+	color:white;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.bey{background-color:white;
+	color:black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+	.uyp{
+	background-color: rgb(191, 234, 244);
+	color: black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.yen{
+	background-color: rgb(209, 231, 85);
+	color: black;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.dhyen{
+	background-color: rgb(236, 170, 188);
+	color: rgb(9, 9, 9);
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.yaz{
+	background-color: yellowgreen;
+	text-align: center;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+    }
+
+
+.ort{
+	text-align: center;}
+
+</style>
+<title> Genel esaslar ve Temel Hak ve Hürriyetler</title>
+<script>
+	function kapat() {
+		if (balon.style.display === "block") {
+			balon.style.display = "none"; cevaps.style.display="none" ;
+		} }
+
+
+
+
+	function sınıf()	{ // bütü spanları seçip tek tek rengini değiştiren fonksiyon
+	    var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="red"}}
+
+	function metinSifirla(){ // editör görünümü için
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metinSıfırla(){  // spanlar için
+
+		document.getElementById("bady").style.backgroundColor = "rgb(1, 53, 37)"
+		document.getElementById("bady").style.color="white"
+		metinSifirla()
+		metınArk()
+		metınDık()
+		metınEDİ()
+		metınKim() 	}
+
+	function metınKim(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function kimmorlasss(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function kimuyp(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function kimdahe(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }
+
+	function kimyes(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="white"} }
+
+	function metınArk(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınKim(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınDık(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınEDİ(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınYes(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metındmavi(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkblue";
+		panDivs[i].style.color="white"} }
+
+	function metınkır(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }
+
+	function morlas(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikcho(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="chocolate";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikuyp(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function dikkırmızı(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }
+
+	function morlasss(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function arkuyp(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function arkdahe(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }
+
+	function metınmavi(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkcyan";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikles(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function chola(){
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="chocolate"} }
+
+	function dahadayeni(){
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="rgb(212, 12, 126"} }
+
+	setInterval(tarıh, 1000);
+	function tarıh(){
+			 var an = new Date()
+			 var yıl= Number( an.getFullYear() )
+			 var ay = Number( an.getMonth().toString(). padStart(2,'0')) + 1 // sadece ay da bir artırmak gerekiyor
+			 var gün= Number( an.getDate()).toString(). padStart(2,'0') // day değil date !!!!!
+			 var saat= Number( an. getHours().toString(). padStart(2,'0'))
+			 var dk=  an.getMinutes().toString(). padStart(2,'0')
+			document.getElementById("demo").innerHTML=" TARİH : " + gün + "/"+ ay+ "/"+ yıl + "<br>" + "SAAT  "+ saat + ":" + dk // ekitekin içini değiştirmeyi sağladık
+			}
+    function badyMavi(){
+		document.getElementById("bady").style.backgroundColor = "darkblue"
+		document.getElementById("bady").style.color = "white"
+		sınıf()
+		arkuyp()
+		dikcho()
+		metınkır()
+		kimdahe()	}
+	function badyEditör(){
+		document.getElementById("bady").style.backgroundColor = " rgb(1, 53, 37)"
+		document.getElementById("bady").style.color = "white"
+		chola()
+		arkuyp()
+		dikkırmızı()
+		morlas()
+		kimuyp()}
+
+	function badysiyah(){
+		document.getElementById("bady").style.backgroundColor = "black"
+		document.getElementById("bady").style.color = "whitesmoke";
+		chola()
+		arkdahe()
+		dikuyp()
+		metınYes()
+		kimmorlasss()	}
+
+	function beyaz(){
+		document.getElementById("bady").style.backgroundColor = " white"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metındmavi()
+		kimyes()	}
+
+
+	function uyap(){
+		document.getElementById("bady").style.backgroundColor = " rgb(191, 234, 244"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metınmavi()
+		kimdahe()	}
+
+	function yeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(209, 231, 85)"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		arkdahe()
+		metınDık()
+		metınmavi()
+		kimyes()	}
+
+	function dahayeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(236, 170, 188)"
+		document.getElementById("bady").style.color = "black"
+		dahadayeni()
+		morlasss()
+		dikles()
+		metınEDİ()
+		kimyes()}
+
+	function soruGetır(){
+
+	}
+
+	function calıs(element){ //  element yazmayınca çalışmıyor onmouseover den geldiğinden  orada da this yazmak gerekiyor
+		element.style.color="red";
+		element.style.fontWeight="bold"}
+
+		function YAZDIR(){
+
+	  document.getElementById("beyaz").style.position="relative"
+	   window.print()
+	       }
+
+	   function DivResetle(){
+
+		const allDivs=document.querySelectorAll('div')
+		allDivs.forEach(function(div){ const currentBordersStyle= div.style.borderStyle || "grove" ;
+		div.style.borderStyle=currentBordersStyle==="none"?"groove" : "none";
+		//div.style.borderStyle="none"
+		})  }
+
+	function sadeceişaretli(){
+				document.getElementById("bady").style.backgroundColor = "black"
+				document.getElementById("bady").style.color = "black";
+				chola()
+				arkdahe()
+				dikuyp()
+				metınEDİ()	}
+
+</script>
+
+</head>
+<body id="bady" onload="tarıh()">
+	<br>
+
+	<div id="beyaz" class="beyaz" id="byz">
+		<button name="butt" value="butt" class="butt"><a href="{% url 'index' %}">ANASAYFA</a></button>
+		<button id="acButtonnSAP" name="butt" value="butt" class="butt">SAYFA ARKA PLAN</button>
+		<button onclick="sadeceişaretli()" name="butt" value="butt" class="butt">SADECE İŞARETLİ</button>
+		<button id="demo" class="demo"></button>
+		<button id="eag" class="asi" onclick="location.reload()" title="Bu Butona basarak editör görünümüne dönebilirsiniz">EDİTÖR ANA GÖRÜNÜM</button>
+	</div>
+		<div id="kal" class="kal"></div>
+
+	<div id="balonnnsap"  class="balonnnsap" style="display: none;" >
+
+	  <p>
+		<button class="but" onclick= "badyMavi()" >Mavi</button> <br>
+		<button class="siyah" onclick='badysiyah()'> Siyah </button> <br>
+		<button class="edt" onclick='badyEditör()'> Editör </button>  <br>
+		<button class="bey" onclick="beyaz()"> Beyaz </button>  <br>
+		<button class="uyp" onclick="uyap()"> Uyap </button> <br>
+		<button class="yen" onclick="yeni()"> Yeni </button> <br>
+		<button class="dhyen" onclick="dahayeni()"> Daha </button> <br>
+		<button onclick="metinSıfırla()" class="yaz" title=" TAMAMEN SIFIRLAMAK İÇİN EDİTÖR ANA GÖRÜNÜMDEN SONRA YAPMANIZ GEREKİYOR " >Sıfırla</button> <br>
+		<button id="borderreset" class="reset" onclick="DivResetle()" >Çerçeveler</button>
+	  </p></div>
+
+	  <script>
+		acButtonnSAP.addEventListener('click', function() {if (balonnnsap.style.display === "none") {balonnnsap.style.display = "block";	} else {balonnnsap.style.display = "none";};});
+		</script> </div>
+
+
+
+		<div id="soruContainer" class="soruContainer">
+			<div id="soruDiv">
+				<!-- Soru metni ve cevap seçenekleri burada yer alacak -->
+			</div>
+			<div id="cevaplar"  ></div> <!-- Bu div'i ekledim -->
+			<button id="cevaplaButton" style="display: none;" onclick="cevapla()">Cevapla</button>
+			<button id="kapatButton" style="display: none;" onclick="kapat()">Kapat</button>
+			<p id="dogruCevap" class="cevapp" style="display: none;"></p>
+		</div>
+		<script src="static/js/script.js"></script> <br><br><br><br><hr>
+
+
+ <div>	                GENEL ESASLAR
+	<div>
+I. Devletin şekli  <br>
+
+MADDE 1- Türkiye Devleti bir Cumhuriyettir.
+</div>
+<div>
+ <span class="span">II. Cumhuriyetin nitelikleri</span>
+<div>
+MADDE 2- Türkiye Cumhuriyeti, <br class="br"> toplumun huzuru, </b> millî dayanışma ve adalet anlayışı içinde, <br> insan haklarına saygılı,  <br class="br"> Atatürk milliyetçiliğine bağlı, <br> başlangıçta belirtilen temel ilkelere dayanan, <br> demokratik, <br> lâik ve sosyal <br> bir hukuk Devletidir.
+</div></div>
+<div>
+III. Devletin bütünlüğü, resmî dili, bayrağı, millî marşı ve başkenti
+<div> <br>
+MADDE 3- Türkiye Devleti, ülkesi ve milletiyle bölünmez bir bütündür. Dili Türkçedir.
+
+<span class="span">  Bayrağı, şekli kanununda belirtilen, beyaz ay yıldızlı al bayraktır.</span>
+
+Millî marşı “İstiklal Marşı”dır.
+
+Başkenti Ankara’dır.</div>
+</div>
+<div>
+IV. Değiştirilemeyecek hükümler
+ <div>
+MADDE 4- Anayasanın <span class="span">  1 inci</span>  maddesindeki Devletin şeklinin Cumhuriyet olduğu hakkındaki hüküm ile,<span class="span">   2 nci</span> maddesindeki Cumhuriyetin nitelikleri ve  <span class="span">  3 üncü </span> maddesi hükümleri değiştirilemez ve <span class="mavi"> değiştirilmesi teklif edilemez.</span></div></div>
+
+<div><div> <button  onclick="soruyuGoster(329)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+V. Devletin temel amaç ve görevleri
+ <div>
+MADDE 5- Devletin temel amaç ve görevleri, Türk milletinin bağımsızlığını ve bütünlüğünü, ülkenin bölünmezliğini, Cumhuriyeti ve demokrasiyi korumak, kişilerin ve toplumun refah, huzur ve mutluluğunu sağlamak; kişinin temel hak ve hürriyetlerini, sosyal hukuk devleti ve adalet ilkeleriyle bağdaşmayacak surette sınırlayan siyasal, ekonomik ve sosyal engelleri kaldırmaya, insanın maddî ve manevî varlığının gelişmesi için gerekli şartları hazırlamaya çalışmaktır.</div>
+</div>
+<div>
+VI. Egemenlik
+<div>
+MADDE 6- <span class="mavi"> Egemenlik, kayıtsız şartsız Milletindir.</span> <br>
+
+Türk Milleti, egemenliğini, Anayasanın koyduğu esaslara göre, <span class="mavi"> yetkili organları eliyle kullanır</span>. <br>
+
+Egemenliğin kullanılması, hiçbir surette hiçbir kişiye, zümreye veya sınıfa <span class="span">  bırakılamaz.</span> Hiçbir kimse veya organ kaynağını Anayasadan almayan bir Devlet yetkisi kullanamaz. <br></div></div>
+<div> <button  onclick="soruyuGoster(167)" class="soru" >2016 yılı çıkmış soru</button> </div><div> <button  onclick="soruyuGoster(207)" class="soru" >2017 yılı çıkmış soru</button> </div>
+<div>
+VII. Yasama yetkisi
+<div>
+MADDE 7- Yasama yetkisi Türk Milleti adına <span class="mavi">  Türkiye Büyük Millet Meclisinindir.</span> Bu yetki devredilemez.</div>
+</div>
+<div>
+VIII. Yürütme yetkisi ve görevi
+ <div>
+MADDE 8- Yürütme yetkisi ve görevi,<span class="dik">  Cumhurbaşkanı </span> tarafından, Anayasaya ve kanunlara uygun olarak kullanılır ve yerine getirilir.</div>
+</div>
+
+<div>
+IX. Yargı yetkisi(1)
+ <div>
+MADDE 9- Yargı yetkisi, Türk Milleti adına <span class="span">  bağımsız ve tarafsız mahkemelerce kullanılır.</span></div>
+</div>
+
+<div>
+X. Kanun önünde eşitlik
+<div>
+MADDE 10- Herkes, dil, ırk, renk, cinsiyet, siyasî düşünce, felsefî inanç, din, mezhep ve benzeri sebeplerle ayırım gözetilmeksizin <span class="span">  kanun önünde eşittir.</span></div>
+<div> <button  onclick="soruyuGoster(168)" class="soru" >2016 yılı çıkmış soru</button> </div>
+<div>
+(Ek fıkra: 7/5/2004-5170/1 md.) Kadınlar ve erkekler eşit haklara sahiptir. Devlet, bu eşitliğin yaşama geçmesini sağlamakla yükümlüdür. (Ek cümle: 7/5/2010-5982/1 md.) <span class="mavi"> Bu maksatla alınacak tedbirler eşitlik ilkesine aykırı olarak yorumlanamaz.</span></div>
+<div>
+(Ek fıkra: 7/5 <span class="span"> /2010</span>-5982/1 md.) Çocuklar, yaşlılar, özürlüler, harp ve vazife şehitlerinin dul ve yetimleri ile malul ve gaziler için alınacak tedbirler eşitlik ilkesine aykırı sayılmaz.</div>
+<div>
+Hiçbir kişiye, aileye, zümreye veya sınıfa imtiyaz tanınamaz.</div>
+
+<div>
+Devlet organları ve idare makamları bütün işlemlerinde ve her türlü kamu hizmetlerinden yararlanılmasında kanun önünde eşitlik ilkesine uygun olarak hareket etmek zorundadırlar.</div>
+</div>
+<div> <button  onclick="soruyuGoster(4)" class="soru" font-size="large" >2023 yılı çıkmış soru</button> </div> <button  onclick="soruyuGoster(208)" class="soru" font-size="large" >2017 yılı çıkmış soru</button> </div>
+XI. Anayasanın bağlayıcılığı ve üstünlüğü
+ <div>
+MADDE 11- Anayasa hükümleri, yasama, yürütme ve yargı organlarını, idare makamlarını ve diğer kuruluş ve kişileri bağlayan <span class="mavi"> temel hukuk kurallarıdır.</span>
+</div>
+<div> <span class="mavi">
+Kanunlar Anayasaya aykırı olamaz.</span></div> </div></div>
+
+<div>
+<div>
+İKİNCİ KISIM <br>
+
+Temel Haklar ve Ödevler <br></div>
+
+<div>
+BİRİNCİ BÖLÜM <br>
+
+Genel Hükümler
+ <div>
+I. <span class="ark"> Temel hak ve hürriyetlerin niteliği</span> <br>
+
+MADDE 12- Herkes, kişiliğine bağlı, <br> <span class="span">  dokunulmaz,</span> <br> <span class="span"> devredilmez,</span>  <br>
+<span class="span"> vazgeçilmez</span>  <br>
+temel hak ve hürriyetlere sahiptir. <br><br>
+
+Temel hak ve hürriyetler, kişinin topluma, ailesine ve diğer kişilere karşı ödev ve sorumluluklarını da ihtiva eder.</div>
+ <div> <button  onclick="soruyuGoster(209)" class="soru" >2017 yılı çıkmış soru</button> </div>
+II: Temel hak ve hürriyetlerin sınırlanması
+<br>
+MADDE 13- (Değişik: 3/10/2001-4709/2 md.) <br>
+
+Temel hak ve hürriyetler, özlerine dokunulmaksızın yalnızca Anayasanın ilgili maddelerinde belirtilen sebeplere bağlı olarak ve ancak <span class="mavi">  kanunla sınırlanabilir.</span> Bu sınırlamalar, <span class="span">  Anayasanın sözüne ve ruhuna, demokratik toplum düzeninin ve lâik Cumhuriyetin gereklerine ve ölçülülük ilkesine aykırı olamaz. </span><br></div>
+<div>
+III.  Temel hak ve hürriyetlerin kötüye kullanılamaması <br>
+
+MADDE 14- (Değişik: 3/10/2001-4709/3 md.) <br>
+
+Anayasada yer alan hak ve hürriyetlerden hiçbiri, Devletin ülkesi ve milletiyle bölünmez bütünlüğünü bozmayı ve insan haklarına dayanan demokratik ve lâik Cumhuriyeti ortadan kaldırmayı amaçlayan faaliyetler biçiminde kullanılamaz. <br>
+
+Anayasa hükümlerinden hiçbiri, Devlete veya kişilere, Anayasayla tanınan temel hak ve hürriyetlerin yok edilmesini veya Anayasada belirtilenden daha geniş şekilde sınırlandırılmasını amaçlayan bir faaliyette bulunmayı mümkün kılacak şekilde yorumlanamaz. <br>
+ <span class="span">
+Bu hükümlere aykırı faaliyette bulunanlar hakkında uygulanacak müeyyideler, kanunla düzenlenir.</span><br>
+</div>
+<div>
+IV. Temel hak ve hürriyetlerin kullanılmasının durdurulması <br>
+
+MADDE 15- <br>
+ Savaş,  <br> seferberlik <br>
+ (…)(1) veya olağanüstü hallerde, <span class="span">  milletlerarası hukuktan doğan yükümlülükler ihlal edilmemek kaydıyla,</span> durumun gerektirdiği ölçüde temel hak ve hürriyetlerin kullanılması <span class="span">  kısmen veya tamamen durdurulabilir </span>veya bunlar için <span class="span"> Anayasada öngörülen güvencelere aykırı tedbirler alınabilir.(1) </span> <br>
+
+Birinci fıkrada belirlenen durumlarda da,  savaş hukukuna uygun fiiller sonucu <span class="span" > meydana gelen ölümler (…)(2) dışında, </span> kişinin yaşama hakkına, maddi ve manevi varlığının bütünlüğüne <span class="span"> dokunulamaz; </span> kimse din, vicdan, düşünce ve kanaatlerini açıklamaya zorlanamaz ve bunlardan dolayı suçlanamaz; <span class="span">  suç ve cezalar geçmişe yürütülemez;</span> suçluluğu mahkeme kararı ile saptanıncaya kadar kimse suçlu sayılamaz.(2)
+<br>
+(1) 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesiyle, bu fıkrada yer alan “, sıkıyönetim” ibaresi madde metninden çıkarılmıştır. <br>
+
+(2) 7/5/2004 tarihli ve 5170 sayılı Kanunun 2 nci maddesiyle, bu fıkrada yer alan “ile, ölüm cezalarının infazı” ibaresi madde me tninden çıkartılmıştır. <br></div>
+
+
+<div>
+V. <span class="ark"> Yabancıların durumu </span><br>
+
+MADDE 16- Temel hak ve hürriyetler, yabancılar için, milletlerarası hukuka uygun olarak <span class="mavi">  kanunla sınırlanabilir.</span> <br> </div></div>
+<div> <button  onclick="soruyuGoster(9)" class="soru" >2023 yılı çıkmış soru</button> </div><div> <button  onclick="soruyuGoster(169)" class="soru" >2016 yılı çıkmış soru</button> </div>
+
+<div>
+
+İKİNCİ BÖLÜM <br>
+
+Kişinin Hakları ve Ödevleri <br>
+ <div>
+I. Kişinin dokunulmazlığı, maddî ve manevî varlığı
+ <div>
+MADDE 17- Herkes, yaşama, maddî ve manevî varlığını koruma ve geliştirme hakkına sahiptir.</div>
+
+<div>
+Tıbbî zorunluluklar ve kanunda yazılı <span class="span">  haller dış</span>ında, <span class="span">  kişinin vücut bütünlüğüne dokunulamaz; </span> rızası olmadan bilimsel ve tıbbî deneylere tâbi tutulamaz.</div>
+<div>
+Kimseye işkence ve eziyet yapılamaz; kimse insan <span class="span">  haysiyetiyle bağdaşmayan</span> bir cezaya veya muameleye tâbi tutulamaz.</div>
+<div>
+(…)(1) <span class="ark"> meşru müdafaa hali</span>, <span class="ark"> yakalama ve tutuklama kararlarının yerine getirilmesi</span> , bir tutuklu veya hükümlünün  <span class="ark"> kaçmasının önlenmesi</span> , bir ayaklanma veya isyanın bastırılması (…)(2) veya olağanüstü hallerde yetkili merciin verdiği emirlerin uygulanması sırasında <span class="span">  silah kullanılmasına kanunun cevaz verdiği zorunlu durumlarda </span> meydana gelen öldürme fiilleri, birinci fıkra hükmü <span class="span"> dışındadır.</span></div>
+<div> <button  onclick="soruyuGoster(210)" class="soru" >2017 yılı çıkmış soru</button> </div>
+(1) 7/5/2004 tarihli ve 5170 sayılı Kanunun 3 üncü maddesiyle, bu fıkranın başında geçen, “Mahkemelerce verilen ölüm cezalarının yerine getirilmesi hali ile” ibaresi madde metninden çıkartılmıştır.</div>
+<div>
+(2) 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesiyle, bu fıkrada yer alan <span class="mavi"> “, sıkıyönetim” ibaresi madde metninden çıkarılmıştır.</span></div></div>
+
+
+<div>
+II. Zorla çalıştırma yasağı
+ <div>
+MADDE 18- Hiç kimse <span class="span">  zorla çalıştırılamaz. Angarya yasaktır.</span></div>
+<div>
+Şekil ve şartları kanunla düzenlenmek üzere <span class="span">  hükümlülük veya tutukluluk süreleri içindeki çalıştırmalar; </span>olağanüstü hallerde vatandaşlardan <span class="span">  istenecek hizmetler;</span> ülke ihtiyaçlarının zorunlu kıldığı alanlarda öngörülen vatandaşlık ödevi niteliğindeki beden ve fikir çalışmaları, <span class="span"> zorla çalıştırma sayılmaz.</span> </div></div>
+
+<div>
+III. Kişi hürriyeti ve güvenliği
+ <div>
+MADDE 19- Herkes, kişi hürriyeti ve güvenliğine sahiptir.
+</div>
+<div>
+Şekil ve şartları kanunda gösterilen: <br>
+
+Mahkemelerce verilmiş hürriyeti kısıtlayıcı cezaların ve güvenlik tedbirlerinin yerine getirilmesi; <br> bir mahkeme kararının veya kanunda öngörülen bir yükümlülüğün gereği olarak ilgilinin yakalanması veya tutuklanması; <br> bir küçüğün gözetim altında ıslahı veya yetkili merci önüne çıkarılması için verilen bir kararın yerine getirilmesi; <br> toplum için tehlike teşkil eden bir akıl hastası, uyuşturucu madde veya alkol tutkunu, bir serseri veya hastalık yayabilecek bir kişinin bir müessesede tedavi, eğitim veya ıslahı için kanunda belirtilen esaslara uygun olarak alınan tedbirin yerine getirilmesi; <br> usulüne aykırı şekilde ülkeye girmek isteyen veya giren, ya da hakkında sınır dışı etme yahut geri verme kararı verilen bir kişinin yakalanması veya tutuklanması;   <br><span class="span">  halleri dışında kimse hürriyetinden yoksun bırakılamaz.</span></div>
+<div>
+Suçluluğu hakkında kuvvetli belirti bulunan kişiler, ancak kaçmalarını, delillerin yok edilmesini veya değiştirilmesini önlemek maksadıyla veya bunlar gibi tutuklamayı zorunlu kılan ve kanunda gösterilen diğer hallerde hâkim kararıyla tutuklanabilir. <span class="span">  Hâkim kararı olmadan yakalama, ancak suçüstü halinde veya gecikmesinde sakınca bulunan hallerde yapılabilir;</span> <sapan class="mavi">  bunun şartlarını kanun gösterir.</sapan></div>
+<div>
+Yakalanan veya tutuklanan kişilere, yakalama veya tutuklama <span class="span">  sebepleri ve haklarındaki </span> iddialar herhalde <span class="span">  yazılı</span>  ve bunun hemen mümkün olmaması halinde <span class="span">  sözlü olarak derhal,</span> <span class="mavi">  toplu suçlarda en geç hâkim huzuruna çıkarılıncaya kadar bildirilir.</span><div> <button  onclick="soruyuGoster(170)" class="soru" >2016 yılı çıkmış soru</button> </div></div>
+<div>
+(Değişik birinci cümle: 3/10/2001-4709/4 md.) Yakalanan veya tutuklanan kişi, tutulma yerine en yakın mahkemeye gönderilmesi için gerekli süre hariç <span class="mavi">  en geç kırksekiz saat </span>ve toplu olarak işlenen suçlarda <span class="mavi">  en çok dört gün </span> içinde hâkim önüne çıkarılır. Kimse, bu süreler geçtikten sonra hakim kararı olmaksızın hürriyetinden yoksun bırakılamaz. <span class="span">  Bu süreler olağanüstü hal (…)(1) ve savaş hallerinde uzatılabilir.(1)</span></div>
+<div>
+(Değişik fıkra: 3/10/2001-4709/4 md.) Kişinin yakalandığı veya tutuklandığı, <span class="span">  yakınlarına derhal bildirilir.</span></div>
+
+<div>
+Tutuklanan kişilerin, makul süre içinde yargılanmayı ve soruşturma veya kovuşturma sırasında serbest bırakılmayı isteme hakları vardır. Serbest bırakılma ilgilinin yargılama süresince duruşmada hazır bulunmasını veya hükmün yerine getirilmesini <span class="span">  sağlamak için bir güvenceye bağlanabilir.</span></div>
+
+<div>
+Her ne sebeple olursa olsun, hürriyeti kısıtlanan kişi, kısa sürede durumu hakkında karar verilmesini ve bu kısıtlamanın kanuna aykırılığı halinde hemen serbest bırakılmasını sağlamak amacıyla yetkili bir yargı merciine başvurma hakkına sahiptir.</div>
+<div>
+(Değişik: 3/10/2001-4709/4 md.) Bu esaslar dışında bir işleme tâbi tutulan kişilerin uğradıkları zarar, tazminat hukukunun genel prensiplerine göre, <span class="mavi">  Devletçe ödenir.</span></div>
+<div>
+(1) 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesiyle, bu fıkrada yer alan <span class="mavi">  “, sıkıyönetim” ibaresi madde metninden çıkarılmıştır.</span></div></div>
+
+
+<div>
+IV. Özel hayatın gizliliği ve korunması
+<div>
+    A. Özel hayatın gizliliği
+ <div>
+MADDE 20- Herkes, özel hayatına ve aile hayatına saygı gösterilmesini isteme hakkına sahiptir. Özel hayatın ve aile hayatının gizliliğine dokunulamaz. (Mülga üçüncü cümle: 3/10/2001-4709/5 md.) (…)</div>
+<div>
+(Değişik: 3/10/2001-4709/5 md.) Millî güvenlik, kamu düzeni, suç işlenmesinin önlenmesi, genel sağlık ve genel ahlâkın korunması veya başkalarının hak ve özgürlüklerinin korunması sebeplerinden biri veya birkaçına bağlı olarak, usulüne göre verilmiş hâkim kararı olmadıkça; yine bu sebeplere bağlı olarak gecikmesinde sakınca bulunan hallerde de kanunla yetkili kılınmış merciin yazılı emri <span class="span">  bulunmadıkça; kimsenin üstü, özel kâğıtları ve eşyası aranamaz ve bunlara el konulamaz.</span> Yetkili merciin kararı <span class="mavi">  yirmidört saat içinde görevli hâkimin onayına sunulur.</span> Hâkim, kararını <span class="mavi">  el koymadan itibaren kırksekiz saat içinde açıklar;</span> <span class="span">  aksi halde, el koyma kendiliğinden kalkar.</span></div>
+
+<div>
+(Ek fıkra: 7/5/2010-5982/2 md.) Herkes, kendisiyle ilgili kişisel verilerin korunmasını isteme hakkına sahiptir. Bu hak; kişinin kendisiyle ilgili kişisel veriler hakkında bilgilendirilme, bu verilere erişme, bunların düzeltilmesini veya silinmesini talep etme ve amaçları doğrultusunda kullanılıp kullanılmadığını öğrenmeyi de kapsar. <span class="mavi">  Kişisel veriler, ancak kanunda öngörülen hallerde veya kişinin açık rızasıyla işlenebilir.</span> Kişisel verilerin korunmasına ilişkin esas ve usuller <span class="mavi">  kanunla düzenlenir.</span></div></div>
+
+<div>
+    B. Konut dokunulmazlığı
+ <div>
+MADDE 21- (Değişik: 3/10/2001-4709/6 md.) <br>
+
+Kimsenin konutuna dokunulamaz. <span class="mavi"> Millî güvenlik, kamu düzeni, suç işlenmesinin önlenmesi, genel sağlık ve genel ahlâkın korunması veya başkalarının hak ve özgürlüklerinin korunması </span> sebeplerinden biri veya birkaçına bağlı olarak usulüne göre verilmiş hâkim kararı olmadıkça; yine bu sebeplere bağlı olarak gecikmesinde sakınca bulunan hallerde de kanunla yetkili kılınmış merciin yazılı emri bulunmadıkça; kimsenin konutuna girilemez, arama yapılamaz ve buradaki eşyaya el konulamaz. <span class="mavi"> Yetkili merciin kararı yirmidört saat içinde görevli hâkimin onayına sunulur.</span>   Hâkim, kararını <span class="mavi">  el koymadan itibaren kırksekiz saat içinde açıklar;</span> <span class="span">  aksi halde, el koyma kendiliğinden kalkar.</span><div> <button  onclick="soruyuGoster(171)" class="soru" >2016 yılı çıkmış soru</button> </div></div>
+</div>
+
+<div>
+    C. Haberleşme hürriyeti
+ <div>
+MADDE 22- (Değişik: 3/10/2001-4709/7 md.) <br>
+
+Herkes, haberleşme hürriyetine sahiptir. Haberleşmenin gizliliği esastır.
+</div>
+<div>
+Millî güvenlik, kamu düzeni, suç işlenmesinin önlenmesi, genel sağlık ve genel ahlâkın korunması veya başkalarının hak ve özgürlüklerinin korunması sebeplerinden biri veya birkaçına bağlı olarak usulüne göre verilmiş hâkim kararı olmadıkça; yine bu sebeplere bağlı olarak gecikmesinde sakınca bulunan hallerde de kanunla yetkili kılınmış merciin yazılı emri bulunmadıkça; haberleşme engellenemez ve gizliliğine dokunulamaz. Yetkili merciin kararı yirmidört saat içinde görevli hâkimin onayına sunulur. Hâkim, kararını kırksekiz saat içinde açıklar; aksi halde, karar kendiliğinden kalkar.</div>
+<div>
+İstisnaların uygulanacağı kamu kurum ve kuruluşları kanunda belirtilir.</div></div></div>
+
+<div>
+V. Yerleşme ve seyahat hürriyeti
+ <div>
+MADDE 23- Herkes, yerleşme ve seyahat hürriyetine sahiptir.</div>
+<div>
+Yerleşme hürriyeti, <span class="ark"> suç işlenmesini önlemek</span> , sosyal ve <span class="ark"> ekonomik gelişmeyi sağlamak</span> , <span class="ark"> sağlıklı ve düzenli kentleşmeyi</span>  gerçekleştirmek ve <span class="ark"> kamu mallarını</span>  korumak;  Seyahat hürriyeti, suç soruşturma ve kovuşturması sebebiyle ve suç işlenmesini önlemek;
+Amaçlarıyla <span class="mavi"> kanunla sınırlanabilir</span>.</div> <div> <button  onclick="soruyuGoster(211)" class="soru" >2017 yılı çıkmış soru</button> </div>
+
+<div>
+(Değişik fıkra: 7/5/2010-5982/3 md.) Vatandaşın yurt dışına çıkma hürriyeti, ancak suç soruşturması veya kovuşturması sebebiyle hâkim kararına bağlı olarak sınırlanabilir.</div>
+
+<div> Vatandaş sınır dışı edilemez ve yurda girme hakkından yoksun bırakılamaz.</div></div>
+
+
+<div>
+VI. Din ve vicdan hürriyeti
+ <div>
+MADDE 24- <span class="sapan"> Herkes, vicdan, dinî inanç ve kanaat</span>  hürriyetine sahiptir.</div>
+
+<div>
+14 üncü madde hükümlerine aykırı olmamak şartıyla <span class="mavi"> ibadet,  dinî âyin ve törenler serbesttir</span>.</div>
+
+<div>
+Kimse, ibadete, dinî âyin ve törenlere katılmaya, dinî inanç ve kanaatlerini <span class="span"> açıklamaya zorlanamaz;</span>  dinî inanç ve kanaatlerinden dolayı kınanamaz ve suçlanamaz.</div>
+<div>
+Din ve ahlâk eğitim ve öğretimi Devletin gözetim ve denetimi altında yapılır. Din kültürü ve ahlâk öğretimi ilk ve ortaöğretim kurumlarında okutulan <span class="mavi"> zorunlu dersler arasında yer alır</span>. Bunun dışındaki din eğitim ve öğretimi ancak, kişilerin <span class="ark"> kendi isteğine</span> , <span class="ark"> küçüklerin de kanunî temsilcisinin talebine</span> <span class="mavi"> bağlıdır</span>.</div>
+
+<div>
+Kimse, Devletin sosyal, ekonomik, siyasî veya hukukî temel düzenini kısmen de olsa, din kurallarına dayandırma veya siyasî veya kişisel çıkar yahut nüfuz sağlama amacıyla her ne suretle olursa olsun, dini veya din duygularını yahut dince kutsal sayılan şeyleri <span class="mavi"> istismar edemez ve kötüye kullanamaz</span> </div>.</div>
+
+<div>
+VII. Düşünce ve kanaat hürriyeti
+ <div>
+MADDE 25- Herkes, düşünce ve kanaat hürriyetine sahiptir.</div>
+<div>
+Her ne sebep ve amaçla olursa olsun kimse, düşünce ve kanaatlerini açıklamaya <span class="mavi"> zorlanamaz; düşünce ve kanaatleri sebebiyle kınanamaz ve suçlanamaz.</span></div>
+<div>
+VIII. Düşünceyi açıklama ve yayma hürriyeti
+ <div>
+MADDE 26- Herkes, düşünce ve kanaatlerini söz, yazı, resim veya başka yollarla tek başına veya toplu olarak açıklama ve yayma hakkına sahiptir. Bu hürriyet resmî makamların müdahalesi olmaksızın haber veya fikir almak ya da vermek serbestliğini de kapsar. Bu fıkra hükmü, <span class="ark"> radyo, televizyon, sinema veya benzeri</span> yollarla yapılan yayımların <span class="mavi"> izin sistemine bağlanmasına engel değildir</span>.</div>
+
+<div>
+Bu hürriyetlerin kullanılması, <span class="ark"> millî güvenlik, kamu düzeni, kamu güvenliği,</span> Cumhuriyetin temel nitelikleri ve Devletin ülkesi ve milleti ile bölünmez bütünlüğünün korunması, suçların önlenmesi, suçluların cezalandırılması, Devlet sırrı olarak usulünce belirtilmiş bilgilerin açıklanmaması, başkalarının şöhret veya haklarının, özel ve aile hayatlarının yahut kanunun öngördüğü meslek sırlarının korunması veya yargılama görevinin gereğine uygun olarak yerine getirilmesi <span class="mavi"> amaçlarıyla sınırlanabilir.</span>  (1)</div>
+
+<div>
+<span class="dik">
+Haber ve düşünceleri yayma araçlarının kullanılmasına ilişkin düzenleyici hükümler</span>, bunların yayımını engellememek kaydıyla, düşünceyi açıklama ve yayma <span class="mavi"> hürriyetinin sınırlanması sayılmaz.</span></div>
+<div>
+(Ek fıkra: 3/10/2001-4709/9 md.) Düşünceyi açıklama ve yayma hürriyetinin kullanılmasında uygulanacak şekil, şart ve usuller <span class="mavi"> kanunla düzenlenir.</span></div>
+<div>
+(1) 3/10/2001 tarihli ve 4709 sayılı Kanunun 9 uncu maddesiyle, bu fıkraya “Bu hürriyetlerin kullanılması,” ibaresinden sonra gelmek üzere “millî güvenlik, kamu düzeni, kamu güvenliği, Cumhuriyetin temel nitelikleri ve Devletin ülkesi ve milleti ile bölünmez bütünlüğünün korunması,” ibaresi eklenmiştir.</div> </div>
+
+
+<div>
+IX. Bilim ve sanat hürriyeti
+<div>
+MADDE 27- Herkes, bilim ve sanatı serbestçe öğrenme ve öğretme, açıklama, yayma ve bu alanlarda her türlü araştırma hakkına sahiptir.</div>
+<div>
+<span class="dik">Yayma hakkı,</span>  Anayasanın <span class="ark"> 1 inci, 2 nci ve 3 üncü</span> maddeleri hükümlerinin  <span class="mavi"> değiştirilmesini sağlamak amacıyla kullanılamaz.</span></div>
+
+<div> Bu madde hükmü <span class="dik"> yabancı yayınların ülkeye girmesi ve dağıtımının</span> kanunla  <span class="mavi">düzenlenmesine engel değildir</span>.</div></div>
+
+<div>
+
+X. Basın ve yayımla ilgili hükümler
+ <div>
+    A. Basın hürriyeti
+ <div>
+MADDE 28- Basın hürdür, <span class="span"> sansür edilemez</span>. Basımevi kurmak <span class="ark"> izin alma</span> ve <span class="ark"> malî teminat yatırma</span> <span class="mavi"> şartına bağlanamaz</span>.</div>
+<div>
+Devlet, basın ve haber alma hürriyetlerini sağlayacak tedbirleri alır.</div>
+
+<div>
+Basın hürriyetinin sınırlanmasında, Anayasanın 26 ve 27 nci maddeleri hükümleri uygulanır.</div>
+
+<div>
+Devletin iç ve dış güvenliğini, ülkesi ve milletiyle bölünmez bütünlüğünü tehdit eden veya suç işlemeye ya da ayaklanma veya isyana teşvik eder nitelikte olan veya Devlete ait gizli bilgilere ilişkin bulunan her türlü haber veya yazıyı, yazanlar veya bastıranlar veya aynı amaçla, basanlar, başkasına verenler, bu suçlara ait kanun hükümleri uyarınca sorumlu olurlar. Tedbir yolu ile dağıtım hâkim kararıyla; gecikmesinde sakınca bulunan hallerde de kanunun açıkça yetkili kıldığı merciin emriyle önlenebilir. Dağıtımı önleyen yetkili merci, bu kararını <span class="mavi"> en geç <span class="dik"> yirmidört saat</span> içinde yetkili hâkime bildirir</span>. Yetkili hâkim bu kararı <span class="mavi"> en geç <span class="dik"> kırksekiz saat</span> içinde onaylamazsa</span>, dağıtımı önleme kararı <span class="mavi"> hükümsüz sayılır</span>.</div>
+<div>
+Yargılama görevinin amacına uygun olarak yerine getirilmesi için, kanunla belirtilecek sınırlar içinde, hâkim tarafından verilen kararlar saklı kalmak üzere, olaylar hakkında yayım yasağı konamaz.</div>
+
+<div>
+<span class="dik">Süreli veya süresiz yayınlar</span>, kanunun gösterdiği suçların soruşturma veya kovuşturmasına geçilmiş olması hallerinde hâkim kararıyla; Devletin ülkesi ve milletiyle bölünmez bütünlüğünün, millî güvenliğin, kamu düzeninin, genel ahlâkın korunması ve suçların önlenmesi bakımından gecikmesinde sakınca bulunan hallerde de kanunun açıkça yetkili kıldığı <span class="mavi"> merciin emriyle toplatılabilir.</span>  Toplatma kararı veren yetkili merci, <span class="mavi"> bu kararını en geç <span class="dik"> yirmidört saat</span> içinde yetkili hâkime bildirir</span>; hâkim bu kararı <span class="mavi"> en geç <span class="dik"> kırksekiz saat</span> içinde onaylamazsa</span>, toplatma kararı <span class="mavi"> hükümsüz sayılır</span>.</div>
+
+<div>
+Süreli veya süresiz yayınların suç soruşturma veya kovuşturması sebebiyle zapt ve müsaderesinde genel hükümler uygulanır.</div>
+<div>
+Türkiye’de yayımlanan süreli yayınlar, Devletin ülkesi ve milletiyle bölünmez bütünlüğüne, Cumhuriyetin temel ilkelerine, millî güvenliğe ve genel ahlâka aykırı yayımlardan mahkûm olma halinde, mahkeme kararıyla geçici olarak kapatılabilir. Kapatılan süreli yayının açıkça devamı niteliğini taşıyan her türlü yayın yasaktır; bunlar hâkim kararıyla toplatılır.</div> </div>
+
+<div>
+    B. Süreli ve süresiz yayın hakkı
+ <div>
+MADDE 29- Süreli veya süresiz yayın önceden <span class="mavi"> izin alma ve malî teminat yatırma şartına bağlanamaz</span>.
+</div>
+<div>
+Süreli yayın çıkarabilmek için kanunun gösterdiği bilgi ve belgelerin, kanunda belirtilen <span class="mavi"> yetkili mercie verilmesi yeterlidir.</span>  Bu bilgi ve belgelerin kanuna aykırılığının tespiti halinde yetkili merci, yayının durdurulması için mahkemeye başvurur.</div>
+<div>
+Süreli yayınların çıkarılması, yayım şartları, malî kaynakları ve gazetecilik mesleği ile ilgili esaslar <span class="mavi"> kanunla düzenlenir.</span>  Kanun, haber, düşünce ve kanaatlerin serbestçe yayımlanmasını engelleyici veya zorlaştırıcı siyasal, ekonomik, malî ve teknik şartlar koyamaz.</div>
+<div>
+<span class="dik">Süreli yayınlar</span>, Devletin ve diğer kamu tüzelkişilerinin veya bunlara bağlı kurumların araç ve imkânlarından <span class="mavi"> eşitlik esasına göre yararlanır</span>.</div></div>
+<div>
+    C. Basın araçlarının korunması
+ <div>
+MADDE 30- (Değişik: 7/5/2004-5170/4 md.) <br>
+
+Kanuna uygun şekilde basın işletmesi olarak kurulan basımevi ve eklentileri ile basın araçları, <span class="ark"> suç aleti olduğu gerekçesiyle</span> <span class="mavi"> zapt ve müsadere edilemez veya işletilmekten alıkonulamaz</span>.</div></div>
+<div>
+    D. Kamu tüzel kişilerinin elindeki basın dışı kitle haberleşme araçlarından yararlanma hakkı
+<div>
+MADDE 31- Kişiler ve siyasî partiler, kamu tüzelkişilerinin elindeki basın dışı kitle haberleşme ve yayım araçlarından yararlanma hakkına sahiptir. <span class="mavi"> Bu yararlanmanın şartları ve usulleri <span class="dik"> kanunla</span> düzenlenir</span>.</div>
+<div>
+(Değişik fıkra: 3/10/2001-4709/11 md.) Kanun, millî güvenlik, kamu düzeni, genel ahlâk ve sağlığın korunması sebepleri dışında, halkın bu araçlarla haber almasını, düşünce ve kanaatlere ulaşmasını ve kamuoyunun serbestçe oluşmasını engelleyici kayıtlar koyamaz.</div></div>
+<div>
+    E. Düzeltme ve cevap hakkı
+<div>
+MADDE 32- <span class="dik"> Düzeltme ve cevap hakkı,</span>  ancak kişilerin <span class="ark"> haysiyet ve şereflerine dokunulması</span>  veya kendileriyle ilgili <span class="ark"> gerçeğe aykırı yayınlar yapılması</span>  <span class="mavi"> hallerinde tanınır ve <span class="dik"> kanunla </span> düzenlenir.</span></div>
+<div>
+Düzeltme ve cevap yayımlanmazsa, yayımlanmasının gerekip gerekmediğine hâkim tarafından ilgilinin müracaat tarihinden <span class="mavi"> itibaren en geç  <span class="dik"> yedi gün</span>  içerisinde karar verilir</span>.<div> <button  onclick="soruyuGoster(212)" class="soru" >2017 yılı çıkmış soru</button> </div></div></div></div>
+
+<div>
+XI. Toplantı hak ve hürriyetleri
+<div>
+    A. Dernek kurma hürriyeti
+<div>
+MADDE 33- (Değişik: 3/10/2001-4709/12 md.) <br>
+
+Herkes, önceden izin almaksızın dernek kurma ve bunlara üye olma ya da üyelikten çıkma <span class="span"> hürriyetine sahiptir</span>.</div>
+
+<div>
+Hiç kimse bir derneğe üye olmaya ve dernekte üye kalmaya <span class="span"> zorlanamaz</span>.</div>
+
+<div>
+Dernek kurma hürriyeti ancak, <span class="ark"> millî güvenlik</span>, <span class="ark"> kamu düzeni</span>,  <span class="ark"> suç işlenmesinin önlenmesi</span> , <span class="ark"> genel sağlık ve genel ahlâk</span>  ile başkalarının hürriyetlerinin korunması  <span class="mavi"> sebepleriyle ve kanunla sınırlanabilir</span>.</div>
+<div>
+Dernek kurma hürriyetinin kullanılmasında uygulanacak şekil, şart ve usuller <span class="mavi"> <span class="dik"> kanunda</span> gösterilir</span>.</div>
+
+<div>
+Dernekler, kanunun öngördüğü hallerde hâkim kararıyla kapatılabilir veya faaliyetten alıkonulabilir. Ancak, millî güvenliğin, kamu düzeninin, suç işlenmesini veya suçun devamını önlemenin yahut yakalamanın gerektirdiği hallerde gecikmede sakınca varsa, kanunla bir merci, derneği faaliyetten men ile yetkilendirilebilir. Bu merciin kararı, <span class="mavi"> <span class="dik"> yirmidört saat</span> içinde görevli hâkimin onayına sunulur</span>. Hâkim, kararını <span class="mavi"> <span class="dik"> kırksekiz saat</span> içinde açıklar</span>; aksi halde, bu idarî karar kendiliğinden yürürlükten kalkar.</div>
+<div>
+Birinci fıkra hükmü, <span class="span"> Silahlı Kuvvetler ve kolluk kuvvetleri mensuplarına ve görevlerinin gerektirdiği ölçüde Devlet memurlarına kanunla sınırlamalar getirilmesine engel değildir</span>.</div>
+
+<div>
+Bu madde hükümleri <span class="mavi"> vakıflarla ilgili olarak da uygulanır</span>.</div></div>
+<div>
+    B. Toplantı ve gösteri yürüyüşü düzenleme hakkı
+ <div>
+MADDE 34- (Değişik: 3/10/2001-4709/13 md.) <br>
+
+Herkes, <span class="ark"> önceden izin almadan</span> , silahsız ve saldırısız toplantı ve gösteri yürüyüşü <span class="mavi"> düzenleme hakkına sahiptir.</span> </div>
+<div>
+Toplantı ve gösteri yürüyüşü hakkı ancak,  millî güvenlik, kamu düzeni, suç işlenmesinin önlenmesi, genel sağlığın ve genel ahlâkın veya başkalarının hak ve özgürlüklerinin korunması <span class="mavi"> amacıyla ve kanunla sınırlanabilir</span>.</div>
+
+<div>
+Toplantı ve gösteri yürüyüşü düzenleme hakkının kullanılmasında uygulanacak şekil, şart ve usuller kanunda gösterilir.</div></div></div>
+
+<div>
+XII. Mülkiyet hakkı
+ <div>
+MADDE 35- Herkes, mülkiyet ve miras haklarına sahiptir. <br>
+
+Bu haklar, ancak <span class="mavi"> kamu yararı amacıyla,</span> kanunla sınırlanabilir. <br>
+
+Mülkiyet hakkının kullanılması toplum yararına aykırı olamaz.</div>
+</div>
+<div>
+XIII.  Hakların korunması ile ilgili hükümler
+ <div>
+    A. Hak arama hürriyeti
+ <div>
+MADDE 36- Herkes, meşrû vasıta ve yollardan faydalanmak suretiyle yargı mercileri önünde <span class="span"> davacı veya davalı olarak iddia ve savunma ile adil yargılanma hakkına sahiptir</span>.(1)</div>
+<div>
+Hiçbir mahkeme, görev ve yetkisi içindeki <span class="mavi"> davaya bakmaktan kaçınamaz</span>.</div>
+<div>
+(1) 3/10/2001 tarihli ve 4709 sayılı Kanunun 14 üncü maddesiyle, bu fıkraya “savunma” ibaresinden sonra gelmek üzere “ile adil yargılanma” ibaresi eklenmiştir.</div></div>
+
+
+<div>
+    B. <span class="ark"> Kanunî hâkim güvencesi</span>
+<div>
+MADDE 37- <span class="span"> Hiç kimse kanunen tabî olduğu mahkemeden başka bir merci önüne çıkarılamaz</span>. <br>
+
+Bir kimseyi kanunen tabî olduğu mahkemeden başka bir merci önüne çıkarma sonucunu doğuran yargı yetkisine sahip <span class="mavi">olağanüstü merciler kurulamaz</span>.<div> <button  onclick="soruyuGoster(8)" class="soru" >2023 yılı çıkmış soru</button> </div></div></div>
+<div>
+    C. Suç ve cezalara ilişkin esaslar
+ <div>
+MADDE 38- Kimse, işlendiği zaman yürürlükte bulunan <span class="mavi"> kanunun suç saymadığı bir fiilden dolayı cezalandırılamaz</span>; kimseye suçu işlediği zaman kanunda o suç için konulmuş olan cezadan <span class="ark"> daha ağır </span>bir ceza verilemez.</div>
+<div>
+Suç ve ceza zamanaşımı ile ceza mahkûmiyetinin sonuçları konusunda da yukarıdaki fıkra uygulanır.</div>
+<div>
+Ceza ve ceza yerine geçen güvenlik tedbirleri ancak <span class="mavi"> kanunla konulur</span>.</div>
+<div>
+Suçluluğu hükmen  <span class="dik"> sabit oluncaya kadar</span>, <span class="mavi"> kimse suçlu sayılamaz.</span></div>
+<div>
+Hiç kimse kendisini ve kanunda gösterilen yakınlarını suçlayan bir beyanda bulunmaya veya bu yolda delil göstermeye zorlanamaz.</div>
+<div>
+(Ek fıkra: 3/10/2001-4709/15 md.) <span class="span"> Kanuna aykırı olarak elde edilmiş bulgular, delil olarak kabul edilemez</span>.</div>
+<div> <span class="mavi">
+Ceza sorumluluğu şahsîdir.</span> </div>
+
+<div>
+(Ek fıkra: 3/10/2001-4709/15 md.) Hiç kimse, yalnızca <span class="dik"> sözleşmeden doğan bir yükümlülüğü yerine getirememesinden dolayı</span> <span class="mavi"> özgürlüğünden alıkonulamaz</span> .</div>
+
+<div> <span class="mavi"> Ölüm cezası ve genel müsadere cezası verilemez</span>.</div>
+<div>
+İdare, kişi hürriyetinin kısıtlanması sonucunu doğuran bir müeyyide uygulayamaz. <span class="span"> Silahlı Kuvvetlerin iç düzeni bakımından bu hükme kanunla istisnalar getirilebilir</span>.</div>
+
+<div>
+(Değişik son fıkra: 7/5/2004-5170/5 md.) Uluslararası Ceza Divanına taraf olmanın gerektirdiği yükümlülükler hariç olmak üzere vatandaş, <span class="span"> suç sebebiyle yabancı bir ülkeye verilemez</span>.<div> <button  onclick="soruyuGoster(172)" class="soru" >2016 yılı çıkmış soru</button> </div></div></div></div>
+<div>
+XIV. İspat hakkı
+ <div>
+MADDE 39- <span class="dik"> Kamu görev ve hizmetinde bulunanlara karşı,</span> bu görev ve hizmetin yerine getirilmesiyle ilgili olarak yapılan <span class="ark"> isnatlardan dolayı açılan hakaret davalarında</span>, <span class="mavi"> sanık, isnadın doğruluğunu ispat hakkına sahiptir</span>. Bunun dışındaki hallerde ispat isteminin kabulü, ancak isnat olunan fiilin doğru olup olmadığının anlaşılmasında kamu yararı bulunmasına veya şikâyetçinin ispata razı olmasına bağlıdır.</div></div>
+
+<div>
+XV. Temel hak ve hürriyetlerin korunması
+<div>
+MADDE 40- Anayasa ile tanınmış hak ve hürriyetleri ihlâl edilen herkes, yetkili makama geciktirilmeden başvurma imkânının sağlanmasını isteme hakkına sahiptir.</div>
+<div>
+(Ek fıkra: 3/10/2001-4709/16 md.) <span class="dik"> Devlet, işlemlerinde</span>, ilgili kişilerin hangi <span class="mavi"> kanun yolları ve mercilere başvuracağını ve sürelerini belirtmek zorundadır</span>.</div>
+<div>
+Kişinin, resmî görevliler tarafından vâki haksız işlemler sonucu uğradığı zarar da, kanuna göre, <span class="mavi"> Devletçe tazmin edilir</span>. Devletin sorumlu olan ilgili görevliye <span class="mavi"> rücu hakkı saklıdır</span>.</div></div>
+</div>
+
+<div>
+ÜÇÜNCÜ BÖLÜM <br>
+
+Sosyal ve Ekonomik Haklar ve Ödevler <br>
+<div><div> <button  onclick="soruyuGoster(330)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+I. Ailenin korunması ve çocuk hakları(1)
+ <div>
+MADDE 41- Aile, Türk toplumunun temelidir ve <span class="mavi"> eşler arasında eşitliğe dayanır</span>.(2)</div>
+<div>
+<span class="dik">Devlet</span>, ailenin huzur ve refahı ile özellikle ananın ve çocukların korunması ve aile planlamasının öğretimi ile uygulanmasını sağlamak için <span class="mavi"> gerekli tedbirleri alır, teşkilâtı kurar</span>.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/4 md.) Her çocuk, korunma ve bakımdan yararlanma, yüksek yararına açıkça aykırı olmadıkça, ana ve babasıyla kişisel ve doğrudan ilişki kurma ve sürdürme hakkına sahiptir.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/4 md.) Devlet, her türlü istismara ve şiddete karşı çocukları <span class="mavi"> koruyucu tedbirleri alır</span>.</div>
+<div>
+(1) Bu maddenin kenar başlığı “I. Ailenin korunması” iken, 7/5/2010 tarihli ve 5982 sayılı Kanunun 4 üncü maddesiyle metne işlendiği şekilde değiştirilmiştir.</div>
+<div>
+(2) 3/10/2001 tarihli ve 4709 sayılı Kanunun 17 nci maddesiyle bu fıkranın sonuna “ve eşler arasında eşitliğe dayanır” ibaresi eklenmiştir.</div></div>
+
+ <div>
+
+II. Eğitim ve öğrenim hakkı ve ödevi
+ <div>
+MADDE 42- Kimse, eğitim ve öğrenim hakkından yoksun bırakılamaz.</div>
+<div> <span class="span">
+Öğrenim hakkının kapsamı kanunla tespit edilir ve düzenlenir</span>.</div>
+
+<div>
+Eğitim ve öğretim, <span class="ark"> Atatürk ilkeleri ve inkılâpları doğrultusunda</span>, çağdaş bilim ve eğitim esaslarına göre, <span class="ark"> Devletin gözetim ve denetimi altında yapılır</span> . <span class="mavi"> Bu esaslara aykırı eğitim ve öğretim yerleri açılamaz</span>.</div>
+<div>
+Eğitim ve öğretim hürriyeti, <span class="mavi"> Anayasaya sadakat borcunu ortadan kaldırmaz</span>.</div>
+<div> <span class="dik">
+İlköğretim,</span>  kız ve erkek bütün vatandaşlar için <span class="mavi"> zorunludur ve Devlet okullarında parasızdır</span>.</div>
+<div> <span class="dik">
+Özel ilk ve orta dereceli okulların bağlı olduğu esaslar</span>, Devlet okulları ile erişilmek istenen <span class="mavi"> seviyeye uygun olarak, <span class="dik"> kanunla </span> düzenlenir</span>.</div>
+<div>
+(Ek fıkra: 9/2/2008-5735/2 md.; İptal: Anayasa Mahkemesinin 5/6/2008 tarihli ve E.: 2008/16, K.: 2008/116 sayılı Kararı ile. )</div>
+<div>
+Devlet, maddî imkânlardan yoksun başarılı öğrencilerin, öğrenimlerini sürdürebilmeleri amacı ile burslar ve başka yollarla gerekli yardımları yapar. Devlet, durumları sebebiyle <span class="mavi"> özel eğitime ihtiyacı olanları topluma yararlı kılacak tedbirleri alır</span>.</div>
+<div>
+Eğitim ve öğretim kurumlarında sadece eğitim, öğretim, araştırma ve inceleme ile ilgili faaliyetler yürütülür. Bu faaliyetler her ne suretle olursa olsun engellenemez.</div>
+<div> <span class="dik">
+Türkçeden başka hiçbir dil</span>, eğitim ve öğretim kurumlarında Türk vatandaşlarına ana dilleri olarak <span class="mavi"> okutulamaz ve öğretilemez</span>. Eğitim ve öğretim kurumlarında okutulacak yabancı diller ile yabancı dille eğitim ve öğretim yapan okulların tabi olacağı esaslar <span class="mavi"> <span class="dik"> kanunla</span> düzenlenir</span>. <span class="mavi"> Milletlerarası andlaşma hükümleri saklıdır</span>.</div></div>
+
+<div><div> <button  onclick="soruyuGoster(331)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+III. Kamu yararı
+ <div>
+    A. Kıyılardan yararlanma
+ <div>
+MADDE 43- Kıyılar, <span class="mavi"> Devletin hüküm ve tasarrufu altındadır</span>.</div>
+<div>
+Deniz, göl ve akarsu kıyılarıyla, deniz ve göllerin kıyılarını çevreleyen sahil şeritlerinden yararlanmada öncelikle  <span class="mavi">kamu yararı gözetilir</span>.</div>
+<div>
+Kıyılarla sahil şeritlerinin, kullanılış amaçlarına göre derinliği ve kişilerin bu yerlerden yararlanma imkân ve şartları <span class="mavi"> <span class="dik"> kanunla</span> düzenlenir</span>.</div></div>
+
+<div>
+    B. Toprak mülkiyeti
+<div>
+MADDE 44- Devlet, toprağın verimli olarak işletilmesini korumak ve geliştirmek, erozyonla kaybedilmesini önlemek ve topraksız olan veya yeter toprağı bulunmayan çiftçilikle uğraşan köylüye toprak sağlamak amacıyla gerekli tedbirleri alır. Kanun, bu amaçla, değişik tarım bölgeleri ve çeşitlerine göre toprağın genişliğini tespit edebilir. Topraksız olan veya yeter toprağı bulunmayan çiftçiye toprak sağlanması, üretimin düşürülmesi, ormanların küçülmesi ve diğer toprak ve yeraltı servetlerinin azalması sonucunu doğuramaz.</div>
+<div>
+Bu amaçla dağıtılan topraklar bölünemez, miras hükümleri dışında başkalarına devredilemez ve ancak dağıtılan çiftçilerle mirasçıları tarafından işletilebilir. <span class="span"> Bu şartların kaybı halinde, dağıtılan toprağın Devletçe geri alınmasına ilişkin esaslar <span class="dik"> kanunla</span> düzenlenir</span>.</div></div>
+
+<div>
+    C. Tarım, hayvancılık ve bu üretim dallarında çalışanların korunması
+<div>
+MADDE 45- Devlet, tarım arazileri ile çayır ve meraların amaç dışı kullanılmasını ve tahribini önlemek, tarımsal üretim planlaması ilkelerine uygun olarak bitkisel ve hayvansal üretimi artırmak maksadıyla, tarım ve hayvancılıkla uğraşanların <span class="mavi"> işletme araç ve gereçlerinin ve diğer girdilerinin sağlanmasını kolaylaştırır</span>.</div>
+
+<div>
+Devlet, bitkisel ve hayvansal ürünlerin değerlendirilmesi ve <span class="span"> gerçek değerlerinin üreticinin eline geçmesi için gereken tedbirleri alır</span>.</div></div>
+
+<div>
+    D. Kamulaştırma
+<div>
+MADDE 46- (Değişik: 3/10/2001-4709/18 md.) <br>
+
+Devlet ve kamu tüzel kişileri; kamu yararının gerektirdiği hallerde, gerçek karşılıklarını <span class="ark"> peşin ödemek şartıyla</span>, özel mülkiyette bulunan taşınmaz malların tamamını veya bir kısmını, kanunla gösterilen esas ve usullere göre,  <span class="mavi"> kamulaştırmaya ve bunlar üzerinde idarî irtifaklar kurmaya yetkilidir</span>.</div>
+<div>
+Kamulaştırma bedeli ile kesin hükme bağlanan artırım bedeli nakden ve peşin olarak ödenir. Ancak, tarım reformunun uygulanması, büyük enerji ve sulama projeleri ile iskân projelerinin gerçekleştirilmesi, yeni ormanların yetiştirilmesi, kıyıların korunması ve turizm amacıyla kamulaştırılan toprakların bedellerinin ödenme şekli kanunla gösterilir. <span class="dik"> Kanunun taksitle ödemeyi öngörebileceği bu hallerde</span>, <span class="mavi"> taksitlendirme süresi <span class="dik"> beş yılı aşamaz</span>; bu takdirde taksitler eşit olarak ödenir</span>.</div>
+<div>
+Kamulaştırılan topraktan, o toprağı doğrudan doğruya işleten <span class="dik"> küçük çiftçiye ait olanlarının bedeli,</span> <span class="mavi"> her halde peşin ödenir</span>.</div>
+<div>
+İkinci fıkrada öngörülen taksitlendirmelerde ve herhangi bir sebeple ödenmemiş kamulaştırma bedellerinde kamu alacakları için öngörülen <span class="mavi"> en yüksek faiz uygulanır</span>.</div></div>
+<div>
+    E. Devletleştirme ve özelleştirme(1)
+<div>
+MADDE 47- Kamu hizmeti niteliği taşıyan <span class="dik"> özel teşebbüsler</span>, kamu yararının zorunlu kıldığı hallerde <span class="mavi"> devletleştirilebilir.</span>
+</div>
+<div> <span class="dik">
+Devletleştirme gerçek karşılığı üzerinden yapılır</span> . Gerçek karşılığın hesaplanma tarzı ve usulleri <span class="mavi"> <span class="dik"> kanunla</span> düzenlenir</span>.</div>
+<div>
+(Ek fıkra: 13/8/1999-4446/1 md.) Devletin, kamu iktisadî teşebbüslerinin ve diğer kamu tüzelkişilerinin mülkiyetinde bulunan işletme ve varlıkların <span class="mavi"> özelleştirilmesine ilişkin esas ve usuller <span class="dik"> kanunla</span> gösterilir</span>.</div>
+<div>
+(Ek fıkra: 13/8/1999-4446/1 md.) Devlet, kamu iktisadî teşebbüsleri ve diğer kamu tüzelkişileri tarafından yürütülen yatırım ve hizmetlerden hangilerinin özel hukuk sözleşmeleri ile gerçek veya tüzelkişilere yaptırılabileceği veya devredilebileceği kanunla belirlenir.</div>
+<div>
+(1) Bu maddenin kenar başlığı “E. Devletleştirme” iken, 13/8/1999 tarihli ve 4446 sayılı Kanunun 1 inci maddesiyle metne işlendiği şekilde değiştirilmiştir.</div></div></div>
+
+
+<div>
+IV. Çalışma ve sözleşme hürriyeti
+<div>
+MADDE 48- Herkes, dilediği alanda çalışma ve sözleşme hürriyetlerine sahiptir. <span class="mavi"> Özel teşebbüsler kurmak serbesttir</span>.</div>
+<div>
+Devlet, özel teşebbüslerin millî ekonominin gereklerine ve sosyal amaçlara uygun yürümesini, güvenlik ve kararlılık içinde çalışmasını sağlayacak tedbirleri alır.</div></div>
+<div>
+V. Çalışma ile ilgili hükümler
+ <div>
+    A. Çalışma hakkı ve ödevi
+ <div>
+MADDE 49- <span class="mavi"> Çalışma, herkesin hakkı ve ödevidir</span>.</div>
+<div>
+(Değişik: 3/10/2001-4709/19 md.) Devlet, çalışanların hayat seviyesini yükseltmek, çalışma hayatını geliştirmek için çalışanları ve işsizleri korumak, çalışmayı desteklemek, işsizliği önlemeye elverişli ekonomik bir ortam yaratmak ve çalışma barışını sağlamak için gerekli tedbirleri alır.</div> </div>
+<div>
+    B. Çalışma şartları ve dinlenme hakkı
+ <div>
+MADDE 50- <span class="mavi"> Kimse, yaşına, cinsiyetine ve gücüne uymayan işlerde çalıştırılamaz</span>.</div>
+<div> <span class="dik">
+Küçükler ve kadınlar ile bedenî ve ruhî yetersizliği olanlar</span>  çalışma şartları bakımından <span class="mavi"> özel olarak korunurlar.</span></div>
+<div>
+Dinlenmek, çalışanların hakkıdır.</div>
+<div>
+Ücretli hafta ve bayram tatili ile ücretli yıllık izin hakları ve şartları <span class="mavi"> <span class="dik">kanunla</span> düzenlenir</span>.</div></div>
+<div> <button  onclick="soruyuGoster(173)" class="soru" >2016 yılı çıkmış soru</button> </div>
+<div>
+    C. Sendika kurma hakkı
+<div>
+MADDE 51- (Değişik: 3/10/2001-4709/20 md.) <br>
+
+Çalışanlar ve işverenler, üyelerinin çalışma ilişkilerinde, ekonomik ve sosyal hak ve menfaatlerini korumak ve geliştirmek için önceden <span class="dik"> izin almaksızın sendikalar ve üst kuruluşlar kurma</span>, bunlara serbestçe üye olma ve üyelikten serbestçe çekilme <span class="mavi"> haklarına sahiptir</span>. <span class="ark"> Hiç kimse</span>  bir sendikaya üye olmaya ya da üyelikten ayrılmaya <span class="mavi"> zorlanamaz</span>.</div>
+<div> <span class="dik">
+Sendika kurma hakkı ancak,</span>  millî güvenlik, kamu düzeni, suç işlenmesinin önlenmesi, genel sağlık ve genel ahlâk ile başkalarının hak ve özgürlüklerinin korunması sebepleriyle ve <span class="mavi"> <span class="dik"> kanunla</span> sınırlanabilir</span>.</div>
+<div>
+
+
+Sendika kurma hakkının kullanılmasında uygulanacak şekil, şart ve usuller kanunda gösterilir.</div>
+
+<div>
+İşçi niteliği taşımayan kamu görevlilerinin bu alandaki haklarının kapsam, istisna ve sınırları gördükleri hizmetin niteliğine uygun olarak kanunla düzenlenir.</div>
+<div>
+Sendika ve üst kuruluşlarının tüzükleri, yönetim ve işleyişleri, <span class="mavi"> Cumhuriyetin temel niteliklerine ve demokrasi esaslarına aykırı olamaz</span>.</div></div>
+<div>
+    D. Sendikal faaliyet
+MADDE 52- (Mülga: 23/7/1995- 4121/3 md.)</div> </div>
+<div>
+VI. Toplu iş sözleşmesi, grev hakkı ve lokavt
+ <div>
+    A. Toplu iş sözleşmesi ve toplu sözleşme hakkı(1)
+<div>
+MADDE 53- İşçiler ve işverenler, karşılıklı olarak ekonomik ve sosyal durumlarını ve çalışma şartlarını düzenlemek amacıyla <span class="mavi"> toplu iş sözleşmesi yapma hakkına sahiptirler</span>.</div>
+<div>
+Toplu iş sözleşmesinin nasıl yapılacağı <span class="mavi"> <span class="dik"> kanunla</span> düzenlenir</span>.</div>
+<div>
+(Ek fıkra: 23/7/1995-4121/4 md.; Mülga üçüncü fıkra: 7/5/2010-5982/6 md.)
+
+(Mülga dördüncü fıkra: 7/5/2010-5982/6 md.)</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/6 md.) <span class="dik"> Memurlar ve diğer kamu görevlileri</span>, <span class="mavi"> toplu sözleşme yapma hakkına sahiptirler</span>.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/6 md.) Toplu sözleşme yapılması sırasında uyuşmazlık çıkması halinde taraflar Kamu Görevlileri Hakem Kuruluna başvurabilir. <span class="dik"> Kamu Görevlileri Hakem Kurulu kararları</span> <span class="mavi"> kesindir ve toplu sözleşme hükmündedir</span>.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/6 md.) <span class="dik"> Toplu sözleşme hakkının kapsamı</span>, istisnaları, toplu sözleşmeden yararlanacaklar, toplu sözleşmenin yapılma şekli, usulü ve yürürlüğü, toplu sözleşme hükümlerinin emeklilere yansıtılması, Kamu Görevlileri Hakem Kurulunun teşkili, çalışma usul ve esasları ile diğer hususlar  <span class="mavi"> <span class="dik"> kanunla</span>  düzenlenir</span>.</div>
+<div>
+(1) Bu maddenin kenar başlığı “A. Toplu iş sözleşmesi hakkı” iken, 7/5/2010 tarihli ve 5982 sayılı Kanunun 6 ncı maddesiyle metne işlendiği şekilde değiştirilmiştir. <div> <button  onclick="soruyuGoster(174)" class="soru" >2016 yılı çıkmış soru</button> </div> </div></div>
+
+ <div>
+
+    B. Grev hakkı ve lokavt
+<div>
+MADDE 54- Toplu iş sözleşmesinin yapılması sırasında, uyuşmazlık çıkması halinde işçiler grev hakkına sahiptirler. Bu hakkın kullanılmasının ve işverenin lokavta başvurmasının usul ve şartları ile kapsam ve istisnaları <span class="mavi"> <span class="dik"> kanunla</span> düzenlenir.</span></div>
+<div><span class="dik">
+Grev hakkı ve lokavt</span>  iyi niyet kurallarına aykırı tarzda, toplum zararına ve <span class="mavi"> millî serveti tahrip edecek şekilde kullanılamaz</span>.</div>
+<div>
+Grev ve lokavtın yasaklanabileceği veya ertelenebileceği haller ve işyerleri kanunla düzenlenir.</div>
+
+<div> <span class="dik">
+Grev ve lokavtın yasaklandığı hallerde veya ertelendiği durumlarda ertelemenin sonunda</span> , uyuşmazlık <span class="mavi"> Yüksek Hakem Kurulunca çözülür</span>. Uyuşmazlığın her safhasında taraflar da anlaşarak Yüksek Hakem Kuruluna başvurabilir. <span class="mavi"> Yüksek Hakem Kurulunun kararları kesindir ve toplu iş sözleşmesi hükmündedir</span>.</div>
+<div>
+Yüksek hakem kurulunun kuruluş ve görevleri kanunla düzenlenir.</div>
+
+<div> <span class="dik">
+Greve katılmayanların işyerinde çalışmaları</span> , <span class="ark"> greve katılanlar tarafından </span> hiçbir şekilde <span class="mavi"> engellenemez</span>.</div></div></div>
+
+<div>
+VII. Ücrette adalet sağlanması
+<div>
+MADDE 55- <span class="mavi"> Ücret emeğin karşılığıdır</span>.</div>
+<div> <span class="dik">
+Devlet,</span>  çalışanların yaptıkları işe uygun adaletli bir ücret elde etmeleri ve diğer sosyal yardımlardan yararlanmaları için <span class="mavi"> gerekli tedbirleri alır</span>.</div>
+<div>
+(Değişik fıkra: 3/10/2001-4709/21 md.) Asgarî ücretin tespitinde çalışanların geçim şartları ile ülkenin ekonomik durumu da gözönünde bulundurulur.</div></div>
+
+<div>
+VIII. Sağlık, çevre ve konut
+<div>
+    A. Sağlık hizmetleri ve çevrenin korunması
+<div>
+MADDE 56- Herkes, sağlıklı ve dengeli bir çevrede yaşama hakkına sahiptir.</div>
+<div>
+Çevreyi geliştirmek, çevre sağlığını korumak ve çevre kirlenmesini önlemek <span class="mavi"> Devletin ve vatandaşların ödevidir</span>.</div>
+<div>
+Devlet, herkesin hayatını, beden ve ruh sağlığı içinde sürdürmesini sağlamak; insan ve madde gücünde tasarruf ve verimi artırarak, işbirliğini gerçekleştirmek amacıyla sağlık kuruluşlarını tek elden planlayıp hizmet vermesini düzenler.</div>
+<div>
+Devlet, bu görevini kamu ve özel kesimlerdeki sağlık ve sosyal kurumlarından yararlanarak, onları denetleyerek yerine getirir.</div>
+<div>
+Sağlık hizmetlerinin yaygın bir şekilde yerine getirilmesi için <span class="mavi"> kanunla genel sağlık sigortası kurulabilir</span>.</div></div>
+<div>
+    B. Konut hakkı
+	<div>
+MADDE 57- Devlet, şehirlerin özelliklerini ve çevre şartlarını gözeten bir planlama çerçevesinde, konut ihtiyacını karşılayacak tedbirleri alır, <span class="mavi"> ayrıca toplu konut teşebbüslerini destekler</span>.</div></div></div>
+<div>
+IX. Gençlik ve spor
+<div>
+    A. Gençliğin korunması
+	<div>
+MADDE 58- Devlet, istiklâl ve Cumhuriyetimizin emanet edildiği gençlerin müsbet ilmin ışığında, Atatürk ilke ve inkılâpları doğrultusunda ve Devletin ülkesi ve milletiyle bölünmez bütünlüğünü ortadan kaldırmayı amaç edinen görüşlere karşı yetişme ve gelişmelerini sağlayıcı tedbirleri alır.</div>
+<div> <span class="dik">
+Devlet, </span> gençleri alkol düşkünlüğünden, uyuşturucu maddelerden, suçluluk, kumar ve benzeri kötü alışkanlıklardan ve cehaletten <span class="mavi"> korumak için gerekli tedbirleri alır</span>.</div></div>
+<div>
+    B. Sporun geliştirilmesi ve tahkim(1)
+<div>
+MADDE 59- Devlet, her yaştaki Türk vatandaşlarının beden ve ruh sağlığını geliştirecek tedbirleri alır, <span class="mavi"> sporun kitlelere yayılmasını teşvik eder</span>.</div>
+<div> <span class="mavi">
+Devlet başarılı sporcuyu korur</span>.</div>
+<div>
+(Ek fıkra: 17/3/2011-6214/1 md.) Spor federasyonlarının spor faaliyetlerinin yönetimine ve disiplinine ilişkin kararlarına karşı ancak zorunlu <span class="mavi"> tahkim yoluna başvurulabilir</span>. <span class="mavi"> Tahkim kurulu kararları <span class="dik"> kesin olup</span> bu kararlara karşı hiçbir yargı merciine başvurulamaz</span>.</div>
+<div>
+(1) Bu maddenin kenar başlığı “B. Sporun geliştirilmesi” iken, 17/3/2011 tarihli ve 6214 sayılı Kanunun 1 inci maddesiyle metne işlendiği şekilde değiştirilmiştir.</div></div></div>
+
+
+<div>
+X. Sosyal güvenlik hakları
+<div>
+    A. Sosyal güvenlik hakkı
+	<div>
+MADDE 60- Herkes, sosyal güvenlik hakkına sahiptir.
+	</div><div>
+Devlet, bu güvenliği sağlayacak gerekli tedbirleri alır ve teşkilatı kurar.</div></div>
+<div>
+    B. Sosyal güvenlik bakımından özel olarak korunması gerekenler
+	<div>
+MADDE 61- Devlet, <span class="ark"> harp ve vazife şehitlerinin dul ve yetimleriylev, <span class="ark"> malûl ve gazileri</span> <span class="mavi"> korur ve toplumda kendilerine yaraşır bir hayat seviyesi sağlar</span>.</div>
+<div>
+Devlet, <span class="span"> sakatların korunmalarını</span> ve toplum hayatına intibaklarını sağlayıcı tedbirleri alır.</div>
+<div> <span class="span">
+Yaşlılar, Devletçe korunur</span> . Yaşlılara Devlet yardımı ve sağlanacak diğer haklar ve kolaylıklar kanunla düzenlenir.</div>
+<div>
+Devlet, korunmaya muhtaç çocukların topluma kazandırılması için her türlü tedbiri alır.</div>
+<div>
+Bu amaçlarla gerekli teşkilat ve tesisleri kurar veya kurdurur.</div></div>
+<div>
+    C. Yabancı ülkelerde çalışan Türk vatandaşları
+	<div>
+MADDE 62- Devlet, yabancı ülkelerde çalışan Türk vatandaşlarının aile birliğinin, çocuklarının eğitiminin, kültürel ihtiyaçlarının ve sosyal güvenliklerinin sağlanması, <span class="mavi"> anavatanla bağlarının korunması ve yurda dönüşlerinde yardımcı olunması için gereken tedbirleri alır</span>.</div></div></div>
+<div>
+XI. Tarih, kültür ve tabiat varlıklarının korunması
+<div>
+MADDE 63- Devlet, tarih, kültür ve tabiat varlıklarının ve değerlerinin korunmasını sağlar, bu amaçla destekleyici ve teşvik edici tedbirleri alır.</div>
+<div>
+Bu varlıklar ve değerlerden özel mülkiyet konusu olanlara getirilecek sınırlamalar ve bu nedenle hak sahiplerine yapılacak yardımlar ve tanınacak muafiyetler kanunla düzenlenir.</div></div>
+<div>
+XII.  Sanatın ve sanatçının korunması
+<div>
+MADDE 64- Devlet, sanat faaliyetlerini ve sanatçıyı korur. Sanat eserlerinin ve sanatçının korunması, değerlendirilmesi, desteklenmesi ve sanat sevgisinin yayılması için gereken tedbirleri alır.</div></div>
+<div>
+XIII. Devletin iktisadî ve sosyal ödevlerinin sınırları1
+<div>
+MADDE 65- (Değişik: 3/10/2001-4709/22 md.) <br>
+
+Devlet, sosyal ve ekonomik alanlarda Anayasa ile belirlenen görevlerini, bu görevlerin amaçlarına uygun öncelikleri gözeterek malî kaynaklarının yeterliliği ölçüsünde yerine getirir.</div>
+<div>
+(1) Bu maddenin kenar başlığı “XIII. Sosyal ve ekonomik hakların sınırı” iken, 3/10/2001 tarihli ve 4709 sayılı Kanunun 22 nci maddesiyle metne işlendiği şekilde değiştirilmiştir.</div></div></div>
+<div> <button  onclick="soruyuGoster(5)" class="soru" >2023 yılı çıkmış soru</button> </div>
+
+<div>
+DÖRDÜNCÜ BÖLÜM <br>
+
+Siyasî Haklar ve Ödevler
+<div>
+I. Türk vatandaşlığı
+<div>
+MADDE 66- <span class="dik"> Türk Devletine vatandaşlık bağı</span>  ile <span class="ark"> bağlı olan herkes</span> <span class="mavi"> Türktür</span>.</div>
+<div>
+Türk babanın veya Türk ananın çocuğu Türktür. (Mülga ikinci cümle: 3/10/2001-4709/23 md.) (…)</div>
+<div>
+Vatandaşlık, kanunun gösterdiği şartlarla kazanılır ve ancak kanunda belirtilen hallerde kaybedilir.</div>
+<div>
+Hiçbir Türk, vatana bağlılıkla bağdaşmayan <span class="ark"> bir eylemde bulunmadıkça</span> <span class="mavi"> vatandaşlıktan çıkarılamaz</span>.</div>
+<div>
+Vatandaşlıktan çıkarma ile ilgili karar ve işlemlere karşı <span class="mavi"> yargı yolu kapatılamaz</span>.</div></div>
+<div>
+II. Seçme, seçilme ve siyasî faaliyette bulunma hakları
+<div>
+MADDE 67- Vatandaşlar, kanunda gösterilen şartlara uygun olarak, seçme, seçilme ve bağımsız olarak veya bir siyasî parti içinde siyasî faaliyette bulunma ve halkoylamasına <span class="mavi"> <span class="dik"> katılma</span> hakkına sahiptir</span>.</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/5 md.) <span class="dik"> Seçimler</span> ve halkoylaması serbest, eşit, gizli, tek dereceli, genel oy, açık sayım ve döküm esaslarına göre, <span class="mavi"> yargı yönetim ve denetimi altında yapılır</span> . Ancak, yurt dışında bulunan Türk vatandaşlarının oy hakkını kullanabilmeleri amacıyla kanun, uygulanabilir tedbirleri belirler.</div>
+
+<div>
+(Değişik fıkra: 23/7/1995-4121/5 md.) <span class="dik"> Onsekiz yaşını dolduran her Türk</span> vatandaşı seçme ve halkoylamasına katılma <span class="mavi"> haklarına sahiptir</span>.</div>
+<div>
+Bu hakların kullanılması kanunla düzenlenir.</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/5 md.) <span class="ark"> Silah altında bulunan er ve erbaşlar</span>  ile <span class="ark"> askerî öğrenciler</span> , taksirli suçlardan hüküm giyenler <span class="dik"> hariç</span>  ceza infaz kurumlarında bulunan <span class="mavi"> hükümlüler oy kullanamazlar</span>. Ceza infaz kurumları ve tutuk evlerinde oy kullanılması ve oyların sayım ve dökümünde seçim emniyeti açısından alınması gerekli tedbirler <span class="mavi"> Yüksek Seçim Kurulu tarafından tespit edilir</span>  ve görevli hâkimin yerinde yönetim ve denetimi altında yapılır.(1)</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/5 md.) <span class="dik"> Seçim kanunları</span> , <span class="ark"> temsilde adalet ve</span> <span class="ark"> yönetimde istikrar</span> <span class="mavi"> ilkelerini bağdaştıracak biçimde düzenlenir</span>.</div>
+<div>
+(Ek fıkra: 3/10/2001-4709/24 md.) Seçim kanunlarında yapılan <span class="dik"> değişiklikler,</span> yürürlüğe girdiği tarihten itibaren <span class="mavi"> <span class="dik"> bir yıl</span> içinde yapılacak seçimlerde uygulanmaz</span>.</div>
+<div>
+(1) 3/10/2001 tarihli ve 4709 sayılı Kanunun 24 üncü maddesiyle, bu fıkrada yer alan “askerî öğrenciler,” ibaresinden sonra gelmek üzere “taksirli suçlardan hüküm giyenler hariç” ibaresi eklenmiş ve aynı fıkrada yer alan “bulunan tutukluların seçme haklarını kullanmalarında” ibaresi, “oy kullanılması ve” şeklinde değiştirilmiştir.</div></div>
+
+<div>
+
+III. Siyasî partilerle ilgili hükümler
+<div>
+    A. Parti kurma, partilere girme ve partilerden ayrılma(1)
+	<div>
+MADDE 68- (Değişik: 23/7/1995-4121/6 md.) <br>
+
+Vatandaşlar, siyasî parti kurma ve usulüne göre partilere girme ve partilerden ayrılma hakkına sahiptir. Parti üyesi olabilmek <span class="mavi"> için onsekiz yaşını doldurmuş olmak gerekir</span>.</div>
+<div>
+Siyasî partiler, demokratik siyasî hayatın vazgeçilmez unsurlarıdır.</div>
+<div>
+ <span class="dik">Siyasî partiler</span> <span class="mavi"> önceden izin almadan kurulurlar</span>  ve Anayasa ve kanun hükümleri içerisinde faaliyetlerini sürdürürler.</div>
+<div>
+Siyasî partilerin tüzük ve programları ile eylemleri, Devletin bağımsızlığına, ülkesi ve milletiyle bölünmez bütünlüğüne, insan haklarına, eşitlik ve hukuk devleti ilkelerine, millet egemenliğine, demokratik ve lâik Cumhuriyet ilkelerine aykırı olamaz; sınıf veya zümre diktatörlüğünü veya herhangi bir tür diktatörlüğü savunmayı ve yerleştirmeyi amaçlayamaz; suç işlenmesini teşvik edemez.</div>
+<div>
+Hâkimler ve savcılar, Sayıştay dahil yüksek yargı organları mensupları, kamu kurum ve kuruluşlarının memur statüsündeki görevlileri, yaptıkları hizmet bakımından işçi niteliği taşımayan diğer kamu görevlileri, Silahlı Kuvvetler mensupları ile yükseköğretim öncesi öğrencileri <span class="mavi"> siyasî partilere üye olamazlar</span>.</div>
+<div> <span class="dik">
+Yükseköğretim elemanlarının siyasî partilere üye olmaları</span> <span class="mavi"> ancak kanunla düzenlenebilir.</span>  Kanun bu elemanların, siyasî partilerin merkez organları dışında kalan parti görevi almalarına cevaz veremez ve parti üyesi yükseköğretim elemanlarının yükseköğretim kurumlarında uyacakları esasları belirler.</div>
+<div> <span class="dik">
+Yükseköğretim öğrencilerinin siyasî partilere üye olabilmelerine ilişkin esaslar</span> <span class="mavi"> kanunla düzenlenir</span>.</div>
+<div>
+Siyasî partilere, <span class="mavi"> Devlet, yeterli düzeyde ve hakça malî yardım yapar</span>. Partilere yapılacak yardımın, alacakları üye aidatının ve bağışların tabi olduğu esaslar kanunla düzenlenir.</div>
+<div>
+(1) Bu maddenin kenar başlığı “A. Parti kurma, partilere girme ve partilerden çıkma” iken, 23/7/1995 tarihli ve 4121 sayılı Kanunun 6 ncı maddesi ile metne işlendiği şekilde değiştirilmiştir.</div></div>
+
+<div>
+
+    B. Siyasî partilerin uyacakları esaslar
+	<div>
+MADDE 69- (Değişik: 23/7/1995-4121/7 md.) <br>
+
+Siyasî partilerin faaliyetleri, parti içi düzenlemeleri ve çalışmaları demokrasi ilkelerine uygun olur. Bu ilkelerin uygulanması kanunla düzenlenir.</div>
+<div>
+Siyasî partiler, <span class="mavi"> ticarî faaliyetlere girişemezler</span>.</div>
+<div>
+Siyasî partilerin gelir ve giderlerinin amaçlarına uygun olması gereklidir. Bu kuralın uygulanması kanunla düzenlenir. Anayasa Mahkemesince siyasî partilerin mal edinimleri ile gelir ve giderlerinin kanuna uygunluğunun tespiti, bu hususun denetim yöntemleri ve aykırılık halinde uygulanacak yaptırımlar kanunda gösterilir. <span class="mavi"> Anayasa Mahkemesi, bu denetim görevini yerine getirirken <span class="dik"> Sayıştaydan</span> yardım sağlar</span> . <span class="dik"> Anayasa Mahkemesinin </span>  <span class="mavi"> bu denetim sonunda vereceği kararlar kesindir</span>.</div>
+<div> <span class="dik">
+Siyasî partilerin kapatılması</span> , <span class="ark"> Yargıtay Cumhuriyet Başsavcısının açacağı</span>  dava üzerine <span class="mavi"> Anayasa Mahkemesince kesin olarak karara bağlanır</span>.</div>
+<div>
+Bir siyasî partinin tüzüğü ve programının 68 inci maddenin dördüncü fıkrası hükümlerine aykırı bulunması <span class="mavi"> halinde temelli kapatma kararı verilir</span>.</div>
+<div>
+Bir siyasî partinin 68 inci maddenin dördüncü fıkrası hükümlerine aykırı eylemlerinden ötürü temelli kapatılmasına, ancak, onun bu nitelikteki fiillerin işlendiği bir odak haline geldiğinin Anayasa Mahkemesince tespit edilmesi halinde karar verilir. (Ek cümle: 3/10/2001-4709/25 md.) Bir siyasî parti, bu nitelikteki fiiller o partinin üyelerince yoğun bir şekilde işlendiği ve bu durum o partinin büyük kongre veya genel başkan veya merkez karar veya yönetim organları veya Türkiye Büyük Millet Meclisindeki grup genel kurulu veya grup yönetim kurulunca zımnen veya açıkça benimsendiği yahut bu fiiller doğrudan doğruya anılan parti organlarınca kararlılık içinde işlendiği takdirde, söz konusu fiillerin odağı haline gelmiş sayılır.</div>
+<div>
+(Ek fıkra: 3/10/2001-4709/25 md.) Anayasa Mahkemesi, yukarıdaki fıkralara göre temelli kapatma yerine, dava konusu fiillerin ağırlığına göre ilgili siyasî partinin Devlet yardımından kısmen veya tamamen yoksun bırakılmasına karar verebilir.</div>
+<div> <span class="mavi">
+Temelli kapatılan bir parti bir başka ad altında kurulamaz</span>.</div>
+<div>
+Bir siyasî partinin temelli kapatılmasına beyan veya faaliyetleriyle sebep olan kurucuları dahil üyeleri, Anayasa Mahkemesinin temelli kapatmaya ilişkin kesin kararının <span class="mavi"> Resmî Gazetede gerekçeli olarak yayımlanmasından başlayarak <span class="dik"> beş yıl süreyle</span> bir başka partinin kurucusu, üyesi, yöneticisi ve deneticisi olamazlar</span>.</div>
+<div> <span class="dik">
+Yabancı devletlerden, uluslararası kuruluşlardan ve Türk uyrukluğunda olmayan gerçek ve tüzelkişilerden </span> <span class="ark"> maddî yardım alan siyasî partiler</span> <span class="mavi"> temelli olarak kapatılır</span>.</div>
+<div>
+(Değişik fıkra: 3/10/2001-4709/25 md.) Siyasî partilerin kuruluş ve çalışmaları, denetlenmeleri, kapatılmaları ya da Devlet yardımından kısmen veya tamamen yoksun bırakılmaları ile siyasî partilerin ve adayların seçim harcamaları ve usulleri yukarıdaki esaslar çerçevesinde kanunla düzenlenir.</div></div></div>
+<div><div> <button  onclick="soruyuGoster(332)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+IV. Kamu hizmetlerine girme hakkı
+<div>
+    A. Hizmete girme
+	<div>
+MADDE 70- Her Türk, kamu hizmetlerine girme hakkına sahiptir. <br>
+
+Hizmete alınmada, görevin gerektirdiği niteliklerden başka hiçbir ayırım gözetilemez.</div></div>
+<div>
+    B. Mal bildirimi
+	<div>
+MADDE 71- Kamu hizmetine girenlerin mal bildiriminde bulunmaları ve bu bildirimlerin tekrarlanma süreleri kanunla düzenlenir. <span class="mavi"> Yasama ve yürütme organlarında görev alanlar, bundan istisna edilemez</span>.</div></div>
+</div>
+<div>
+V. Vatan hizmeti
+<div>
+MADDE 72- <span class="mavi"> Vatan hizmeti, her Türkün hakkı ve ödevidir</span>. Bu hizmetin Silahlı Kuvvetlerde veya kamu kesiminde ne şekilde yerine getirileceği veya getirilmiş sayılacağı kanunla düzenlenir.</div></div>
+<div>
+VI. Vergi ödevi
+<div>
+MADDE 73- Herkes, kamu giderlerini karşılamak üzere, <span class="mavi"> malî gücüne göre, vergi ödemekle yükümlüdür</span>.</div>
+<div>
+Vergi yükünün adaletli ve dengeli dağılımı, maliye politikasının sosyal amacıdır.</div>
+<div> <span class="span">
+Vergi, resim, harç ve benzeri malî yükümlülükler kanunla konulur, değiştirilir veya kaldırılır</span>.</div>
+<div>
+Vergi, resim, harç ve benzeri mali yükümlülüklerin muaflık, istisnalar ve indirimleriyle oranlarına ilişkin hükümlerinde kanunun belirttiği <span class="mavi"> yukarı ve aşağı sınırlar içinde değişiklik yapmak yetkisi Cumhurbaşkanına verilebilir</span>.(1)</div>
+<div>
+(1) 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesiyle, bu fıkrada yer alan “Bakanlar Kuruluna” ibaresi “Cumhurbaşkanına” şeklinde değiştirilmiştir.</div></div>
+
+
+<div>
+VII. Dilekçe, bilgi edinme ve kamu denetçisine başvurma hakkı(1)
+<div>
+MADDE 74- <span class="dik"> Vatandaşlar ve karşılıklılık esası gözetilmek kaydıyla</span> <span class="mavi"> Türkiye’de ikamet eden yabancılar kendileriyle veya kamu ile ilgili dilek ve şikayetleri hakkında, yetkili makamlara ve Türkiye Büyük Millet Meclisine yazı ile başvurma hakkına sahiptir</span>.(2)</div>
+<div>
+Kendileriyle ilgili başvurmaların <span class="dik"> sonucu gecikmeksizin</span> , <span class="mavi"> dilekçe sahiplerine yazılı olarak bildirilir</span>.(3)</div>
+
+<div>
+
+(Ek fıkra: 7/5/2010-5982/8 md.) <span class="mavi"> Herkes, bilgi edinme ve kamu denetçisine başvurma hakkına sahiptir</span>.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/8 md.) <span class="dik"> Türkiye Büyük Millet Meclisi Başkanlığına bağlı olarak kurulan</span> <span class="mavi"> Kamu Denetçiliği Kurumu idarenin işleyişiyle ilgili şikâyetleri inceler</span>.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/8 md.) Kamu Başdenetçisi Türkiye Büyük Millet Meclisi tarafından <span class="ark"> gizli oyla dört yıl için seçilir</span> . <span class="dik"> İlk iki oylamada</span>  üye tamsayısının <span class="mavi"> üçte iki</span>  ve  <span class="dik"> üçüncü oylamada</span>  üye tamsayısının <span class="mavi"> salt çoğunluğu aranır.</span>  Üçüncü oylamada salt çoğunluk <span class="dik"> sağlanamazsa</span> , <span class="ark"> bu oylamada en çok oy alan iki aday için</span> <span class="mavi"> dördüncü oylama yapılır</span> ; dördüncü oylamada  <span class="mavi">en fazla oy alan aday seçilmiş olur</span>.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/8 md.) Bu maddede sayılan hakların kullanılma biçimi, Kamu Denetçiliği Kurumunun kuruluşu, görevi, çalışması, inceleme sonucunda yapacağı işlemler ile Kamu Başdenetçisi ve kamu denetçilerinin nitelikleri, seçimi ve özlük haklarına ilişkin usul ve esaslar kanunla düzenlenir.</div>
+<div>
+(1) Bu maddenin kenar başlığı “VII. Dilekçe hakkı” iken, 7/5/2010 tarihli ve 5982 sayılı Kanunun 8 inci maddesiyle metne işlendiği şekilde değiştirilmiştir.</div>
+<div>
+(2) 3/10/2001 tarihli ve 4709 sayılı Kanunun 26 ncı maddesiyle, bu fıkraya "Vatandaşlar" ibaresinden sonra gelmek üzere "ve karşılıklılık esası gözetilmek kaydıyla Türkiye'de ikamet eden yabancılar" ibaresi eklenmiştir.</div>
+<div>
+(3) 3/10/2001 tarihli ve 4709 sayılı Kanunun 26 ncı maddesiyle, bu fıkrada yer alan "sonucu" ibaresinden sonra gelmek üzere "gecikmeksizin" ibaresi eklenmiştir.</div></div></div></div>
+
+<div class="ort" >	<button onclick="YAZDIR()" class="yaz" >YAZDIR</button>
+</div>
+
+<script>
+var surukleniyor = false;
+var offsetX, offsetY;
+
+// Tüm soru göster butonlarını seç
+const soruGosterButtons = document.querySelectorAll('.soru');
+
+// Her bir buton için event listener ekle
+soruGosterButtons.forEach(function (button, index) {
+button.addEventListener('click', function() {
+const soruContainer = document.querySelector('.soruContainer');
+
+// Eğer gösteriliyorsa gizle, gizliyse göster
+	if (soruContainer.style.display === "none") {
+	  soruContainer.style.display = "block";
+	} else {
+	  soruContainer.style.display = "none";
+}
+});
+});
+
+
+soruContainer.addEventListener('mousedown', function(e) {  surukleniyor = true;	  offsetX = e.clientX - soruContainer.getBoundingClientRect().left;	  offsetY = e.clientY - soruContainer.getBoundingClientRect().top;});
+
+document.addEventListener('mousemove', function(e) {  if (surukleniyor) {soruContainer.style.left = (e.clientX - offsetX) + 'px';
+		soruContainer.style.top = (e.clientY - offsetY) + 'px'; }});
+
+	document.addEventListener('mouseup', function() { surukleniyor = false;	});
+</script>
+</body>
+</html>
+
+	  {% endblock%}
+

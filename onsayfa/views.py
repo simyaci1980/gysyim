@@ -1,3 +1,53 @@
+def anayasa1(request):
+    return render(request, 'onsayfa/anayasa1.html')
+
+def anayasaNot(request):
+    return render(request, 'onsayfa/anayasaNot.html')
+
+def devletintemelorg(request):
+    return render(request, 'onsayfa/devletintemelorg.html')
+
+def turkiyebmm(request):
+    return render(request, 'onsayfa/turkıyebmm.html')
+
+def ornek1(request):
+    return render(request, 'onsayfa/ornek1.html')
+
+def bim5mad(request):
+    return render(request, 'onsayfa/bim5mad.html')
+
+def darisureler(request):
+    return render(request, 'onsayfa/darisureler.html')
+
+def dersler_page(request):
+    lessons = [
+        {
+            "title": "ANAYASA",
+            "desc": "Anayasa ile ilgili temel dersler ve alt başlıklar.",
+            "children": [
+                {"title": "Genel Esaslar ve Temel Hak/Hürriyetler", "url_name": "anayasa1"},
+                {"title": "Devletin Temel Organları", "url_name": "devletintemelorg"},
+                {"title": "Anayasa Notları (Kendi Notlarım)", "url_name": "anayasaNot"},
+                {"title": "TBMM Karar ve Süre Notları", "url_name": "turkiyebmm"},
+            ]
+        },
+        {
+            "title": "Örnek 1",
+            "desc": "Örnek içerik sayfası",
+            "url_name": "ornek1",
+        },
+        {
+            "title": "Dari Süreler",
+            "desc": "Dari sürelerle ilgili notlar",
+            "url_name": "darisureler",
+        },
+        {
+            "title": "BİM 5 Madde",
+            "desc": "BİM 5 madde özet notları",
+            "url_name": "bim5mad",
+        },
+    ]
+    return render(request, 'onsayfa/dersler.html', {"lessons": lessons})
 from django.shortcuts import render
 
 # Telegram performans optimizasyonu için
@@ -15,14 +65,7 @@ def index(request):
 
     return render(request, 'index.html', {'daily_question': dq})
 
-def ornek1(request):
-	return render (request, 'onsayfa/ornek1.html') 
 
-def bim5mad(request):
-	return render (request, 'onsayfa/bim5mad.html')
-
-def darisureler(request):
-	return render (request, 'onsayfa/darisureler.html')
 
 def privacy(request):
 	return render(request, 'privacy.html')
@@ -36,21 +79,19 @@ def about(request):
 def contact(request):
 	return render(request, 'contact.html')
 
+
+# --- Telegram fonksiyonu düzgün blokta tanımlanmalı ---
 import os, re, requests
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from .models import ChatMessage
-from decouple import config
-from django.core.mail import send_mail
-from django.conf import settings
-import bleach
 
 LAST_UPDATE_FILE = os.path.join(os.path.dirname(__file__), "../last_update.txt")
+from decouple import config
 TELEGRAM_TOKEN = config('TELEGRAM_TOKEN')
 CHAT_ID = config('TELEGRAM_CHAT_ID')
 
-# Telegram’dan mesajları çek
 def fetch_telegram_messages():
     last_update_id = 0
     if os.path.exists(LAST_UPDATE_FILE):
@@ -60,35 +101,26 @@ def fetch_telegram_messages():
             except ValueError:
                 last_update_id = 0
     else:
-        last_update_id = 0            
+        last_update_id = 0
 
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getUpdates?offset={last_update_id + 1}"
-    r = requests.get(url).json()
-    
     try:
-        # 🛡 Telegram API çağrısı
         r = requests.get(url, timeout=5)
-        r.raise_for_status()  # HTTP hatalarını yakalar
+        r.raise_for_status()
         data = r.json()
     except Exception as e:
-        # ❗ Telegram bağlantısı başarısızsa siteyi çökertmez
         print(f"[Telegram Hatası] Bağlantı kurulamadı: {e}")
-        return  # fonksiyondan çık, hata vermeden
+        return
 
-    # 🔽 Gelen mesajları işle
     for update in data.get("result", []):
         update_id = update["update_id"]
-
         if "message" in update:
             text = update["message"].get("text", "")
             user_name = update["message"]["from"].get("first_name", "Admin")
-
-            # 🔹 Adminin cevabında session=(...) var mı kontrol et
-            # Tek satırda: (session=abc123) Mesaj veya (session=abc123)Mesaj
             match = re.match(r"\(session=([a-zA-Z0-9]+)\)\s*(.+)", text, re.DOTALL)
             if match:
-                session_key = match.group(1)  # İlk grup session key
-                pure_text = match.group(2).strip()  # İkinci grup mesaj
+                session_key = match.group(1)
+                pure_text = match.group(2).strip()
                 if not ChatMessage.objects.filter(
                     session_key=session_key,
                     message=pure_text,
@@ -100,11 +132,8 @@ def fetch_telegram_messages():
                         message=pure_text,
                         is_admin=True
                     )
-
-        # Güncel offset’i sakla
         last_update_id = update_id
 
-    # ✅ Son ID’yi güncelle
     with open(LAST_UPDATE_FILE, "w") as f:
         f.write(str(last_update_id))
 

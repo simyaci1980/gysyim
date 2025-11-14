@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}Dersler | Yazı İşleri{% endblock %}
+{% block content %}
+<style>
+  /* Sadece bu sayfaya özel küçük dokunuşlar */
+  .page-hero {
+    background: linear-gradient(135deg, #0d6efd 0%, #6f42c1 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 18px;
+  }
+  .lesson-card {
+    border: 1px solid rgba(0,0,0,.06);
+    border-top-width: 6px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .lesson-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0.75rem 1.25rem rgba(0,0,0,.12);
+  }
+  .accent-1 { border-top-color: #0d6efd; }
+  .accent-2 { border-top-color: #198754; }
+  .accent-3 { border-top-color: #ffc107; }
+  .accent-4 { border-top-color: #dc3545; }
+  .accent-5 { border-top-color: #0dcaf0; }
+  .card-title { display:flex; align-items:center; gap:8px; }
+  .lesson-icon { font-size: 1.35rem; }
+  .go-link { font-weight: 600; }
+  .go-link.primary { color: #0d6efd; }
+  .go-link.success { color: #198754; }
+  .go-link.warning { color: #cc9a06; }
+  .go-link.danger { color: #c23139; }
+  .go-link.info { color: #0aa1c0; }
+  .muted { color: #6c757d; }
+  .page-wrap { background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%); padding: 6px; border-radius: 12px; }
+  .mini-sep { height: 1px; background: rgba(0,0,0,.06); margin: 8px 0 14px; }
+  .badge-soft { opacity: .95; }
+  .badge-soft.bg-warning { color: #664d03; }
+  @media (prefers-reduced-motion: reduce) { .lesson-card{ transition:none; } }
+  @media (min-width: 576px){ .page-hero{ padding:24px 28px; } }
+  @media (min-width: 992px){ .page-hero{ padding:28px 32px; } }
+  </style>
+
+<div class="w-100" style="max-width:1000px;">
+  <div class="page-hero d-flex align-items-center justify-content-between">
+    <div>
+      <h1 class="h4 mb-1">📚 Dersler</h1>
+      <p class="mb-0">Konulara kutu/kart görünümünde hızlı erişim.</p>
+    </div>
+    <a href="{% url 'index' %}" class="btn btn-light">Anasayfa</a>
+  </div>
+
+  <div class="page-wrap">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for item in lessons %}
+        <div class="col">
+          {# Çoklu alt ders desteği: item.children varsa kart içinde liste göster #}
+          {% if item.children %}
+            <div class="card h-100 shadow-sm lesson-card {% cycle 'accent-1' 'accent-2' 'accent-3' 'accent-4' 'accent-5' %}">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">
+                  <span class="lesson-icon">📘</span>
+                  {{ item.title }}
+                </h5>
+                {% if item.desc %}
+                <p class="card-text muted">{{ item.desc }}</p>
+                {% endif %}
+                <div class="mini-sep"></div>
+                <div class="list-group list-group-flush">
+                  {% for sub in item.children %}
+                    <a class="list-group-item list-group-item-action" href="{% url sub.url_name %}">
+                      {{ sub.title }}
+                    </a>
+                  {% endfor %}
+                </div>
+                <div class="mt-auto d-flex align-items-center justify-content-between" style="margin-top:12px;">
+                  <span class="badge badge-soft {% cycle 'bg-primary' 'bg-success' 'bg-warning' 'bg-danger' 'bg-info' %}">Ders Grubu</span>
+                  <span class="go-link {% cycle 'primary' 'success' 'warning' 'danger' 'info' %}">Seç →</span>
+                </div>
+              </div>
+            </div>
+          {% else %}
+            <a href="{% url item.url_name %}" class="text-decoration-none text-reset">
+              <div class="card h-100 shadow-sm lesson-card {% cycle 'accent-1' 'accent-2' 'accent-3' 'accent-4' 'accent-5' %}">
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">
+                    <span class="lesson-icon">📘</span>
+                    {{ item.title }}
+                  </h5>
+                  {% if item.desc %}
+                  <p class="card-text muted">{{ item.desc }}</p>
+                  {% endif %}
+                  <div class="mini-sep"></div>
+                  <div class="mt-auto d-flex align-items-center justify-content-between">
+                    <span class="badge badge-soft {% cycle 'bg-primary' 'bg-success' 'bg-warning' 'bg-danger' 'bg-info' %}">Ders</span>
+                    <span class="go-link {% cycle 'primary' 'success' 'warning' 'danger' 'info' %}">Git →</span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% endif %}
+        </div>
+      {% empty %}
+        <div class="col">
+          <div class="alert alert-info">Henüz ders eklenmemiş.</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

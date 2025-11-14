@@ -1,0 +1,844 @@
+{% extends  'layout.html'%}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Navbar'ı ders sayfasında gizle - div#beyaz zaten navigasyon sağlıyor */
+.navbar {
+    display: none !important;
+}
+
+header{
+    display:run-in ;
+    width: 100%;
+    margin: 0;
+    top: 0;
+    position: fixed;
+    border-radius: 10px;
+}
+
+body{
+	background-color: rgb(0, 8, 6); 
+	color: whitesmoke; 
+	font-size: larger;
+	padding-top: 0px; /* Navbar gizli olduğu için padding'e gerek yok */
+}
+
+.beyaz{
+	background-color: #2c3e50;
+	background-image: url("{% static 'img/bayrak2.jpg' %}");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	left: 0;
+	width: 100%;
+	position: sticky; /* Sayfayı scroll ederken üstte kalsın */
+	top: 0;
+	z-index: 1030;
+	float: left;
+	margin-left: 0;
+	margin-top: 0;
+	padding: 10px;
+	border-radius: 0px;
+	border-bottom: 3px solid #34495e;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.butt{
+	color: white;
+	height: 35px;
+	cursor: pointer;	
+	border-radius: 8px;
+	right: 1px;
+	background-color: #e74c3c;
+	border: 2px solid #c0392b;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+}
+.butt:hover{
+	background-color: #c0392b;
+	transform: scale(1.05);
+}
+
+.asi{
+	background-color: #27ae60;
+	color: white;
+	float: right;
+	height: 35px;
+	cursor: pointer;
+	border-radius: 8px;
+	border: 2px solid #229954;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+}
+.asi:hover{
+	background-color: #229954;
+	transform: scale(1.05);
+}
+
+.demo{
+	background-color: #3498db;
+	color: white;
+	float: right;
+	border: 2px solid #2980b9;
+	border-radius: 8px;
+	cursor: pointer;
+	height: 35px;
+	padding: 5px 15px;
+	font-weight: bold;
+}
+
+.renki{color: rgb(202, 150, 221);}
+
+ul li {	float: left;margin-right: 20px;}
+a{color: white;}
+
+div {padding-left: 10px; padding-right:3px; border-style: groove; border-color: rgb(16, 176, 72); padding-left: 10px;  overflow: hidden; margin-left: 20px; margin-bottom: 10px; text-align: justify;}
+
+hr{margin-bottom: 15px;}
+
+.span{color: chocolate;}
+
+.ark{background-color:black;}
+
+.sadeceborder{border-style: dashed; margin: 0; margin-bottom: 10px; margin-top: 10px;}
+.mavi{background-color : darkcyan; border-radius: 20px; color: darkred ; font-size: x-large; }
+.dik{background-color: darkred; border-radius: 10px; color: white;}
+.kim{color: aqua; background-color: brown; font-size: larger; }
+strong{font-size: larger; }
+
+.soruContainer {
+			display: none;
+            background-color: rgb(174, 172, 172);
+            color:black;
+            padding: 10px;
+            border-radius: 20px;
+            left: 30%;
+            top: 30%;
+            max-width: 800px;
+			max-height: 800px;
+            text-align: justify;
+			font-size: small;
+			position: fixed;
+	  }
+.balon1{
+			position: absolute;
+            display: none;
+            background-color: #076423;
+            color: #e6dede;
+            padding: 10px;
+            border-radius: 20px;
+            left: 70%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            text-align: justify;
+			position:fixed;
+
+}
+.balonnöyap {
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	  }
+.balonnnsap {
+		background-color:rgb(1, 53, 37);
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 15px;
+		height: 250px;
+		width: 63px;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+		font-size: 16px;
+
+	  }
+ .metinArk{
+	    position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	}
+.metinDik{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}
+
+.metinMavi{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}
+
+
+
+
+
+.asi{
+		background-color: rgba(1, 53, 37,0.1);
+		color:white;
+		float: right;
+		height: 30px;
+		cursor: pointer;
+		border-radius: 10px;
+		border-color: black;
+
+	}
+/* .beyaz tanımı yukarıda zaten var - bu eski tanımı kaldırdık */
+/*.beyaz{
+	background-image: url("static/img/bayrak2.jpg");
+	background-position: center;
+	top: 5;
+	width: 100%;
+	position: fixed;
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 5px;
+	border-style: groove;
+	border-color: rgba(7, 7, 7, 0.46);
+	}*/
+.kal{
+	background-color: rgb(173, 24, 44);
+	background-position: center;
+	color: white;
+	width: 100%;
+
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 10px;
+	border-style: groove;
+	border-color: white;}
+.butt{
+	color:white;
+	height: 30px;
+	cursor: pointer;
+	border-radius: 10px;
+	right: 1px;
+	background-color:rgba(7, 7, 7, 0.1)
+	}
+.soru{
+	cursor: pointer;
+	color: rgb(24, 22, 22);
+	border-radius: 10px;
+	background-color:rgba(120, 219, 166, 0.893)	}
+
+
+
+.cevapp{ color: darkred;
+	}
+
+
+.demo{
+	background-color: rgb(206, 237, 244);
+	float: right;
+	border-style:double;
+	border-radius: 15px;
+	border-color: brown;
+	border-width: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+	}
+
+
+
+.but{
+	background-color: darkblue;
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+	}
+.reset{
+	background-color: rgb(0, 123, 139);
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+
+}
+.siyah{
+	background-color: black;
+	height: 25px;
+	width: 60px;
+	color: white;
+	font-size: 15px;
+	}
+.edt{
+	background-color:rgb(1, 53, 37);
+	color:white;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.bey{background-color:white;
+	color:black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+	.uyp{
+	background-color: rgb(191, 234, 244);
+	color: black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.yen{
+	background-color: rgb(209, 231, 85);
+	color: black;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.dhyen{
+	background-color: rgb(236, 170, 188);
+	color: rgb(9, 9, 9);
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.yaz{
+	background-color: yellowgreen;
+	text-align: center;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+    }
+.ort{
+	text-align: center;
+	}
+
+</style>
+<title>......................</title>
+<script>
+	function kapat() {
+		if (balon.style.display === "block") {
+			balon.style.display = "none"; cevaps.style.display="none" ;
+		} }
+
+
+
+
+	function sınıf()	{ // bütü spanları seçip tek tek rengini değiştiren fonksiyon
+	    var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="red"}}
+
+	function metinSifirla(){ // editör görünümü için
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metinSıfırla(){  // spanlar için
+
+		document.getElementById("bady").style.backgroundColor = "rgb(1, 53, 37)"
+		document.getElementById("bady").style.color="white"
+		metinSifirla()
+		metınArk()
+		metınDık()
+		metınEDİ()
+		metınKim() 	}
+
+	function metınKim(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function kimmorlasss(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function kimuyp(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function kimdahe(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }
+
+	function kimyes(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="white"} }
+
+	function metınArk(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınKim(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınDık(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınEDİ(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınYes(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metındmavi(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkblue";
+		panDivs[i].style.color="white"} }
+
+	function metınkır(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }
+
+	function morlas(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikcho(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="chocolate";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikuyp(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function dikkırmızı(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }
+
+	function morlasss(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function arkuyp(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function arkdahe(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }
+
+	function metınmavi(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkcyan";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikles(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function chola(){
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="chocolate"} }
+
+	function dahadayeni(){
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="rgb(212, 12, 126"} }
+
+	setInterval(tarıh, 1000);
+	function tarıh(){
+			 var an = new Date()
+			 var yıl= Number( an.getFullYear() )
+			 var ay = Number( an.getMonth().toString(). padStart(2,'0')) + 1 // sadece ay da bir artırmak gerekiyor
+			 var gün= Number( an.getDate()).toString(). padStart(2,'0') // day değil date !!!!!
+			 var saat= Number( an. getHours().toString(). padStart(2,'0'))
+			 var dk=  an.getMinutes().toString(). padStart(2,'0')
+			document.getElementById("demo").innerHTML=" TARİH : " + gün + "/"+ ay+ "/"+ yıl + "<br>" + "SAAT  "+ saat + ":" + dk // ekitekin içini değiştirmeyi sağladık
+			}
+    function badyMavi(){
+		document.getElementById("bady").style.backgroundColor = "darkblue"
+		document.getElementById("bady").style.color = "white"
+		sınıf()
+		arkuyp()
+		dikcho()
+		metınkır()
+		kimdahe()	}
+	function badyEditör(){
+		document.getElementById("bady").style.backgroundColor = " rgb(1, 53, 37)"
+		document.getElementById("bady").style.color = "white"
+		chola()
+		arkuyp()
+		dikkırmızı()
+		morlas()
+		kimuyp()}
+
+	function badysiyah(){
+		document.getElementById("bady").style.backgroundColor = "black"
+		document.getElementById("bady").style.color = "whitesmoke";
+		chola()
+		arkdahe()
+		dikuyp()
+		metınYes()
+		kimmorlasss()	}
+
+	function beyaz(){
+		document.getElementById("bady").style.backgroundColor = " white"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metındmavi()
+		kimyes()	}
+
+
+	function uyap(){
+		document.getElementById("bady").style.backgroundColor = " rgb(191, 234, 244"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metınmavi()
+		kimdahe()	}
+
+	function yeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(209, 231, 85)"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		arkdahe()
+		metınDık()
+		metınmavi()
+		kimyes()	}
+
+	function dahayeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(236, 170, 188)"
+		document.getElementById("bady").style.color = "black"
+		dahadayeni()
+		morlasss()
+		dikles()
+		metınEDİ()
+		kimyes()}
+
+	function soruGetır(){
+
+	}
+
+	function calıs(element){ //  element yazmayınca çalışmıyor onmouseover den geldiğinden  orada da this yazmak gerekiyor
+		element.style.color="red";
+		element.style.fontWeight="bold"}
+
+	function YAZDIR(){
+	   window.print()}
+
+	   function DivResetle(){
+
+		const allDivs=document.querySelectorAll('div')
+		allDivs.forEach(function(div){ const currentBordersStyle= div.style.borderStyle || "grove" ;
+		div.style.borderStyle=currentBordersStyle==="none"?"groove" : "none";
+		//div.style.borderStyle="none"
+		})  }
+
+</script>
+</head>
+<body id="bady" onload="tarıh()">
+	<br>
+	<div class="beyaz" id="byz">
+		<button name="butt" value="butt" class="butt"><a href="{% url 'index' %}">ANASAYFA</a></button>
+		<button id="acButtonnSAP" name="butt" value="butt" class="butt">SAYFA ARKA PLAN</button>
+		<button id="demo" class="demo"></button>
+		<button id="eag" class="asi" onclick="location.reload()" title="Bu Butona basarak editör görünümüne dönebilirsiniz">EDİTÖR ANA GÖRÜNÜM</button>
+	</div>
+	<br><br>
+	<div class="kal" ></div>
+							<hr>
+
+	<div id="balonnnsap"  class="balonnnsap" style="display: none;" >
+
+	  <p>
+		<button class="but" onclick= "badyMavi()" >Mavi</button> <br>
+		<button class="siyah" onclick='badysiyah()'> Siyah </button> <br>
+		<button class="edt" onclick='badyEditör()'> Editör </button>  <br>
+		<button class="bey" onclick="beyaz()"> Beyaz </button>  <br>
+		<button class="uyp" onclick="uyap()"> Uyap </button> <br>
+		<button class="yen" onclick="yeni()"> Yeni </button> <br>
+		<button class="dhyen" onclick="dahayeni()"> Daha </button> <br>
+		<button onclick="metinSıfırla()" class="yaz" title=" TAMAMEN SIFIRLAMAK İÇİN EDİTÖR ANA GÖRÜNÜMDEN SONRA YAPMANIZ GEREKİYOR " >Sıfırla</button> <br>
+		<button id="borderreset" class="reset" onclick="DivResetle()" >Çerçeveler</button>
+	  </p></div>
+
+	  <script>
+		acButtonnSAP.addEventListener('click', function() {if (balonnnsap.style.display === "none") {balonnnsap.style.display = "block";	} else {balonnnsap.style.display = "none";};});
+		</script> </div>
+
+
+
+		<div id="soruContainer" class="soruContainer">
+			<div id="soruDiv">
+				<!-- Soru metni ve cevap seçenekleri burada yer alacak -->
+			</div>
+			<div id="cevaplar"></div> <!-- Bu div'i ekledim -->
+			<button id="cevaplaButton" style="display: none;" onclick="cevapla()">Cevapla</button>
+			<button id="kapatButton" style="display: none;" onclick="kapat()">Kapat</button>
+			<p id="dogruCevap" style="display: none;"></p>
+		</div>
+		<script src="static/js/script.js"></script>
+
+
+	<img src="static/img/temelHakÖdevler.PNG" alt=""> <br> <img src="static/img/kişihakveödevleri.PNG" height="400">, <img src="static/img/sosyalveekonomik.PNG" height="400">, <img src="static/img/siyasihak.PNG" height="200">
+
+	<br><br>
+	<div>
+		IV. Temel hak ve hürriyetlerin kullanılmasının durdurulması <br>
+
+		MADDE 15- <br>
+		<span class="mavi"> Savaş,  <br> seferberlik <br>
+		 (…)(1) veya olağanüstü</span> hallerde, <span class="span">  milletlerarası hukuktan doğan yükümlülükler ihlal edilmemek kaydıyla,</span> durumun gerektirdiği ölçüde temel hak ve hürriyetlerin kullanılması <span class="span">  kısmen veya tamamen durdurulabilir </span>veya bunlar için <span class="span"> Anayasada öngörülen güvencelere aykırı tedbirler alınabilir.(1) </span> <br>
+
+		Birinci fıkrada belirlenen durumlarda da,  savaş hukukuna uygun fiiller sonucu <span class="span"> meydana gelen ölümler (…)(2) dışında, </span> kişinin yaşama hakkına, maddi ve manevi varlığının bütünlüğüne <span class="span"> dokunulamaz; </span> kimse din, vicdan, düşünce ve kanaatlerini açıklamaya zorlanamaz ve bunlardan dolayı suçlanamaz; <span class="span">  suç ve cezalar geçmişe yürütülemez;</span> suçluluğu mahkeme kararı ile saptanıncaya kadar kimse suçlu sayılamaz.(2)
+		<br>
+		(1) 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesiyle, bu fıkrada yer alan “, sıkıyönetim” ibaresi madde metninden çıkarılmıştır. <br>
+
+		(2) 7/5/2004 tarihli ve 5170 sayılı Kanunun 2 nci maddesiyle, bu fıkrada yer alan “ile, ölüm cezalarının infazı” ibaresi madde me tninden çıkartılmıştır. <br></div>
+	<br> <br>
+	<div>
+		III. Kişi hürriyeti ve güvenliği
+		 <div>
+		MADDE 19- Herkes, kişi hürriyeti ve güvenliğine sahiptir.
+		</div>
+		<div>
+		Şekil ve şartları kanunda gösterilen: <br>
+
+		Mahkemelerce verilmiş hürriyeti kısıtlayıcı cezaların ve güvenlik tedbirlerinin yerine getirilmesi; <br> bir mahkeme kararının veya kanunda öngörülen bir yükümlülüğün gereği olarak ilgilinin yakalanması veya tutuklanması; <br> bir küçüğün gözetim altında ıslahı veya yetkili merci önüne çıkarılması için verilen bir kararın yerine getirilmesi; <br> toplum için tehlike teşkil eden bir akıl hastası, uyuşturucu madde veya alkol tutkunu, bir serseri veya hastalık yayabilecek bir kişinin bir müessesede tedavi, eğitim veya ıslahı için kanunda belirtilen esaslara uygun olarak alınan tedbirin yerine getirilmesi; <br> usulüne aykırı şekilde ülkeye girmek isteyen veya giren, ya da hakkında sınır dışı etme yahut geri verme kararı verilen bir kişinin yakalanması veya tutuklanması;   <br><span class="span">  halleri dışında kimse hürriyetinden yoksun bırakılamaz.</span></div>
+		<div>
+		Suçluluğu hakkında kuvvetli belirti bulunan kişiler, ancak kaçmalarını, delillerin yok edilmesini veya değiştirilmesini önlemek maksadıyla veya bunlar gibi tutuklamayı zorunlu kılan ve kanunda gösterilen diğer hallerde hâkim kararıyla tutuklanabilir. <span class="span">  Hâkim kararı olmadan yakalama, ancak suçüstü halinde veya gecikmesinde sakınca bulunan hallerde yapılabilir;</span> <sapan class="mavi">  bunun şartlarını kanun gösterir.</sapan></div>
+		<div>
+		Yakalanan veya tutuklanan kişilere, yakalama veya tutuklama <span class="span">  sebepleri ve haklarındaki </span> iddialar herhalde <span class="span">  yazılı</span>  ve bunun hemen mümkün olmaması halinde <span class="span">  sözlü olarak derhal,</span> <span class="mavi">  toplu suçlarda en geç hâkim huzuruna çıkarılıncaya kadar bildirilir.</span></div>
+		<div>
+		(Değişik birinci cümle: 3/10/2001-4709/4 md.) Yakalanan veya tutuklanan kişi, tutulma yerine en yakın mahkemeye gönderilmesi için gerekli süre hariç <span class="mavi">  en geç kırksekiz saat </span>ve toplu olarak işlenen suçlarda <span class="mavi">  en çok dört gün </span> içinde hâkim önüne çıkarılır. Kimse, bu süreler geçtikten sonra hakim kararı olmaksızın hürriyetinden yoksun bırakılamaz. <span class="span">  Bu süreler <span class="mavi"> olağanüstü hal (…)(1) ve savaş </span> hallerinde uzatılabilir.(1)</span></div>
+		<div>
+		(Değişik fıkra: 3/10/2001-4709/4 md.) Kişinin yakalandığı veya tutuklandığı, <span class="span">  yakınlarına derhal bildirilir.</span></div>
+
+		<div>
+		Tutuklanan kişilerin, makul süre içinde yargılanmayı ve soruşturma veya kovuşturma sırasında serbest bırakılmayı isteme hakları vardır. Serbest bırakılma ilgilinin yargılama süresince duruşmada hazır bulunmasını veya hükmün yerine getirilmesini <span class="span">  sağlamak için bir güvenceye bağlanabilir.</span></div>
+
+		<div>
+		Her ne sebeple olursa olsun, hürriyeti kısıtlanan kişi, kısa sürede durumu hakkında karar verilmesini ve bu kısıtlamanın kanuna aykırılığı halinde hemen serbest bırakılmasını sağlamak amacıyla yetkili bir yargı merciine başvurma hakkına sahiptir.</div>
+		<div>
+		(Değişik: 3/10/2001-4709/4 md.) Bu esaslar dışında bir işleme tâbi tutulan kişilerin uğradıkları zarar, tazminat hukukunun genel prensiplerine göre, <span class="mavi">  Devletçe ödenir.</span></div>
+		<div>
+		(1) 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesiyle, bu fıkrada yer alan <span class="mavi">  “, sıkıyönetim” ibaresi madde metninden çıkarılmıştır.</span></div></div>
+		<br><br>
+		<div>
+			V. Yerleşme ve seyahat hürriyeti
+			 <div>
+			MADDE 23- Herkes, yerleşme ve seyahat hürriyetine sahiptir.</div>
+			<div>
+		 <span class="kim">	Yerleşme hürriyeti,</span> <br> <span class="ark"> suç işlenmesini önlemek, <br> sosyal ve ekonomik gelişmeyi sağlamak,  <br>sağlıklı ve düzenli kentleşmeyi gerçekleştirmek ve  <br>kamu mallarını korumak;</span> <br> <span class="kim"> Seyahat hürriyeti,</span> <span class="ark"> suç soruşturma ve <br> kovuşturması sebebiyle ve  <br>suç işlenmesini önlemek;</span>
+		 <span class="mavi">	Amaçlarıyla kanunla sınırlanabilir.</span></div> </div><br><br>
+		 <span class="mavi">
+		 Toplatma kararı veren yetkili merci, bu kararını <span class="dik"> en geç yirmidört saat içinde</span> yetkili hâkime bildirir; hâkim bu kararı en geç <span class="dik"> kırksekiz saat içinde</span> onaylamazsa, toplatma kararı hükümsüz sayılır.</span>
+		 <br><br>
+		 E. Düzeltme ve cevap hakkı <br>
+MADDE 32- Düzeltme ve cevap hakkı, ancak kişilerin haysiyet ve şereflerine dokunulması veya kendileriyle ilgili gerçeğe aykırı yayınlar yapılması hallerinde tanınır ve kanunla düzenlenir. <br>
+Düzeltme ve cevap yayımlanmazsa, yayımlanmasının gerekip gerekmediğine hâkim tarafından ilgilinin müracaat tarihinden itibaren <span class="mavi"> en geç yedi gün içerisinde karar verilir.</span> <br><br>
+<div>
+	Dernekler, kanunun öngördüğü hallerde hâkim kararıyla kapatılabilir veya faaliyetten alıkonulabilir. Ancak, millî güvenliğin, kamu düzeninin, suç işlenmesini veya suçun devamını önlemenin yahut yakalamanın gerektirdiği hallerde gecikmede sakınca varsa, kanunla bir merci, derneği faaliyetten men ile yetkilendirilebilir. <span class="mavi"> Bu merciin kararı, <span class="dik"> yirmidört saat</span> içinde görevli hâkimin onayına sunulur. Hâkim, kararını <span class="dik"> kırksekiz saat içinde</span> açıklar; aksi halde, bu idarî karar kendiliğinden yürürlükten kalkar.</span> </div>
+	<br><br>
+	<span class="mavi">
+	Millî güvenlik, <br> kamu düzeni, <br> suç işlenmesinin önlenmesi, <br> genel sağlık ve <br> genel ahlâkın korunması veya <br> başkalarının hak ve özgürlüklerinin korunması <br> sebeplerinden biri veya birkaçına bağlı olarak usulüne göre verilmiş hâkim kararı olmadıkça;</span>
+<br><br>
+<div>
+    D. Kamulaştırma
+<div>
+MADDE 46- (Değişik: 3/10/2001-4709/18 md.) <br>
+
+Devlet ve kamu tüzel kişileri; kamu yararının gerektirdiği hallerde, gerçek karşılıklarını peşin ödemek şartıyla, özel mülkiyette bulunan taşınmaz malların tamamını veya bir kısmını, kanunla gösterilen esas ve usullere göre, kamulaştırmaya ve bunlar üzerinde idarî irtifaklar kurmaya yetkilidir.</div>
+<div>
+Kamulaştırma bedeli ile kesin hükme bağlanan artırım bedeli nakden ve peşin olarak ödenir. Ancak, tarım reformunun uygulanması, büyük enerji ve sulama projeleri ile iskân projelerinin gerçekleştirilmesi, yeni ormanların yetiştirilmesi, kıyıların korunması ve turizm amacıyla kamulaştırılan toprakların bedellerinin ödenme şekli kanunla gösterilir. <span class="mavi"> Kanunun taksitle ödemeyi öngörebileceği bu hallerde, taksitlendirme süresi <span class="dik"> beş yılı aşamaz</span>;</span> bu takdirde taksitler eşit olarak ödenir.</div>
+<div>
+Kamulaştırılan topraktan, o toprağı doğrudan doğruya işleten küçük çiftçiye ait olanlarının bedeli, her halde peşin ödenir.</div>
+<div>
+İkinci fıkrada öngörülen taksitlendirmelerde ve herhangi bir sebeple ödenmemiş kamulaştırma bedellerinde kamu alacakları için öngörülen en yüksek faiz uygulanır.</div></div>
+<br><br>
+<div>
+    B. Çalışma şartları ve dinlenme hakkı
+ <div>
+MADDE 50- Kimse, yaşına, cinsiyetine ve gücüne uymayan işlerde çalıştırılamaz.</div>
+<div> <span class="mavi">
+Küçükler ve kadınlar ile bedenî ve ruhî yetersizliği olanlar çalışma şartları bakımından özel olarak korunurlar.</span></div>
+<div>
+Dinlenmek, çalışanların hakkıdır.</div>
+<div>
+Ücretli hafta ve bayram tatili ile ücretli yıllık izin hakları ve şartları kanunla düzenlenir.</div></div>
+<br><br>
+<span class="mavi">
+Toplu sözleşme yapılması sırasında uyuşmazlık çıkması halinde taraflar Kamu Görevlileri Hakem Kuruluna başvurabilir. <span class="dik"> Kamu Görevlileri Hakem Kurulu kararları kesindir</span> ve toplu sözleşme hükmündedir.</span> <br><br>
+
+<div>
+	VII. Dilekçe, bilgi edinme ve kamu denetçisine başvurma hakkı(1)
+	<div>
+	MADDE 74- Vatandaşlar ve karşılıklılık esası gözetilmek kaydıyla Türkiye’de ikamet eden yabancılar kendileriyle veya kamu ile ilgili dilek ve şikayetleri hakkında, yetkili makamlara ve Türkiye Büyük Millet Meclisine yazı ile başvurma hakkına sahiptir.(2)</div>
+	<div>
+	Kendileriyle ilgili başvurmaların sonucu gecikmeksizin, dilekçe sahiplerine yazılı olarak bildirilir.(3)</div>
+
+	<div>
+
+	(Ek fıkra: 7/5/2010-5982/8 md.) Herkes, bilgi edinme ve kamu denetçisine başvurma hakkına sahiptir.</div>
+	<div>
+	(Ek fıkra: 7/5/2010-5982/8 md.) <span class="mavi"> Türkiye Büyük Millet Meclisi Başkanlığına bağlı olarak kurulan <span class="dik"> Kamu Denetçiliği Kurumu </span> idarenin işleyişiyle ilgili şikâyetleri inceler.</span></div>
+	<div>
+	(Ek fıkra: 7/5/2010-5982/8 md.) Kamu Başdenetçisi Türkiye Büyük Millet Meclisi tarafından gizli oyla dört yıl için seçilir. <span class="mavi"> İlk iki oylamada üye tamsayısının üçte iki ve üçüncü oylamada üye tamsayısının salt çoğunluğu aranır. Üçüncü oylamada salt çoğunluk sağlanamazsa, bu oylamada en çok oy alan iki aday için dördüncü oylama yapılır; dördüncü oylamada en fazla oy alan aday seçilmiş olur.</span></div>
+	<div>
+	(Ek fıkra: 7/5/2010-5982/8 md.) Bu maddede sayılan hakların kullanılma biçimi, Kamu Denetçiliği Kurumunun kuruluşu, görevi, çalışması, inceleme sonucunda yapacağı işlemler ile Kamu Başdenetçisi ve kamu denetçilerinin nitelikleri, seçimi ve özlük haklarına ilişkin usul ve esaslar kanunla düzenlenir.</div>
+	<div>
+	(1) Bu maddenin kenar başlığı “VII. Dilekçe hakkı” iken, 7/5/2010 tarihli ve 5982 sayılı Kanunun 8 inci maddesiyle metne işlendiği şekilde değiştirilmiştir.</div>
+	<div>
+	(2) 3/10/2001 tarihli ve 4709 sayılı Kanunun 26 ncı maddesiyle, bu fıkraya "Vatandaşlar" ibaresinden sonra gelmek üzere "ve karşılıklılık esası gözetilmek kaydıyla Türkiye'de ikamet eden yabancılar" ibaresi eklenmiştir.</div>
+	<div>
+	(3) 3/10/2001 tarihli ve 4709 sayılı Kanunun 26 ncı maddesiyle, bu fıkrada yer alan "sonucu" ibaresinden sonra gelmek üzere "gecikmeksizin" ibaresi eklenmiştir.</div></div></div></div>
+
+	<br><br>
+	III. Hakimler ve Savcılar (…)(1) Kurulu (1)
+<div>
+MADDE 159- (Değişik: 7/5/2010-5982/22 md.) <br>
+
+Hâkimler ve Savcılar (…)(1) Kurulu, mahkemelerin bağımsızlığı ve hâkimlik teminatı esaslarına göre kurulur ve görev yapar. (1)</div>
+<div>
+(Değişik fıkra: 21/1/2017-6771/14 md.) Hâkimler ve Savcılar Kurulu onüç üyeden oluşur; iki daire halinde çalışır.</div>
+<div>
+(Değişik fıkra: 21/1/2017-6771/14 md.) Kurulun Başkanı Adalet Bakanıdır. Adalet Bakanlığı Müsteşarı Kurulun tabiî üyesidir. Kurulun, üç üyesi birinci sınıf olup, birinci sınıfa ayrılmayı gerektiren nitelikleri yitirmemiş adlî yargı hâkim ve savcıları arasından, bir üyesi birinci sınıf olup, birinci sınıfa ayrılmayı gerektiren nitelikleri yitirmemiş idarî yargı hâkim ve savcıları arasından Cumhurbaşkanınca; üç üyesi Yargıtay üyeleri, bir üyesi Danıştay üyeleri, üç üyesi nitelikleri kanunda belirtilen yükseköğretim kurumlarının hukuk dallarında görev yapan öğretim üyeleri ile avukatlar arasından Türkiye Büyük Millet Meclisi tarafından seçilir. Öğretim üyeleri ile avukatlar arasından seçilen üyelerden, <span class="kim"> en az birinin <strong> öğretim üyesi</strong> ve en az birinin de <strong> avukat</strong> olması</span> zorunludur. Kurulun Türkiye Büyük Millet Meclisi tarafından seçilecek üyeliklerine ilişkin başvurular, Meclis Başkanlığına yapılır. Başkanlık, başvuruları Anayasa ve Adalet Komisyonları Üyelerinden Kurulu Karma Komisyona gönderir. <span class="kim"> Komisyon </span> <span class="mavi">her bir üyelik için üç adayı, üye tamsayısının üçte iki çoğunluğuyla belirler. Birinci oylamada aday belirleme işleminin sonuçlandırılamaması halinde ikinci oylamada üye tamsayısının beşte üç çoğunluğu aranır. Bu oylamada da aday belirlenemediği takdirde, her bir üyelik için en çok oyu alan iki aday arasında ad çekme usulü ile aday belirleme işlemi tamamlanır.</span> Türkiye Büyük Millet Meclisi, Komisyon tarafından belirlenen adaylar arasından, her bir üye için ayrı ayrı <span class="dik"> gizli oyla</span> seçim yapar. <span class="mavi"> Birinci oylamada üye tamsayısının üçte iki çoğunluğu; bu oylamada seçimin sonuçlandırılamaması halinde, ikinci oylamada üye tamsayısının beşte üç çoğunluğu aranır. İkinci oylamada da üye seçilemediği takdirde en çok oyu alan iki aday arasında ad çekme usulü ile üye seçimi tamamlanır.</span></div>
+<br><br>
+<div>
+
+    B. Grev hakkı ve lokavt
+<div>
+MADDE 54- Toplu iş sözleşmesinin yapılması sırasında, uyuşmazlık çıkması halinde işçiler grev hakkına sahiptirler. Bu hakkın kullanılmasının ve işverenin lokavta başvurmasının usul ve şartları ile kapsam ve istisnaları kanunla düzenlenir.</div>
+<div>
+Grev hakkı ve lokavt iyi niyet kurallarına aykırı tarzda, toplum zararına ve millî serveti tahrip edecek şekilde kullanılamaz.</div>
+<div>
+Grev ve lokavtın yasaklanabileceği veya ertelenebileceği haller ve işyerleri kanunla düzenlenir.</div>
+
+<div> <span class="mavi">
+Grev ve lokavtın yasaklandığı hallerde veya ertelendiği durumlarda ertelemenin sonunda, uyuşmazlık <span class="dik"> Yüksek Hakem Kurulunca </span>çözülür. Uyuşmazlığın her safhasında taraflar da anlaşarak Yüksek Hakem Kuruluna başvurabilir. Yüksek Hakem Kurulunun kararları kesindir ve toplu iş sözleşmesi hükmündedir.</span> </div>
+<div>
+Yüksek hakem kurulunun kuruluş ve görevleri kanunla düzenlenir.</div>
+
+<div>
+Greve katılmayanların işyerinde çalışmaları, greve katılanlar tarafından hiçbir şekilde engellenemez.</div></div></div>
+<div class="ort" >	<button onclick="YAZDIR()" class="yaz" >YAZDIR</button>
+</div>
+
+<script>
+var surukleniyor = false;
+var offsetX, offsetY;
+
+// Tüm soru göster butonlarını seç
+const soruGosterButtons = document.querySelectorAll('.soru');
+
+// Her bir buton için event listener ekle
+soruGosterButtons.forEach(function (button, index) {
+button.addEventListener('click', function() {
+const soruContainer = document.querySelector('.soruContainer');
+
+// Eğer gösteriliyorsa gizle, gizliyse göster
+	if (soruContainer.style.display === "none") {
+	  soruContainer.style.display = "block";
+	} else {
+	  soruContainer.style.display = "none";
+}
+});
+});
+
+
+soruContainer.addEventListener('mousedown', function(e) {  surukleniyor = true;	  offsetX = e.clientX - soruContainer.getBoundingClientRect().left;	  offsetY = e.clientY - soruContainer.getBoundingClientRect().top;});
+
+document.addEventListener('mousemove', function(e) {  if (surukleniyor) {soruContainer.style.left = (e.clientX - offsetX) + 'px';
+		soruContainer.style.top = (e.clientY - offsetY) + 'px'; }});
+
+	document.addEventListener('mouseup', function() { surukleniyor = false;	});
+</script>
+
+</body>
+</html>
+{% endblock%}

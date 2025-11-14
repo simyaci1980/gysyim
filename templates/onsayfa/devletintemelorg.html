@@ -1,0 +1,1753 @@
+{% extends  'layout.html'%}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Navbar'ı ders sayfasında gizle - div#beyaz zaten navigasyon sağlıyor */
+.navbar {
+    display: none !important;
+}
+
+header{
+    display:run-in ;
+    width: 100%;
+    margin: 0;
+    top: 0;
+    position: fixed;
+    border-radius: 10px;
+}
+
+body{
+	background-color: rgb(1, 53, 37); 
+	color: whitesmoke; 
+	font-size: large;
+	padding-top: 0px; /* Navbar gizli olduğu için padding'e gerek yok */
+}
+
+.beyaz{
+	background-color: #2c3e50;
+	background-image: url("{% static 'img/bayrak2.jpg' %}");
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	left: 0;
+	width: 100%;
+	position: sticky; /* Sayfayı scroll ederken üstte kalsın */
+	top: 0;
+	z-index: 1030;
+	float: left;
+	margin-left: 0;
+	margin-top: 0;
+	padding: 10px;
+	border-radius: 0px;
+	border-bottom: 3px solid #34495e;
+	box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.butt{
+	color: white;
+	height: 35px;
+	cursor: pointer;	
+	border-radius: 8px;
+	right: 1px;
+	background-color: #e74c3c;
+	border: 2px solid #c0392b;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+}
+.butt:hover{
+	background-color: #c0392b;
+	transform: scale(1.05);
+}
+
+.asi{
+	background-color: #27ae60;
+	color: white;
+	float: right;
+	height: 35px;
+	cursor: pointer;
+	border-radius: 8px;
+	border: 2px solid #229954;
+	font-weight: bold;
+	padding: 5px 15px;
+	transition: all 0.3s ease;
+}
+.asi:hover{
+	background-color: #229954;
+	transform: scale(1.05);
+}
+
+.demo{
+	background-color: #3498db;
+	color: white;
+	float: right;
+	border: 2px solid #2980b9;
+	border-radius: 8px;
+	cursor: pointer;
+	height: 35px;
+	padding: 5px 15px;
+	font-weight: bold;
+}
+
+.renki{color: rgb(202, 150, 221);}
+
+ul li {	float: left;margin-right: 20px;}
+a{color: white;}
+
+div {padding-left: 10px; padding-right:3px; border-style: groove; border-color: black; padding-left: 10px;  overflow: hidden; margin-left: 20px; margin-bottom: 10px; text-align: justify;}
+
+hr{margin-bottom: 15px;}
+
+.span{color: chocolate; font-size: larger; }
+
+.ark{background-color:black; font-size: larger; border-radius: 20px;}
+
+.sadeceborder{border-style: dashed; margin: 0; margin-bottom: 10px; margin-top: 10px;}
+.mavi{background-color : darkcyan; border-radius: 20px; color: darkred ; font-size: x-large; }
+.dik{background-color: darkred; border-radius: 10px; font-size: larger; color: white; }
+.kim{color: aqua; background-color: brown; font-size: larger; }
+strong{font-size: larger; }
+
+input[type="radio"] {
+            transform: scale(1.5); /* Radio buton boyutunu 1.5 kat büyüt */
+}
+
+
+
+
+.soruContainer {
+    display: none;
+    background-color: rgb(236, 170, 188);
+    color: black;
+    padding: 10px;
+    border-radius: 20px;
+    max-width: 90%; /* En fazla ekran genişliğinin %90'ı kadar olabilir */
+    max-height: 90%; /* Ekranın %90 yüksekliği kadar olabilir */
+    text-align: justify;
+    font-size: large;
+    position: fixed;
+    top: 50%; /* Sayfanın yarısında dikey olarak konumlandırma */
+    left: 35%; /* Sayfanın yarısında yatay olarak konumlandırma */
+    transform: translate(-50%, -50%); /* Merkezlemek için */
+    overflow: auto
+}
+
+.cevapp{ background-color: darkcyan;
+		color: white;
+		font-size: x-large;
+   }
+.balon1{
+			position: absolute;
+            display: none;
+            background-color: #076423;
+            color: #e6dede;
+            padding: 10px;
+            border-radius: 20px;
+            left: 70%;
+            top: 70%;
+            transform: translate(-50%, -50%);
+            max-width: 400px;
+            text-align: justify;
+			position:fixed;
+
+}
+.balonnöyap {
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	  }
+.balonnnsap {
+		background-color:rgb(1, 53, 37);
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 250px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	  }
+ .metinArk{
+	    position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;
+
+	}
+.metinDik{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}
+
+.metinMavi{
+		position: absolute;
+		background-color:white;
+		border: 1px dotted black;
+		text-align: right;
+		border-radius: 20px;
+		height: 200px;
+		width: 63;
+		color: black;
+		padding: 0px;
+		left: 0%;
+        top: 10%;
+		position: fixed;}
+
+
+
+
+
+.asi{
+		background-color: rgba(1, 53, 37,0.1);
+		color:white;
+		float: right;
+		height: 30px;
+		cursor: pointer;
+		border-radius: 10px;
+		border-color: black;
+
+	}
+/* .beyaz tanımı yukarıda zaten var - bu eski tanımı kaldırdık */
+/*.beyaz{
+	background-image: url("static/img/bayrak2.jpg");
+	background-position: center;
+	top: 5;
+	width: 100%;
+	position: fixed;
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 5px;
+	border-style: groove;
+	border-color:  white;
+	margin-bottom: 5px;
+	}*/
+.kal{
+	background-color: rgb(173, 24, 44);
+	background-position: center;
+	color: white;
+	width: 100%;
+
+	float: left;
+	margin-left: 0;
+	padding: 5px;
+	border-radius: 10px;
+	border-bottom: 10px;
+	border-style: groove;
+	border-color: white;}
+.butt{
+	color:white;
+	height: 30px;
+	cursor: pointer;
+	border-radius: 10px;
+	right: 1px;
+	background-color:rgba(7, 7, 7, 0.1)
+	}
+.soru{
+	cursor: pointer;
+	color: rgb(24, 22, 22);
+	border-radius: 10px;
+	background-color:rgba(120, 219, 166, 0.893)	}
+
+
+
+
+.demo{
+	background-color: rgb(206, 237, 244);
+	float: right;
+	border-style:double;
+	border-radius: 15px;
+	border-color: brown;
+	border-width: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+	}
+
+ .but{
+	background-color: darkblue;
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+	}
+.reset{
+	background-color: rgb(0, 123, 139);
+	color: white;
+	height: 20px;
+	width: 60px;
+	font-size: 10px;
+
+}
+.siyah{
+	background-color: black;
+	height: 25px;
+	width: 60px;
+	color: white;
+	font-size: 15px;
+	}
+.edt{
+	background-color:rgb(1, 53, 37);
+	color:white;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.bey{background-color:white;
+	color:black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+	.uyp{
+	background-color: rgb(191, 234, 244);
+	color: black;
+	height: 25px;
+	width: 60px;
+	font-size: 15px;
+	}
+.yen{
+	background-color: rgb(209, 231, 85);
+	color: black;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.dhyen{
+	background-color: rgb(236, 170, 188);
+	color: rgb(9, 9, 9);
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+	}
+.yaz{
+	background-color: yellowgreen;
+	text-align: center;
+	height: 25px;
+	width: 60px	;
+	font-size: 15px;
+    }
+
+.ort{
+	text-align: center;
+	}
+</style>
+<title>anayasa2</title>
+<script>
+	function kapat() {
+		if (balon.style.display === "block") {
+			balon.style.display = "none"; cevaps.style.display="none" ;
+		} }
+
+
+
+
+	function sınıf()	{ // bütü spanları seçip tek tek rengini değiştiren fonksiyon
+	    var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="red"}}
+
+	function metinSifirla(){ // editör görünümü için
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metinSıfırla(){  // spanlar için
+
+		document.getElementById("bady").style.backgroundColor = "rgb(1, 53, 37)"
+		document.getElementById("bady").style.color="white"
+		metinSifirla()
+		metınArk()
+		metınDık()
+		metınEDİ()
+		metınKim() 	}
+
+	function metınKim(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function kimmorlasss(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function kimuyp(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function kimdahe(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }
+
+	function kimyes(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="white"} }
+
+	function metınArk(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınKim(){
+		var panDivs= document.querySelectorAll(".kim");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınDık(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınEDİ(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(1, 53, 37)";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metınYes(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="green";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function metındmavi(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkblue";
+		panDivs[i].style.color="white"} }
+
+	function metınkır(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }
+
+	function morlas(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikcho(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="chocolate";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikuyp(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function dikkırmızı(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="red";
+		panDivs[i].style.color="white"} }
+
+	function morlasss(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function arkuyp(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(191, 234, 244";
+		panDivs[i].style.color="black"} }
+
+	function arkdahe(){
+		var panDivs= document.querySelectorAll(".ark");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="rgb(212, 12, 126";
+		panDivs[i].style.color="white"} }
+
+	function metınmavi(){
+		var panDivs= document.querySelectorAll(".mavi");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkcyan";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function dikles(){
+		var panDivs= document.querySelectorAll(".dik");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		panDivs[i].style.backgroundColor="darkred";
+		panDivs[i].style.color="whitesmoke"} }
+
+	function chola(){
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="chocolate"} }
+
+	function dahadayeni(){
+		var panDivs= document.querySelectorAll(".span");
+	    for(var i =0 ; i<panDivs.length; i++) {
+		//panDivs[i].style.backgroundColor="purple";
+		panDivs[i].style.color="rgb(212, 12, 126"} }
+
+	setInterval(tarıh, 1000);
+	function tarıh(){
+			 var an = new Date()
+			 var yıl= Number( an.getFullYear() )
+			 var ay = Number( an.getMonth().toString(). padStart(2,'0')) + 1 // sadece ay da bir artırmak gerekiyor
+			 var gün= Number( an.getDate()).toString(). padStart(2,'0') // day değil date !!!!!
+			 var saat= Number( an. getHours().toString(). padStart(2,'0'))
+			 var dk=  an.getMinutes().toString(). padStart(2,'0')
+			document.getElementById("demo").innerHTML=" TARİH : " + gün + "/"+ ay+ "/"+ yıl + "<br>" + "SAAT  "+ saat + ":" + dk // ekitekin içini değiştirmeyi sağladık
+			}
+    function badyMavi(){
+		document.getElementById("bady").style.backgroundColor = "darkblue"
+		document.getElementById("bady").style.color = "white"
+		sınıf()
+		arkuyp()
+		dikcho()
+		metınkır()
+		kimdahe()	}
+	function badyEditör(){
+		document.getElementById("bady").style.backgroundColor = " rgb(1, 53, 37)"
+		document.getElementById("bady").style.color = "white"
+		chola()
+		arkuyp()
+		dikkırmızı()
+		morlas()
+		kimuyp()}
+
+	function badysiyah(){
+		document.getElementById("bady").style.backgroundColor = "black"
+		document.getElementById("bady").style.color = "whitesmoke";
+		chola()
+		arkdahe()
+		dikuyp()
+		metınYes()
+		kimmorlasss()	}
+
+	function beyaz(){
+		document.getElementById("bady").style.backgroundColor = " white"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metındmavi()
+		kimyes()	}
+
+
+	function uyap(){
+		document.getElementById("bady").style.backgroundColor = " rgb(191, 234, 244"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		morlasss()
+		metınDık()
+		metınmavi()
+		kimdahe()	}
+
+	function yeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(209, 231, 85)"
+		document.getElementById("bady").style.color = "black"
+		sınıf()
+		arkdahe()
+		metınDık()
+		metınmavi()
+		kimyes()	}
+
+	function dahayeni(){
+		document.getElementById("bady").style.backgroundColor =" rgb(236, 170, 188)"
+		document.getElementById("bady").style.color = "black"
+		dahadayeni()
+		morlasss()
+		dikles()
+		metınEDİ()
+		kimyes()}
+
+	function soruGetır(){
+
+	}
+
+	function calıs(element){ //  element yazmayınca çalışmıyor onmouseover den geldiğinden  orada da this yazmak gerekiyor
+		element.style.color="red";
+		element.style.fontWeight="bold"}
+
+	function YAZDIR(){
+	   window.print()}
+
+	   function DivResetle(){
+
+		const allDivs=document.querySelectorAll('div')
+		allDivs.forEach(function(div){ const currentBordersStyle= div.style.borderStyle || "grove" ;
+		div.style.borderStyle=currentBordersStyle==="none"?"groove" : "none";
+		//div.style.borderStyle="none"
+		})  }
+
+	function sadeceişaretli(){
+				document.getElementById("bady").style.backgroundColor = "black"
+				document.getElementById("bady").style.color = "black";
+				chola()
+				arkdahe()
+				dikuyp()
+				metınEDİ()	}
+
+</script>
+</head>
+<body id="bady" onload="tarıh()">
+	<br>
+	<div class="beyaz" id="byz">
+		<button name="butt" value="butt" class="butt"><a href="{% url 'index' %}">ANASAYFA</a></button>
+		<button id="acButtonnSAP" name="butt" value="butt" class="butt">SAYFA ARKA PLAN</button>
+		<button onclick="sadeceişaretli()" name="butt" value="butt" class="butt">SADECE İŞARETLİ</button>
+		<button id="demo" class="demo"></button>
+		<button id="eag" class="asi" onclick="location.reload()" title="Bu Butona basarak editör görünümüne dönebilirsiniz">EDİTÖR ANA GÖRÜNÜM</button>
+	</div>
+<br><br><br>
+	<div class="kal" >
+	ÜÇÜNCÜ KISIM <br>
+
+Cumhuriyetin Temel Organları</div>
+
+<div id="balonnnsap"  class="balonnnsap" style="display: none;" >
+
+	<p>
+	  <button class="but" onclick= "badyMavi()" >Mavi</button> <br>
+	  <button class="siyah" onclick='badysiyah()'> Siyah </button> <br>
+	  <button class="edt" onclick='badyEditör()'> Editör </button>  <br>
+	  <button class="bey" onclick="beyaz()"> Beyaz </button>  <br>
+	  <button class="uyp" onclick="uyap()"> Uyap </button> <br>
+	  <button class="yen" onclick="yeni()"> Yeni </button> <br>
+	  <button class="dhyen" onclick="dahayeni()"> Daha </button> <br>
+	  <button onclick="metinSıfırla()" class="yaz" title=" TAMAMEN SIFIRLAMAK İÇİN EDİTÖR ANA GÖRÜNÜMDEN SONRA YAPMANIZ GEREKİYOR " >Sıfırla</button> <br>
+	  <button id="borderreset" class="reset" onclick="DivResetle()" >Çerçeveler</button>
+	</p></div>
+
+	<script>
+	  acButtonnSAP.addEventListener('click', function() {if (balonnnsap.style.display === "none") {balonnnsap.style.display = "block";	} else {balonnnsap.style.display = "none";};});
+	  </script>
+
+
+
+	  <div id="soruContainer" class="soruContainer">
+		  <div id="soruDiv">
+			  <!-- Soru metni ve cevap seçenekleri burada yer alacak -->
+		  </div>
+		  <div id="cevaplar"></div> <!-- Bu div'i ekledim -->
+		  <button id="cevaplaButton" style="display: none;" onclick="cevapla()">Cevapla</button>
+		  <button id="kapatButton" style="display: none;" onclick="kapat()">Kapat</button>
+		  <p id="dogruCevap"  class="cevapp" style="display: none; "></p>
+	  </div>
+	  <script src="static/js/script.js"></script> <br> <br><br>
+
+<div>
+BİRİNCİ BÖLÜM <br>
+
+Yasama
+<div>
+I. Türkiye Büyük Millet Meclisi
+<div>
+    A. Kuruluşu
+	<div>
+MADDE 75- (Değişik: 23/7/1995-4121/8 md.) <br>
+
+Türkiye Büyük Millet Meclisi genel oyla seçilen altıyüz milletvekilinden oluşur.(1)</div>
+</div>
+
+<div>
+
+    B. Milletvekili seçilme yeterliliği
+	<div>
+MADDE 76- <span class="mavi"> Onsekiz yaşını dolduran her Türk milletvekili seçilebilir</span>.(1)</div>
+<div> <span class="ark">
+En az ilkokul mezunu olmayanlar,</span> <span class="ark"> kısıtlılar, askerlikle ilişiği olanlar, kamu hizmetinden yasaklılar,</span> taksirli suçlar hariç <span class="ark"> toplam bir yıl veya daha fazla hapis ile ağır hapis cezasına hüküm giymiş olanlar;</span> zimmet, ihtilas, irtikap, rüşvet, hırsızlık, dolandırıcılık, sahtecilik, inancı kötüye kullanma, dolanlı iflas gibi yüz kızartıcı suçlarla, kaçakçılık, Resmî ihale ve alım satımlara fesat karıştırma, Devlet sırlarını açığa vurma, terör eylemlerine katılma ve bu gibi eylemleri tahrik ve teşvik suçlarından biriyle hüküm giymiş olanlar, <span class="mavi"> affa uğramış olsalar bile milletvekili seçilemezler.</span> (2)(3)</div>
+<div>
+Hâkimler ve savcılar, yüksek yargı organları mensupları, yükseköğretim kurumlarındaki öğretim elemanları, Yükseköğretim Kurulu üyeleri, kamu kurum ve kuruluşlarının memur statüsündeki görevlileri ile yaptıkları hizmet bakımından işçi niteliği taşımayan diğer kamu görevlileri ve Silahlı Kuvvetler mensupları, görevlerinden çekilmedikçe, aday olamazlar ve milletvekili seçilemezler.</div>
+<div> <button  onclick="soruyuGoster(213)" class="soru" >2017 yılı çıkmış soru</button> </div>
+
+</div>
+
+<div>
+
+    C. Türkiye Büyük Millet Meclisi ve Cumhurbaşkanının seçim dönemi(1)
+	<div>
+MADDE 77- (Değişik: 21/1/2017-6771/4 md.) <br>
+
+Türkiye Büyük Millet Meclisi ve Cumhurbaşkanlığı seçimleri <span class="mavi"> beş yılda bir aynı günde yapılır.</span></div>
+<div>
+Süresi biten milletvekili yeniden seçilebilir.</div>
+<div>
+Cumhurbaşkanlığı seçiminde birinci oylamada gerekli çoğunluğun sağlanamaması halinde 101 inci maddedeki usule göre ikinci oylama yapılır.</div></div>
+<div> </div>
+
+
+<div>
+    D. Seçimlerin geriye bırakılması ve ara seçimler(1)
+	<div>
+MADDE 78- <span class="kim"> Savaş sebebiyle yeni seçimlerin yapılmasına imkân görülmezse,</span> <span class="ark"> Türkiye Büyük Millet Meclisi,</span> <span class="mavi"> seçimlerin bir yıl geriye bırakılmasına karar verebilir.</span></div>
+<div> <span class="kim">
+Geri bırakma sebebi ortadan kalkmamışsa,</span> <span class="mavi"> erteleme kararındaki usule göre bu işlem tekrarlanabilir.</span></div>
+<div>
+Türkiye Büyük Millet Meclisi üyeliklerinde <span class="kim"> boşalma olması halinde,</span> <span class="mavi"> ara seçime gidilir.</span><span class="kim"> Ara seçim,</span> <span class="mavi"> her seçim döneminde bir defa yapılır </span> ve <span class="kim"> genel seçimden <span class="mavi"> otuz ay</span> geçmedikçe</span> <span class="mavi"> ara seçime gidilemez.</span> <span class="kim"> Ancak, boşalan üyeliklerin sayısı,</span> <span class="ark"> üye tamsayısının yüzde beşini (%5= 30 MV) bulduğu hallerde,</span> <span class="mavi"> ara seçimlerinin üç ay içinde yapılmasına karar verilir.</span></div>
+<div> <span class="mavi">
+Genel seçimlere bir yıl kala, ara seçimi yapılamaz.</span></div>
+<div>
+(Ek fıkra: 27/12/2002-4777/2 md.) Yukarıda yazılı hallerden ayrı olarak, <span class="kim"> bir ilin veya seçim çevresinin,</span> Türkiye Büyük Millet Meclisinde <span class="ark"> üyesinin kalmaması halinde,</span> <span class="mavi"> boşalmayı takip eden doksan günden sonraki ilk Pazar günü ara seçim yapılır.</span>  Bu fıkra gereği yapılacak seçimlerde Anayasanın 127 nci maddesinin üçüncü fıkrası hükmü uygulanmaz.</div>
+</div>
+
+
+<div>
+    E. Seçimlerin genel yönetim ve denetimi
+	<div>
+MADDE 79- Seçimler, yargı organlarının genel yönetim ve denetimi altında yapılır.
+	</div>
+	<div>
+Seçimlerin başlamasından bitimine kadar, seçimin düzen içinde yönetimi ve dürüstlüğü ile ilgili bütün işlemleri yapma ve yaptırma, seçim süresince ve seçimden sonra seçim konularıyla ilgili bütün yolsuzlukları, şikayet ve itirazları inceleme ve kesin karara bağlama ve Türkiye Büyük Millet Meclisi üyelerinin seçim tutanaklarını ve Cumhurbaşkanlığı seçim tutanaklarını kabul etme görevi Yüksek Seçim Kurulunundur. <span class="mavi"> Yüksek Seçim Kurulunun kararları aleyhine başka bir mercie başvurulamaz.</span>(1)</div>
+<div>
+Yüksek Seçim Kurulunun ve diğer seçim kurullarının görev ve yetkileri <span class="mavi"> kanunla </span>düzenlenir.<div> <button  onclick="soruyuGoster(10)" class="soru" >2023 yılı çıkmış soru</button> </div></div>
+<div> <span class="mavi">
+Yüksek Seçim Kurulu yedi asıl ve dört yedek üyeden oluşur.</span> Üyelerin <span class="mavi"> altısı Yargıtay, beşi Danıştay</span>  Genel Kurullarınca kendi üyeleri arasından üye tamsayılarının salt çoğunluğunun gizli oyu ile seçilir. Bu üyeler, salt çoğunluk ve gizli oyla <span class="mavi"> aralarından  bir başkan ve bir başkanvekili seçerler.</span></div><div> <button  onclick="soruyuGoster(333)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+<div>
+Yüksek Seçim Kuruluna Yargıtay ve Danıştaydan seçilmiş üyeler arasından <span class="mavi"> ad çekme ile ikişer yedek üye ayrılır.</span> Yüksek Seçim Kurulu <span class="mavi"> Başkanı ve Başkanvekili ad çekmeye girmezler.</span></div>
+<div>
+Anayasa değişikliklerine ilişkin kanunların halkoyuna sunulması, Cumhurbaşkanının halk tarafından seçilmesi işlemlerinin genel yönetim ve denetimi de milletvekili seçimlerinde uygulanan hükümlere göre olur.(2)</div>
+</div>
+
+<div>
+
+    F. Üyelikle ilgili hükümler
+	<div>
+1. Milletin temsili
+<div>
+MADDE 80- Türkiye Büyük Millet Meclisi üyeleri, seçildikleri bölgeyi veya kendilerini seçenleri değil, <span class="mavi"> bütün Milleti temsil ederler.</span></div></div>
+<div>
+2. Andiçme
+<div>
+MADDE 81- Türkiye Büyük Millet Meclisi üyeleri, göreve başlarken aşağıdaki şekilde andiçerler:</div>
+<div>
+“Devletin varlığı ve bağımsızlığını, vatanın ve milletin bölünmez bütünlüğünü, milletin kayıtsız ve şartsız egemenliğini koruyacağıma; hukukun üstünlüğüne, demokratik ve lâik Cumhuriyete ve Atatürk ilke ve inkılaplarına bağlı kalacağıma; toplumun huzur ve refahı, millî dayanışma ve adalet anlayışı içinde herkesin insan haklarından ve temel hürriyetlerden yararlanması ülküsünden ve Anayasaya sadakattan ayrılmayacağıma; büyük Türk milleti önünde namusum ve şerefim üzerine andiçerim.”</div></div>
+<div>
+3. Üyelikle bağdaşmayan işler
+<div>
+MADDE 82- Türkiye Büyük Millet Meclisi üyeleri, Devlet ve diğer kamu tüzelkişilerinde ve bunlara bağlı kuruluşlarda; Devletin veya diğer kamu tüzelkişilerinin doğrudan doğruya ya da dolaylı olarak katıldığı teşebbüs ve ortaklıklarda; özel gelir kaynakları ve özel imkânları kanunla sağlanmış kamu yararına çalışan derneklerin ve Devletten yardım sağlayan ve vergi muafiyeti olan vakıfların, kamu kurumu niteliğindeki meslek kuruluşları ile sendikalar ve bunların üst kuruluşlarının ve katıldıkları teşebbüs veya ortaklıkların yönetim ve denetim kurullarında görev alamazlar, vekili olamazlar, herhangi bir taahhüt işini doğrudan veya dolaylı olarak kabul edemezler, temsilcilik ve hakemlik yapamazlar.</div>
+<div>  <span class="mavi">
+Türkiye Büyük Millet Meclisi üyeleri, yürütme organının teklif, inha, atama veya onamasına bağlı resmî veya özel herhangi bir işle görevlendirilemezler.</span> (Mülga ikinci cümle: 21/1/2017-6771/16 md.)</div> (…)
+<div>
+Türkiye Büyük Millet Meclisi üyeliği ile bağdaşmayan diğer görev ve işler kanunla düzenlenir.</div></div>
+<div>
+4. Yasama dokunulmazlığı
+<div>
+MADDE 83- Türkiye Büyük Millet Meclisi üyeleri, Meclis çalışmalarındaki oy ve sözlerinden, Mecliste ileri sürdükleri düşüncelerden, o oturumdaki Başkanlık Divanının teklifi üzerine Meclisce başka bir karar alınmadıkça bunları Meclis dışında tekrarlamak ve açığa vurmaktan sorumlu tutulamazlar.</div>
+<div>
+Seçimden önce veya sonra bir suç işlediği ileri sürülen bir milletvekili, Meclisin kararı olmadıkça tutulamaz, sorguya çekilemez, tutuklanamaz ve yargılanamaz. Ağır cezayı gerektiren suçüstü hali ve seçimden önce soruşturmasına başlanılmış olmak kaydıyla Anayasanın 14 üncü maddesindeki durumlar bu hükmün dışındadır. Ancak, bu halde yetkili makam, durumu hemen ve doğrudan doğruya Türkiye Büyük Millet Meclisine bildirmek zorundadır.</div>
+<div>
+Türkiye Büyük Millet Meclisi üyesi hakkında, seçiminden önce veya sonra verilmiş bir ceza hükmünün yerine getirilmesi, üyelik sıfatının sona ermesine bırakılır; üyelik süresince zamanaşımı işlemez.</div>
+<div>
+Tekrar seçilen milletvekili hakkında soruşturma ve kovuşturma, Meclisin yeniden dokunulmazlığını kaldırmasına bağlıdır.</div>
+<div>
+Türkiye Büyük Millet Meclisindeki siyasî parti gruplarınca, yasama dokunulmazlığı ile ilgili görüşme yapılamaz ve karar alınamaz.</div></div>
+<div> <div> <button  onclick="soruyuGoster(214)" class="soru" >2017 yılı çıkmış soru</button> </div>
+5. Milletvekilliğinin düşmesi(1)
+<div>
+MADDE 84- (Değişik: 23/7/1995- 4121/9 md.) <br>
+
+İstifa eden milletvekilinin milletvekilliğinin düşmesi, <span class="kim"> istifanın geçerli olduğu</span> Türkiye Büyük Millet Meclisi <span class="ark"> Başkanlık Divanınca tespit edildikten sonra,</span> <span class="mavi"> Türkiye Büyük Millet Meclisi Genel Kurulunca kararlaştırılır.</span></div>
+<div>
+Milletvekilliğinin kesin hüküm giyme veya kısıtlanma halinde düşmesi, bu husustaki <span class="mavi"> kesin mahkeme kararının Genel Kurula <span class="dik"> bildirilmesiyle</span> olur.</span></div>
+<div>
+82 nci maddeye göre milletvekilliğiyle <span class="kim"> bağdaşmayan bir görev veya hizmeti sürdürmekte ısrar eden milletvekilinin milletvekilliğinin düşmesine,</span> <span class="ark"> yetkili komisyonun bu durumu tespit eden raporu üzerine</span> <span class="mavi"> Genel Kurul gizli oyla karar verir.</span></div>
+<div>
+Meclis çalışmalarına özürsüz veya izinsiz olarak <span class="kim"> bir ay içerisinde </span> <span class="mavi">toplam beş birleşim günü katılmayan milletvekilinin milletvekilliğinin düşmesine,</span>  durumun <span class="ark"> Meclis Başkanlık Divanınca tespit edilmesi üzerine,</span> <span class="mavi"> Genel Kurulca üye tamsayısının salt çoğunluğunun oyuyla karar verilebilir.</span></div>
+
+</div>
+
+
+<div>
+6. İptal istemi
+<div>
+MADDE 85- (Değişik: 23/7/1995- 4121/10 md.) <br>
+
+Yasama dokunulmazlığının kaldırılmasına veya milletvekilliğinin düşmesine 84 üncü maddenin birinci, üçüncü veya dördüncü fıkralarına göre karar verilmiş olması hallerinde, Meclis Genel Kurulu kararının alındığı tarihten başlayarak <span class="mavi"> yedi gün içerisinde</span> ilgili milletvekili veya bir diğer milletvekili, kararın, Anayasaya, kanuna veya İçtüzüğe aykırılığı iddiasıyla iptali için Anayasa Mahkemesine başvurabilir. <span class="mavi"> Anayasa Mahkemesi, iptal istemini <span class="dik"> onbeş gün</span> içerisinde kesin karara bağlar.</span></div> </div>
+<div>
+7. Ödenek ve yolluklar
+<div>
+MADDE 86- (Değişik birinci cümle: 21/11/2001-4720/1 md.) Türkiye Büyük Millet Meclisi üyelerinin ödenek, yolluk ve emeklilik işlemleri kanunla düzenlenir. <span class="kim"> Ödeneğin aylık tutarı</span> <span class="mavi"> en yüksek Devlet memurunun almakta olduğu miktarı,</span> <span class="kim"> yolluk da</span> <span class="mavi"> ödenek miktarının yarısını aşamaz.</span> Türkiye Büyük Millet Meclisi üyeleri ile bunların emeklileri T.C. Emekli Sandığı ile ilgilendirilirler ve üyeliği sona erenlerin istekleri halinde ilgileri devam eder.(1)</div>
+<div>
+Türkiye Büyük Millet Meclisi üyelerine ödenecek ödenek ve yolluklar, kendilerine T.C. Emekli Sandığı tarafından bağlanan emekli aylığı ve benzeri ödemelerin kesilmesini gerektirmez.</div>(2)
+<div>  <span class="kim">
+Ödenek ve yollukların</span> <span class="mavi"> en çok üç aylığı önceden ödenebilir.</span></div>
+
+</div></div></div>
+
+<div>
+
+II. Türkiye Büyük Millet Meclisinin görev ve yetkileri
+<div>
+    A. Genel olarak
+	<div>
+MADDE 87- (Değişik: 21/1/2017-6771/5 md.) <br>
+
+Türkiye Büyük Millet Meclisinin görev ve yetkileri, kanun koymak, değiştirmek ve kaldırmak; bütçe ve kesinhesap kanun tekliflerini görüşmek ve kabul etmek; para basılmasına ve savaş ilânına karar vermek; milletlerarası andlaşmaların onaylanmasını uygun bulmak, <span class="mavi"> Türkiye Büyük Millet Meclisi üye tamsayısının <span class="dik">beşte üç</span> çoğunluğunun kararı ile genel ve özel af ilânına karar vermek</span>  ve Anayasanın diğer maddelerinde öngörülen yetkileri kullanmak ve görevleri yerine getirmektir.</div></div>
+<div>
+    B. Kanunların teklif edilmesi ve görüşülmesi(1)
+	<div>
+MADDE 88- Kanun teklif etmeye (…)(1) milletvekilleri yetkilidir.</div>
+<div>
+Kanun (…)(1) tekliflerinin Türkiye Büyük Millet Meclisinde görüşülme usul ve esasları içtüzükle düzenlenir.</div>
+</div>
+<div>
+   C. Kanunların Cumhurbaşkanınca yayımlanması
+   <div>
+MADDE 89- Cumhurbaşkanı, Türkiye Büyük Millet Meclisince kabul edilen <span class="mavi"> kanunları onbeş gün içinde yayımlar.</span> </div><div> <button  onclick="soruyuGoster(14)" class="soru" font-size="large" >2023 yılı çıkmış soru</button> </div>
+<div>
+Yayımlanmasını kısmen veya tamamen uygun bulmadığı kanunları, bir daha görüşülmek üzere, bu hususta gösterdiği gerekçe ile birlikte aynı süre içinde, Türkiye Büyük Millet Meclisine geri gönderir. (Ek cümle: 3/10/2001-4709/29 md.) <span class="kim"> Cumhurbaşkanınca kısmen uygun bulunmama durumunda,</span> <span class="mavi"> Türkiye Büyük Millet Meclisi sadece uygun bulunmayan maddeleri görüşebilir.</span>  Bütçe kanunları bu hükme tabi değildir.(1)</div>
+<div>
+Türkiye Büyük Millet Meclisi, geri gönderilen kanunu <span class="kim"> üye tamsayısının salt çoğunluğuyla aynen kabul ederse,</span> <span class="mavi"> kanun Cumhurbaşkanınca yayımlanır;</span>  Meclis, geri gönderilen kanunda yeni bir <span class="kim">  değişiklik yaparsa,</span> <span class="mavi"> Cumhurbaşkanı değiştirilen kanunu tekrar Meclise geri gönderebilir.</span>(2)</div>
+
+
+<div>
+<span class="mavi">
+Anayasa değişikliklerine ilişkin hükümler saklıdır.</span> </div></div>
+<div>
+    D. Milletlerarası andlaşmaları uygun bulma
+	<div>
+MADDE 90- Türkiye Cumhuriyeti adına yabancı devletlerle ve milletlerarası kuruluşlarla yapılacak andlaşmaların onaylanması, <span class="mavi"> Türkiye Büyük Millet Meclisinin onaylamayı bir kanunla uygun bulmasına bağlıdır.</span> </div>
+<div>  <span class="ark">
+Ekonomik, ticarî veya teknik ilişkileri düzenleyen ve <br> süresi bir yılı aşmayan andlaşmalar, <br> Devlet Maliyesi bakımından bir yüklenme getirmemek, <br> kişi hallerine ve Türklerin yabancı memleketlerdeki mülkiyet haklarına dokunmamak şartıyla,</span>  <span class="mavi">yayımlanma ile yürürlüğe konabilir.</span>  Bu  <span class="kim">takdirde bu andlaşmalar,</span> <span class="mavi"> yayımlarından başlayarak iki ay içinde Türkiye Büyük Millet Meclisinin bilgisine sunulur.</span></div>
+<div> <span class="ark">
+Milletlerarası bir andlaşmaya dayanan uygulama andlaşmaları ile  <br>
+kanunun verdiği yetkiye dayanılarak yapılan ekonomik, ticarî, teknik veya idarî andlaşmaların</span> <span class="mavi"> Türkiye Büyük Millet Meclisince uygun bulunması zorunluğu yoktur;</span>  ancak, bu fıkraya göre yapılan ekonomik, ticarî veya özel kişilerin haklarını ilgilendiren andlaşmalar, yayımlanmadan yürürlüğe konulamaz.</div>
+<div>
+Türk kanunlarına değişiklik getiren her türlü andlaşmaların yapılmasında birinci fıkra hükmü uygulanır.</div>
+<div>
+Usulüne göre yürürlüğe konulmuş milletlerarası andlaşmalar kanun hükmündedir. <span class="mavi"> Bunlar hakkında Anayasaya aykırılık iddiası ile Anayasa Mahkemesine başvurulamaz.</span> (Ek cümle: 7/5/2004-5170/7 md.) Usulüne göre yürürlüğe konulmuş temel hak ve özgürlüklere ilişkin milletlerarası andlaşmalarla kanunların aynı konuda farklı hükümler içermesi nedeniyle çıkabilecek uyuşmazlıklarda <span class="mavi"> milletlerarası andlaşma hükümleri esas alınır.</span></div></div>
+<div>
+    E. Kanun hükmünde kararname çıkarma yetkisi verme
+
+MADDE 91- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    F. Savaş hali ilânı ve silahlı kuvvet kullanılmasına izin verme
+	<div>
+MADDE 92- Milletlerarası hukukun meşrû saydığı hallerde savaş hali ilânına ve Türkiye’nin taraf olduğu milletlerarası andlaşmaların veya milletlerarası nezaket kurallarının gerektirdiği haller dışında, Türk Silahlı Kuvvetlerinin yabancı ülkelere gönderilmesine veya yabancı silahlı kuvvetlerin <span class="mavi"> Türkiye’de bulunmasına izin verme yetkisi Türkiye Büyük Millet Meclisinindir.</span></div>
+<div>
+Türkiye Büyük Millet Meclisi tatilde veya ara vermede iken ülkenin ani bir silahlı saldırıya uğraması ve bu sebeple silahlı kuvvet kullanılmasına derhal karar verilmesinin <span class="kim"> kaçınılmaz olması halinde</span> <span class="mavi"> Cumhurbaşkanı da,</span> Türk Silahlı Kuvvetlerinin kullanılmasına karar verebilir.</div></div></div>
+<div>
+III. Türkiye Büyük Millet Meclisinin faaliyetleri ile ilgili hükümler
+<div>
+    A. Toplanma ve tatil
+	<div>
+MADDE 93- (Değişik birinci fıkra: 23/7/1995-4121/11 md.) Türkiye Büyük Millet Meclisi , <span class="mavi"> her yıl Ekim ayının ilk günü kendiliğinden toplanır.</span></div>
+<div>
+Meclis, bir yasama yılında <span class="mavi"> en çok üç ay tatil yapabilir;</span>  ara verme veya tatil sırasında </span><span class="kim"> Cumhurbaşkanınca toplantıya çağrılır.</div>
+<div>
+    <span class="kim">
+Meclis Başkanı da doğrudan doğruya veya</span> <span class="mavi"> üyelerin beşte birinin yazılı istemi üzerine, Meclisi toplantıya çağırır.</span> </div>
+<div> <div> <button  onclick="soruyuGoster(175)" class="soru" >2016 yılı çıkmış soru</button> </div>
+Ara verme veya tatil sırasında toplanan Türkiye Büyük Millet Meclisinde, öncelikle bu toplantıyı gerektiren konu görüşülmeden ara verme veya tatile devam edilemez.</div>
+</div>
+<div>
+    B. Başkanlık Divanı
+	<div>
+MADDE 94- Türkiye Büyük Millet Meclisinin Başkanlık Divanı, <span class="kim"> Meclis üyeleri arasından seçilen</span> <span class="mavi"> Meclis Başkanı, Başkanvekilleri, Kâtip Üyeler ve İdare Amirlerinden oluşur.</span></div>
+<div>
+Başkanlık Divanı, Meclisteki siyasî parti gruplarının üye sayısı oranında Divana katılmalarını sağlayacak şekilde kurulur. Siyasî parti grupları Başkanlık için aday gösteremezler.</div>
+<div>
+Türkiye Büyük Millet Meclisi Başkanlık Divanı için, bir yasama döneminde iki seçim yapılır. (Değişik ikinci cümle: 7/5/2010-5982/10 md.) İlk seçilenlerin görev süresi iki yıldır, ikinci devre için seçilenlerin görev süresi ise o yasama döneminin sonuna kadar devam eder.</div>
+<div>
+Türkiye Büyük Millet Meclisi Başkan adayları, Meclis üyeleri içinden, <span class="kim"> Meclisin toplandığı günden itibaren</span> <span class="mavi"> beş gün içinde, Başkanlık Divanına bildirilir, Başkan seçimi gizli oyla yapılır.</span> <span class="mavi"> İlk iki oylamada üye tamsayısının üçte iki ve üçüncü oylamada üye tamsayısının salt çoğunluğu aranır. Üçüncü oylamada salt çoğunluk sağlanamazsa, bu oylamada en çok oy alan iki aday için dördüncü oylama yapılır; dördüncü oylamada en fazla oy alan üye, Başkan seçilmiş olur.</span>  Başkan seçimi, <span class="kim"> aday gösterme süresinin bitiminden itibaren,</span> <span class="mavi"> beş gün içinde tamamlanır.</span>(1)</div>
+<div>
+Türkiye Büyük Millet Meclisi Başkanvekillerinin, Kâtip Üyelerinin ve İdare Amirlerinin adedi, seçim nisabı, oylama sayısı ve usulleri, Meclis İçtüzüğünde belirlenir.</div>
+<div>
+Türkiye Büyük Millet Meclisi Başkanı, Başkanvekilleri, üyesi bulundukları siyasî partinin veya parti grubunun Meclis içinde veya dışındaki faaliyetlerine; görevlerinin gereği olan haller dışında, Meclis tartışmalarına katılamazlar; <span class="mavi"> Başkan ve oturumu yöneten Başkanvekili oy kullanamazlar.</span> </div>
+</div>
+
+
+<div>
+   C. İçtüzük, siyasî parti grupları ve kolluk işleri
+   <div>
+MADDE 95- Türkiye Büyük Millet Meclisi, çalışmalarını, kendi yaptığı İçtüzük hükümlerine göre yürütür.</div>
+<div>
+İçtüzük hükümleri, siyasî parti gruplarının, Meclisin bütün faaliyetlerine üye sayısı oranında katılmalarını sağlayacak yolda düzenlenir. Siyasî parti grupları, en az yirmi üyeden meydana gelir.</div>
+<div>
+Türkiye Büyük Millet Meclisinin bütün bina, tesis, eklenti ve arazisinde kolluk ve yönetim hizmetleri Meclis Başkanlığı eliyle düzenlenir ve yürütülür. <span class="mavi"> Emniyet ve diğer kolluk hizmetleri için yeteri kadar kuvvet ilgili makamlarca Meclis Başkanlığına tahsis edilir.</span></div></div>
+<div>
+    D. Toplantı ve karar yeter sayısı
+	<div>
+MADDE 96- (Değişik birinci fıkra: 31/5/2007-5678/3 md.) Türkiye Büyük Millet Meclisi, yapacağı seçimler dahil bütün işlerinde üye tamsayısının <span class="mavi"> en az üçte biri ile toplanır.</span> Türkiye Büyük Millet Meclisi, Anayasada başkaca bir hüküm yoksa toplantıya katılanların <span class="mavi"> salt çoğunluğu ile karar verir;</span> <span class="kim"> ancak karar yeter sayısı hiçbir şekilde</span> <span class="mavi"> üye tamsayısının dörtte birinin bir fazlasından az olamaz.</span></div> (200 -- 151 )
+</div>
+<div>
+    E. Görüşmelerin açıklığı ve yayımlanması
+	<div>
+MADDE 97- Türkiye Büyük Millet Meclisi Genel Kurulundaki görüşmeler açıktır ve tutanak dergisinde tam olarak yayımlanır.</div>
+<div>
+Türkiye Büyük Millet Meclisi İçtüzük hükümlerine göre kapalı oturumlar yapabilir, bu oturumlardaki görüşmelerin yayımı Türkiye Büyük Millet Meclisi kararına bağlıdır.</div>
+<div>
+Meclisteki açık görüşmelerin, o oturumdaki Başkanlık Divanının teklifi üzerine Meclisce başkaca bir karar alınmadıkça, her türlü vasıta ile yayımı serbesttir.</div></div></div>
+<div>
+IV. Türkiye Büyük Millet Meclisinin bilgi edinme ve denetim yolları
+
+
+<div>
+
+MADDE 98- (Değişik: 21/1/2017-6771/6 md.) <br>
+
+Türkiye Büyük Millet Meclisi; Meclis araştırması, genel görüşme, Meclis soruşturması ve yazılı soru yollarıyla bilgi edinme ve denetleme yetkisini kullanır.</div>
+<div> <span class="kim">
+Meclis araştırması, </span>belli bir konuda bilgi edinmek için yapılan <span class="mavi"> incelemeden ibarettir.</span></div>
+<div>
+Genel görüşme, toplumu ve Devlet faaliyetlerini ilgilendiren belli bir konunun Türkiye Büyük Millet Meclisi Genel Kurulunda görüşülmesidir.</div>
+<div>  <span class="kim">
+Meclis soruşturması,</span> <span class="mavi"> Cumhurbaşkanı yardımcıları ve bakanlar hakkında 106 ncı maddenin beşinci, altıncı ve yedinci fıkraları uyarınca yapılan soruşturmadan ibarettir.</span> </div>
+<div>
+    <span class="kim">
+Yazılı soru, </span> <span class="mavi"> yazılı olarak en geç onbeş gün içinde cevaplanmak üzere milletvekillerinin, Cumhurbaşkanı yardımcıları ve bakanlara yazılı olarak soru sormalarından ibarettir.</span></div>
+<div><div> <button  onclick="soruyuGoster(334)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+Meclis araştırması, genel görüşme ve yazılı soru önergelerinin verilme şekli, içeriği ve kapsamı ile araştırma usulleri <span class="mavi"> Meclis İçtüzüğü ile düzenlenir.</span></div>
+<div>
+    B. Gensoru
+
+MADDE 99- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    C. Meclis soruşturması
+
+MADDE 100- (Mülga: 21/1/2017-6771/16 md.)</div></div></div>
+
+<div>
+İKİNCİ BÖLÜM  <br>
+
+Yürütme
+<div>
+I. Cumhurbaşkanı
+<div>
+    A. Adaylık ve seçimi(1)
+	<div>
+MADDE 101- (Değişik: 21/1/2017-6771/7 md.)
+
+Cumhurbaşkanı, <br> <span class="ark"> kırk yaşını doldurmuş,  <br>
+    yükseköğrenim yapmış, <br> milletvekili seçilme yeterliliğine sahip <br> Türk vatandaşları arasından,</span> <span class="mavi"> doğrudan halk tarafından seçilir.</span></div>
+<div>
+Cumhurbaşkanının görev süresi beş yıldır. Bir kimse en fazla iki defa Cumhurbaşkanı seçilebilir.</div>
+<div>
+Cumhurbaşkanlığına, siyasi parti grupları, en son yapılan genel seçimlerde toplam geçerli oyların tek başına veya birlikte <span class="mavi"> en az yüzde beşini (%5) almış olan siyasi partiler ile en az yüzbin seçmen aday gösterebilir.</span></div>
+<div>
+Cumhurbaşkanı seçilen milletvekilinin Türkiye Büyük Millet Meclisi üyeliği sona erer.</div>
+<div>
+Genel oyla yapılacak seçimde, <span class="kim"> geçerli oyların</span> <span class="mavi"> salt çoğunluğunu alan aday,</span> Cumhurbaşkanı seçilir. İlk oylamada bu çoğunluk sağlanamazsa, bu oylamayı izleyen ikinci pazar günü ikinci oylama yapılır. Bu oylamaya, ilk oylamada en çok oy almış iki aday katılır ve geçerli oyların çoğunluğunu alan aday, Cumhurbaşkanı seçilir.</div>
+<div>
+İkinci oylamaya katılmaya hak kazanan adaylardan birinin herhangi bir nedenle seçime katılmaması halinde; ikinci oylama, boşalan adaylığın birinci oylamadaki sıraya göre ikame edilmesi suretiyle yapılır. İkinci oylamaya tek adayın kalması halinde, bu oylama referandum şeklinde yapılır. <span class="mavi"> Aday, geçerli oyların salt çoğunluğunu aldığı takdirde Cumhurbaşkanı seçilir</span>. Oylamada, adayın geçerli oyların çoğunluğunu alamaması halinde, <span class="mavi"> sadece Cumhurbaşkanı seçimi yenilenir.</span></div>
+<div>
+Seçimlerin tamamlanamaması halinde, yenisi göreve başlayıncaya kadar <span class="mavi"> mevcut Cumhurbaşkanının görevi devam eder.</span></div>
+<div>
+Cumhurbaşkanlığı seçimlerine ilişkin diğer usul ve esaslar kanunla düzenlenir.</div>
+</div>
+
+<div>
+
+    B. Seçimi <br>
+
+MADDE 102- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    C. Andiçmesi
+	<div>
+MADDE 103- Cumhurbaşkanı, görevine başlarken Türkiye Büyük Millet Meclisi önünde aşağıdaki şekilde andiçer:</div>
+<div>
+“Cumhurbaşkanı sıfatıyla, Devletin varlığı ve bağımsızlığını, vatanın ve milletin bölünmez bütünlüğünü, milletin kayıtsız ve şartsız egemenliğini koruyacağıma, Anayasaya, hukukun üstünlüğüne, demokrasiye, Atatürk ilke ve inkılâplarına ve lâik Cumhuriyet ilkesine bağlı kalacağıma, milletin huzur ve refahı, millî dayanışma ve adalet anlayışı içinde herkesin insan haklarından ve temel hürriyetlerinden yararlanması ülküsünden ayrılmayacağıma, Türkiye Cumhuriyetinin şan ve şerefini korumak, yüceltmek ve üzerime aldığım görevi tarafsızlıkla yerine getirmek için bütün gücümle çalışacağıma Büyük Türk Milleti ve tarih huzurunda, namusum ve şerefim üzerine andiçerim.”</div></div>
+<div>
+    D. Görev ve yetkileri
+	<div>
+MADDE 104- (Değişik: 21/1/2017-6771/8 md.)
+
+Cumhurbaşkanı Devletin başıdır. Yürütme yetkisi Cumhurbaşkanına aittir.</div>
+<div>
+Cumhurbaşkanı, Devlet başkanı sıfatıyla Türkiye Cumhuriyetini ve Türk Milletinin birliğini temsil eder; Anayasanın uygulanmasını, Devlet organlarının düzenli ve uyumlu çalışmasını temin eder.</div>
+<div>  <span class="kim">
+Gerekli gördüğü takdirde,</span> <span class="mavi"> yasama yılının ilk günü Türkiye Büyük Millet Meclisinde açılış konuşmasını yapar.</span></div>
+<div>  <span class="kim">
+Ülkenin iç ve dış siyaseti hakkında</span> <span class="mavi"> Meclise mesaj verir.</span></div>
+<div>
+Kanunları yayımlar.</div>
+<div>
+Kanunları tekrar görüşülmek üzere Türkiye Büyük Millet Meclisine geri gönderir.</div>
+<div> <span class="kim">
+Kanunların</span>, Türkiye Büyük Millet Meclisi <span class="kim"> İçtüzüğünün</span>  tümünün veya belirli hükümlerinin <span class="mavi"> Anayasaya şekil veya esas bakımından aykırı oldukları gerekçesiyle Anayasa Mahkemesinde iptal davası açar.</span></div>
+<div>
+Cumhurbaşkanı yardımcıları ile bakanları atar ve görevlerine son verir.</div>
+<div> <span class="mavi">
+Üst kademe kamu yöneticilerini atar,</span>  görevlerine son verir ve <span class="mavi"> bunların atanmalarına ilişkin usul ve esasları Cumhurbaşkanlığı kararnamesiyle düzenler.</span></div>
+<div>
+Yabancı devletlere Türkiye Cumhuriyetinin temsilcilerini gönderir, Türkiye Cumhuriyetine gönderilecek yabancı devlet temsilcilerini kabul eder.</div>
+<div>  <span class="mavi">
+Milletlerarası andlaşmaları onaylar ve yayımlar.</span></div>
+<div>  <span class="kim">
+Anayasa değişikliklerine ilişkin kanunları</span> <span class="mavi"> gerekli gördüğü takdirde halkoyuna sunar.</span></div>
+<div>
+Milli güvenlik politikalarını belirler ve gerekli tedbirleri alır.</div>
+<div>
+Türkiye Büyük Millet Meclisi adına <span class="mavi"> Türk Silahlı Kuvvetlerinin Başkomutanlığını temsil eder.</span></div>
+<div>  <span class="mavi">
+Türk Silahlı Kuvvetlerinin kullanılmasına karar verir.</span></div>
+<div>
+Sürekli hastalık, sakatlık ve kocama sebebiyle kişilerin cezalarını hafifletir veya kaldırır.</div>
+<div>
+Cumhurbaşkanı, yürütme yetkisine ilişkin konularda Cumhurbaşkanlığı kararnamesi çıkarabilir. Anayasanın ikinci kısmının birinci ve ikinci bölümlerinde yer alan temel haklar, kişi hakları ve ödevleriyle dördüncü bölümde yer alan siyasi haklar ve ödevler Cumhurbaşkanlığı kararnamesiyle düzenlenemez. <span class="mavi"> Anayasada münhasıran kanunla düzenlenmesi öngörülen konularda Cumhurbaşkanlığı kararnamesi çıkarılamaz.</span>  <span class="ark"> Kanunda açıkça düzenlenen konularda</span> Cumhurbaşkanlığı kararnamesi çıkarılamaz. Cumhurbaşkanlığı kararnamesi ile kanunlarda farklı hükümler bulunması halinde, kanun hükümleri uygulanır. Türkiye Büyük Millet Meclisinin aynı konuda kanun çıkarması durumunda, Cumhurbaşkanlığı kararnamesi hükümsüz hale gelir.<div> <button  onclick="soruyuGoster(13)" class="soru" font-size="large" >2023 yılı çıkmış soru</button> </div><div> <button  onclick="soruyuGoster(215)" class="soru" >2017 yılı çıkmış soru</button> </div> </div>
+<div>  <span class="kim">
+Cumhurbaşkanı,</span> kanunların uygulanmasını sağlamak üzere ve bunlara aykırı olmamak şartıyla, <span class="mavi"> yönetmelikler çıkarabilir.</span></div>
+<div> <span class="kim">
+Kararnameler ve yönetmelikler,</span> yayımdan sonraki bir tarih belirlenmemişse, <span class="mavi"> Resmî Gazetede yayımlandıkları gün yürürlüğe girer.</span></div>
+<div>
+Cumhurbaşkanı, ayrıca Anayasada ve kanunlarda verilen seçme ve atama görevleri ile diğer görevleri yerine getirir ve yetkileri kullanır.</div></div>
+<div>
+    E. Cumhurbaşkanının cezai sorumluluğu(1)
+	<div>
+MADDE 105- (Değişik: 21/1/2017-6771/9 md.) <br>
+
+Cumhurbaşkanı hakkında, bir suç işlediği iddiasıyla <span class="mavi"> Türkiye Büyük Millet Meclisi üye tamsayısının salt çoğunluğunun vereceği önergeyle soruşturma açılması istenebilir.</span> <span class="kim"> Meclis,</span> <span class="mavi"> önergeyi en geç bir ay içinde görüşür ve üye tamsayısının beşte üçünün gizli oyuyla soruşturma açılmasına karar verebilir.</span></div>
+<div>
+Soruşturma açılmasına karar verilmesi halinde, Meclisteki siyasi partilerin, güçleri oranında komisyona verebilecekleri üye sayısının üç katı olarak gösterecekleri adaylar arasından <span class="mavi"> her siyasi parti için ayrı ayrı ad çekme suretiyle kurulacak onbeş kişilik bir komisyon tarafından soruşturma yapılır.</span>  <span class="kim"> Komisyon,</span> <span class="mavi"> soruşturma sonucunu belirten raporunu iki ay içinde Meclis Başkanlığına sunar.</span> Soruşturmanın bu sürede bitirilememesi halinde, <span class="mavi"> komisyona bir aylık yeni ve kesin bir süre verilir.</span></div>
+<div>
+Rapor Başkanlığa verildiği tarihten itibaren <span class="mavi"> on gün</span> içinde dağıtılır, dağıtımından itibaren <span class="mavi"> on gün</span> içinde Genel Kurulda görüşülür. Türkiye Büyük Millet Meclisi, <span class="mavi"> üye tamsayısının üçte ikisinin gizli oyuyla Yüce Divana sevk kararı alabilir.</span> <span class="mavi"> Yüce Divan yargılaması üç ay içinde tamamlanır,</span>  bu sürede tamamlanamazsa bir defaya mahsus olmak üzere <span class="mavi"> üç aylık ek süre verilir,</span>  yargılama bu sürede kesin olarak tamamlanır.</div>
+<div> <span class="mavi">
+Hakkında soruşturma açılmasına karar verilen Cumhurbaşkanı, seçim kararı alamaz.</span></div>
+<div>
+Yüce Divanda seçilmeye engel bir suçtan mahkûm edilen Cumhurbaşkanının görevi sona erer.</div>
+<div>
+Cumhurbaşkanının görevde bulunduğu sürede işlediği iddia edilen suçlar için görevi bittikten sonra da bu madde hükmü uygulanır.</div>
+</div>
+
+
+<div>
+    F. Cumhurbaşkanı yardımcıları, Cumhurbaşkanına vekâlet ve bakanlar(1)
+	<div>
+MADDE 106- (Değişik: 21/1/2017-6771/10 md.)
+
+Cumhurbaşkanı, seçildikten sonra bir veya daha fazla Cumhurbaşkanı yardımcısı atayabilir.</div>
+<div>
+Cumhurbaşkanlığı makamının herhangi bir nedenle <span class="mavi"> boşalması halinde, kırkbeş gün içinde Cumhurbaşkanı seçimi yapılır.</span>  Yenisi seçilene kadar Cumhurbaşkanı yardımcısı Cumhurbaşkanlığına vekâlet eder ve Cumhurbaşkanına ait yetkileri kullanır. <span class="mavi"> Genel seçime bir yıl veya daha az kalmışsa Türkiye Büyük Millet Meclisi seçimi de Cumhurbaşkanı seçimi ile birlikte yenilenir.</span> <span class="mavi"> Genel seçime bir yıldan fazla kalmışsa seçilen Cumhurbaşkanı Türkiye Büyük Millet Meclisi seçim tarihine kadar görevine devam eder.</span> <span class="mavi"> Kalan süreyi tamamlayan Cumhurbaşkanı açısından bu süre dönemden sayılmaz.</span>  Türkiye Büyük Millet Meclisi genel seçimlerinin yapılacağı tarihte her iki seçim birlikte yapılır.</div>
+<div>
+Cumhurbaşkanının hastalık ve yurt dışına çıkma gibi sebeplerle geçici olarak görevinden ayrılması hallerinde, Cumhurbaşkanı yardımcısı Cumhurbaşkanına vekâlet eder ve Cumhurbaşkanına ait yetkileri kullanır.</div>
+<div>
+Cumhurbaşkanı yardımcıları ve bakanlar, milletvekili seçilme yeterliliğine sahip olanlar arasından Cumhurbaşkanı tarafından atanır ve görevden alınır. Cumhurbaşkanı yardımcıları ve bakanlar, 81 inci maddede yazılı şekilde Türkiye Büyük Millet Meclisi önünde andiçerler. Türkiye Büyük Millet Meclisi üyeleri, Cumhurbaşkanı yardımcısı veya bakan olarak atanırlarsa üyelikleri sona erer.</div>
+<div> <span class="kim">
+Cumhurbaşkanı yardımcıları ve bakanlar,</span> <span class="mavi"> Cumhurbaşkanına karşı sorumludur.</span>  Cumhurbaşkanı yardımcıları ve bakanlar hakkında görevleriyle ilgili suç işledikleri iddiasıyla, Türkiye Büyük Millet Meclisi <span class="kim"> üye tamsayısının salt çoğunluğunun vereceği önergeyle</span>  soruşturma açılması istenebilir. Meclis, <span class="mavi"> önergeyi en geç bir ay içinde görüşür ve üye tamsayısının beşte üçünün gizli oyuyla soruşturma açılmasına karar verebilir.</span> </div>
+<div>
+Soruşturma açılmasına karar verilmesi halinde, Meclisteki siyasi partilerin, güçleri oranında komisyona verebilecekleri üye sayısının üç katı olarak gösterecekleri adaylar arasından, her siyasi parti için ayrı ayrı ad çekme suretiyle kurulacak <span class="mavi"> onbeş kişilik bir komisyon tarafından soruşturma yapılır.</span> Komisyon, soruşturma sonucunu belirten <span class="mavi"> raporunu iki ay içinde Meclis Başkanlığına sunar.</span>  Soruşturmanın bu sürede bitirilememesi halinde, <span class="mavi"> komisyona bir aylık yeni ve kesin bir süre verilir.</span></div>
+<div>
+Rapor Başkanlığa verildiği tarihten itibaren <span class="mavi"> on gün</span> içinde dağıtılır ve dağıtımından itibaren <span class="mavi"> on gün</span> içinde Genel Kurulda görüşülür. Türkiye Büyük Millet Meclisi, <span class="mavi"> üye tamsayısının üçte ikisinin gizli oyuyla Yüce Divana sevk kararı alabilir.</span> <span class="mavi"> Yüce Divan yargılaması üç ay içinde tamamlanır,</span> bu sürede tamamlanamazsa bir defaya mahsus olmak üzere <span class="mavi"> üç aylık ek süre verilir, yargılama bu sürede kesin olarak tamamlanır.</span></div>
+<div>
+Bu kişilerin görevde bulundukları sürede, görevleriyle ilgili işledikleri iddia edilen suçlar bakımından, görevleri bittikten sonra da beşinci, altıncı ve yedinci fıkra hükümleri uygulanır.</div>
+<div>
+Yüce Divanda seçilmeye engel bir suçtan mahkûm edilen Cumhurbaşkanı yardımcısı veya bakanın görevi sona erer.</div>
+<div>
+Cumhurbaşkanı yardımcıları ve bakanlar, <span class="ark"> görevleriyle ilgili olmayan suçlarda</span> yasama dokunulmazlığına ilişkin hükümlerden yararlanır.<div> <button  onclick="soruyuGoster(11)" class="soru" >2023 yılı çıkmış soru</button> </div></div>
+<div> <span class="kim">
+Bakanlıkların kurulması, kaldırılması, görevleri ve yetkileri, teşkilat yapısı ile merkez ve taşra teşkilatlarının kurulması</span> <span class="mavi"> Cumhurbaşkanlığı kararnamesiyle düzenlenir.</span></div>
+</div>
+
+<div>
+
+    G. Cumhurbaşkanı Genel Sekreterliği <br>
+
+MADDE 107- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    H. Devlet Denetleme Kurulu(1)
+	<div>
+MADDE 108- İdarenin hukuka uygunluğunun, düzenli ve verimli şekilde yürütülmesinin ve geliştirilmesinin sağlanması amacıyla, Cumhurbaşkanlığına bağlı olarak kurulan Devlet Denetleme Kurulu, Cumhurbaşkanının isteği üzerine, tüm kamu kurum ve kuruluşlarında ve sermayesinin yarısından fazlasına bu kurum ve kuruluşların katıldığı her türlü kuruluşta, kamu kurumu niteliğinde olan meslek kuruluşlarında, her düzeydeki işçi ve işveren meslek kuruluşlarında, kamuya yararlı derneklerle vakıflarda, <span class="mavi"> her türlü idari soruşturma, inceleme, araştırma ve denetlemeleri yapar.</span>(1)</div>
+<div>
+(…)(1) <span class="kim"> yargı organları,</span> <span class="mavi"> Devlet Denetleme Kurulunun görev alanı dışındadır.</span>(1)</div>
+<div>
+Devlet Denetleme Kurulunun Başkan ve üyeleri, <span class="mavi"> Cumhurbaşkanınca atanır.</span>(1)</div>
+<div>
+Devlet Denetleme Kurulunun işleyişi, üyelerinin görev süresi ve <span class="mavi"> diğer özlük işleri, Cumhurbaşkanlığı kararnamesiyle düzenlenir.</span>(1)</div>
+</div></div>
+
+
+<div>
+II. Bakanlar Kurulu
+<div>
+    A. Kuruluş <br>
+
+MADDE 109- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    B. Göreve başlama ve güvenoyu <br>
+
+MADDE 110- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    C. Görev sırasında güvenoyu <br>
+
+MADDE 111- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    D. Görev ve siyasî sorumluluk <br>
+
+MADDE 112- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    E. Bakanlıkların kurulması ve bakanlar <br>
+
+MADDE 113- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    F. Seçimlerde geçici Bakanlar Kurulu(1)
+
+MADDE 114- (Mülga: 21/1/2017-6771/16 md.) (1)</div>
+<div>
+(1) Bu madde 21/1/2017 tarihli ve 6771 sayılı Kanunun 16 ncı maddesi ile yürürlükten kaldırılmış olup aynı Kanunun 18 inci maddesi uyarınca bu maddenin yürürlükten kaldırılması, birinci, dördüncü, beşinci, altıncı ve yedinci fıkralarının ilgaları bakımından yayımı tarihinde; ikinci ve üçüncü fıkralarının ilgaları bakımından birlikte yapılan Türkiye Büyük Millet Meclisi ve Cumhurbaşkanlığı seçimleri sonucunda Cumhurbaşkanının göreve başladığı tarihte yürürlüğe girmiştir.</div>
+<div> <div> <button  onclick="soruyuGoster(217)" class="soru" >2017 yılı çıkmış soru</button> </div>
+    G. Tüzükler <br>
+
+MADDE 115- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    H. Türkiye Büyük Millet Meclisi ve Cumhurbaşkanı seçimlerinin yenilenmesi(1) <br>
+
+MADDE 116- (Değişik: 21/1/2017-6771/11 md.)</div>
+<div> <span class="mavi">
+Türkiye Büyük Millet Meclisi, üye tamsayısının beşte üç çoğunluğuyla seçimlerin yenilenmesine karar verebilir.</span>  Bu halde Türkiye Büyük Millet Meclisi genel seçimi ile Cumhurbaşkanlığı seçimi birlikte yapılır.</div>
+<div>
+Cumhurbaşkanının seçimlerin yenilenmesine karar vermesi halinde, Türkiye Büyük Millet Meclisi genel seçimi ile Cumhurbaşkanlığı seçimi birlikte yapılır.</div>
+<div>
+Cumhurbaşkanının ikinci döneminde <span class="kim"> Meclis tarafından seçimlerin yenilenmesine karar verilmesi halinde,</span> <span class="mavi"> Cumhurbaşkanı bir defa daha aday olabilir.</span> </div>
+<div>
+Seçimlerinin birlikte yenilenmesine karar verilen Meclisin ve Cumhurbaşkanının yetki ve görevleri, yeni Meclisin ve Cumhurbaşkanının göreve başlamasına kadar devam eder.</div>
+<div>
+Bu şekilde seçilen Meclis ve Cumhurbaşkanının görev süreleri de beş yıldır.</div>
+
+
+
+<div>
+ İ. Millî Savunma
+<div>
+Başkomutanlık ve Genelkurmay Başkanlığı <br>
+MADDE 117- Başkomutanlık, Türkiye Büyük Millet Meclisinin manevî varlığından ayrılamaz ve Cumhurbaşkanı tarafından temsil olunur.</div>
+<div>
+Milli güvenliğin sağlanmasından ve Silahlı Kuvvetlerin yurt savunmasına hazırlanmasından, Türkiye Büyük Millet Meclisine karşı, Cumhurbaşkanı sorumludur.(1)</div>
+<div>
+Cumhurbaşkanınca atanan Genelkurmay Başkanı; Silahlı Kuvvetlerin komutanı olup, <span class="mavi"> savaşta Başkomutanlık görevlerini Cumhurbaşkanlığı namına yerine getirir.</span>(2)</div>
+
+</div>
+
+
+<div>
+Millî Güvenlik Kurulu
+<div>
+MADDE 118- (Değişik birinci fıkra: 3/10/2001-4709/32 md.) <span class="kim"> Millî Güvenlik Kurulu;</span> <br><span class="ark"> Cumhurbaşkanının başkanlığında,<br> Cumhurbaşkanı yardımcıları,<br> Adalet,<br> Millî Savunma,<br> İçişleri,<br> Dışişleri Bakanları, <br>Genelkurmay Başkanı,<br> Kara, Deniz ve Hava kuvvetleri komutanlarından</span> <span class="mavi">  kurulur.</span>(1)</div><div> <button  onclick="soruyuGoster(12)" class="soru" >2023 yılı çıkmış soru</button> </div>
+<div>
+Gündemin özelliğine göre <span class="mavi"> Kurul toplantılarına ilgili bakan ve kişiler çağrılıp görüşleri alınabilir.</span></div>
+<div>
+(Değişik birinci cümle: 3/10/2001-4709/32 md.) Millî Güvenlik Kurulu; Devletin millî güvenlik siyasetinin tayini, tespiti ve uygulanması ile ilgili alınan tavsiye kararları ve gerekli koordinasyonun sağlanması konusundaki <span class="mavi"> görüşlerini Cumhurbaşkanına bildirir.</span> Kurulun, Devletin varlığı ve bağımsızlığı, ülkenin bütünlüğü ve bölünmezliği, toplumun huzur ve güvenliğinin korunması hususunda alınmasını zorunlu gördüğü tedbirlere ait kararlar <span class="mavi"> Cumhurbaşkanınca değerlendirilir.</span> (2)(3)</div>
+<div>  <span class="kim">
+Milli Güvenlik Kurulunun gündemi;</span> <span class="ark"> Cumhurbaşkanı yardımcıları ve Genelkurmay Başkanının önerileri</span> <span class="mavi"> dikkate alınarak Cumhurbaşkanınca düzenlenir.</span> (4)</div>
+<div>
+Cumhurbaşkanı katılamadığı zamanlar Milli Güvenlik Kurulu Cumhurbaşkanı yardımcısının başkanlığında toplanır. (5)</div>
+<div>  <span class="kim">
+Milli Güvenlik Kurulu Genel Sekreterliğinin teşkilatı ve görevleri</span> <span class="mavi"> Cumhurbaşkanlığı kararnamesiyle düzenlenir.</span> (6)</div>
+
+
+
+
+
+</div></div>
+
+
+<div>
+III. Olağanüstü hal yönetimi(1)
+<div>
+(…)(1)
+
+(…)(1)
+
+MADDE 119- (Değişik: 21/1/2017-6771/12 md.) <br>
+
+Cumhurbaşkanı; savaş, savaşı gerektirecek bir durumun başgöstermesi, seferberlik, ayaklanma, vatan veya Cumhuriyete karşı kuvvetli ve eylemli bir kalkışma, ülkenin ve milletin bölünmezliğini içten veya dıştan tehlikeye düşüren şiddet hareketlerinin yaygınlaşması, anayasal düzeni veya temel hak ve hürriyetleri ortadan kaldırmaya yönelik yaygın şiddet hareketlerinin ortaya çıkması, şiddet olayları nedeniyle kamu düzeninin ciddî şekilde bozulması, tabiî afet veya tehlikeli salgın hastalık ya da ağır ekonomik bunalımın ortaya çıkması hallerinde yurdun tamamında veya bir bölgesinde, <span class="mavi"> süresi altı ayı geçmemek üzere olağanüstü hal ilan edebilir.</span></div>
+<div>  <span class="mavi">
+Olağanüstü hal ilanı kararı, verildiği gün Resmî Gazetede yayımlanır ve aynı gün Türkiye Büyük Millet Meclisinin onayına sunulur.</span></div><div> <button  onclick="soruyuGoster(335)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+<div>
+Türkiye Büyük Millet Meclisi tatilde ise derhal toplantıya çağırılır; <span class="mavi"> Meclis gerekli gördüğü takdirde olağanüstü halin süresini kısaltabilir, uzatabilir veya olağanüstü hali kaldırabilir.</span></div>
+<div>  <span class="kim">
+Cumhurbaşkanının talebiyle</span> <span class="mavi"> Türkiye Büyük Millet Meclisi her defasında dört ayı geçmemek üzere süreyi uzatabilir.</span> <span class="mavi"> Savaş hallerinde bu dört aylık süre aranmaz.</span> </div>
+<div>
+Olağanüstü hallerde vatandaşlar için getirilecek para, mal ve çalışma yükümlülükleri ile 15 inci maddedeki ilkeler doğrultusunda temel hak ve hürriyetlerin nasıl sınırlanacağı veya geçici olarak durdurulacağı, hangi hükümlerin uygulanacağı ve işlemlerin nasıl yürütüleceği kanunla düzenlenir.</div>
+<div>
+Olağanüstü hallerde Cumhurbaşkanı, olağanüstü halin gerekli kıldığı konularda, 104 üncü maddenin onyedinci fıkrasının ikinci cümlesinde belirtilen sınırlamalara tabi olmaksızın Cumhurbaşkanlığı kararnamesi çıkarabilir. <span class="mavi"> Kanun hükmündeki bu kararnameler Resmî Gazetede yayımlanır, aynı gün Meclis onayına sunulur.</span></div>
+<div>
+Savaş ve mücbir sebeplerle Türkiye Büyük Millet Meclisinin toplanamaması hâli hariç olmak üzere; <span class="mavi"> olağanüstü hal sırasında çıkarılan Cumhurbaşkanlığı kararnameleri </span> <span class="mavi">üç ay içinde Türkiye Büyük Millet Meclisinde görüşülür ve karara bağlanır.</span>  Aksi halde olağanüstü hallerde çıkarılan Cumhurbaşkanlığı kararnamesi kendiliğinden yürürlükten kalkar.</div>
+
+
+
+<div>
+Şiddet olaylarının yaygınlaşması ve kamu düzeninin ciddî şekilde bozulması sebepleriyle olağanüstü hal ilânı</div>
+<div>
+MADDE 120- (Mülga: 21/1/2017-6771/16 md.) <br>
+
+Olağanüstü hallerle ilgili düzenleme</div>
+<div>
+MADDE 121- (Mülga: 21/1/2017-6771/16 md.)</div>
+<div>
+    B. Sıkıyönetim, seferberlik ve savaş hali <br>
+
+MADDE 122- (Mülga: 21/1/2017-6771/16 md.)</div></div>
+<div>
+IV. İdare
+<div>
+    A. İdarenin esasları
+	<div>
+İdarenin bütünlüğü ve kamu tüzelkişiliği <br> <div>
+MADDE 123- İdare, kuruluş ve görevleriyle bir bütündür ve kanunla düzenlenir.</div>
+<div>
+İdarenin kuruluş ve görevleri, <span class="mavi"> merkezden yönetim ve yerinden yönetim esaslarına dayanır.</span></div>
+<div> <span class="kim">
+Kamu tüzelkişiliği, </span> <span class="mavi">kanunla veya Cumhurbaşkanlığı kararnamesiyle kurulur.</span>(1)</div>
+</div>
+
+
+<div>
+Yönetmelikler
+<div>
+MADDE 124-  Cumhurbaşkanı, bakanlıklar ve kamu tüzelkişileri, kendi görev alanlarını ilgilendiren kanunların ve Cumhurbaşkanlığı kararnamelerinin uygulanmasını sağlamak üzere ve bunlara aykırı olmamak şartıyla, yönetmelikler çıkarabilirler.(1)</div></div>
+<div>
+Hangi yönetmeliklerin Resmî Gazetede yayımlanacağı kanunda belirtilir.</div>
+</div>
+
+<div>
+
+    B. Yargı yolu
+	<div>
+MADDE 125- İdarenin her türlü eylem ve işlemlerine karşı yargı yolu açıktır. (Ek hüküm: 13/8/1999-4446/2 md.) Kamu hizmetleri ile ilgili imtiyaz şartlaşma ve sözleşmelerinde bunlardan doğan uyuşmazlıkların milli veya milletlerarası tahkim yoluyla çözülmesi öngörülebilir.  <span class="mavi">Milletlerarası tahkime ancak yabancılık unsuru taşıyan uyuşmazlıklar için gidilebilir</span></div>
+<div>
+(…)(1) (Ek cümle: 7/5/2010-5982/11 md.) (…)(1) Yüksek Askerî Şûranın terfi işlemleri ile <span class="kim"> kadrosuzluk nedeniyle emekliye ayırma hariç</span> <span class="mavi"> her türlü ilişik kesme kararlarına karşı yargı yolu açıktır.</span> (1)</div>
+<div>  <span class="mavi">
+İdarî işlemlere karşı açılacak davalarda süre, yazılı bildirim tarihinden başlar.</span></div>
+<div>
+(Değişik birinci cümle: 7/5/2010-5982/11 md.) Yargı yetkisi, idarî eylem ve işlemlerin hukuka uygunluğunun denetimi ile sınırlı olup, hiçbir surette yerindelik denetimi şeklinde kullanılamaz. Yürütme görevinin kanunlarda gösterilen şekil ve esaslara uygun olarak yerine getirilmesini kısıtlayacak, idari eylem ve işlem niteliğinde veya takdir yetkisini kaldıracak biçimde yargı kararı verilemez.</div>
+<div>
+İdarî işlemin uygulanması halinde telafisi güç veya imkânsız zararların doğması ve idarî işlemin açıkça hukuka aykırı olması şartlarının birlikte gerçekleşmesi durumunda gerekçe gösterilerek yürütmenin durdurulmasına karar verilebilir.</div>
+<div>  <span class="kim">
+Kanun,</span> <span class="ark"> olağanüstü hallerde, seferberlik ve savaş halinde ayrıca milli güvenlik, kamu düzeni, genel sağlık nedenleri ile</span> <span class="mavi"> yürütmenin durdurulması kararı verilmesini sınırlayabilir.</span> (2)</div>
+<div>
+İdare, kendi eylem ve işlemlerinden doğan zararı ödemekle yükümlüdür.</div>
+
+</div>
+
+
+<div>
+    C. İdarenin kuruluşu
+	<div>
+Merkezî idare
+<div>
+MADDE 126- Türkiye, merkezî idare kuruluşu bakımından, <br> <span class="ark"> coğrafya durumuna, <br> ekonomik şartlara ve <br> kamu hizmetlerinin gereklerine göre</span>, <span class="mavi"> illere;</span> <span class="ark"> iller de</span> <span class="mavi"> diğer kademeli bölümlere ayrılır.</span></div>
+<div> <span class="mavi">
+İllerin idaresi yetki genişliği esasına dayanır.</span></div>
+<div>
+Kamu hizmetlerinin görülmesinde verim ve uyum sağlamak amacıyla, birden çok ili içine alan merkezî idare teşkilatı kurulabilir. Bu teşkilatın görev ve yetkileri kanunla düzenlenir.</div></div>
+<div>
+Mahallî idareler
+<div>
+MADDE 127- Mahallî idareler; il, belediye veya köy halkının mahallî müşterek ihtiyaçlarını karşılamak üzere kuruluş esasları kanunla belirtilen ve karar organları, gene kanunda gösterilen, seçmenler tarafından seçilerek oluşturulan kamu tüzelkişileridir.</div>
+<div>
+Mahallî idarelerin kuruluş ve görevleri ile yetkileri, yerinden yönetim ilkesine uygun olarak kanunla düzenlenir.</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/12 md.) Mahalli idarelerin seçimleri, 67 nci maddedeki esaslara göre beş yılda bir yapılır. (Mülga ikinci cümle: 21/1/2017-6771/16 md.) (…) Kanun, büyük yerleşim merkezleri için özel yönetim biçimleri getirebilir.</div>
+<div>
+Mahallî idarelerin seçilmiş organlarının, organlık sıfatını kazanmalarına ilişkin itirazların çözümü ve kaybetmeleri, konusundaki denetim yargı yolu ile olur. Ancak, görevleri ile ilgili bir suç sebebi ile hakkında soruşturma veya kovuşturma açılan mahallî idare organları veya bu organların üyelerini, <span class="kim"> İçişleri Bakanı,</span> <span class="mavi"> geçici bir tedbir olarak, kesin hükme kadar uzaklaştırabilir.</span></div>
+<div>
+Merkezî idare, mahallî idareler üzerinde, mahallî hizmetlerin idarenin bütünlüğü ilkesine uygun şekilde yürütülmesi, kamu görevlerinde birliğin sağlanması, toplum yararının korunması ve mahallî ihtiyaçların gereği gibi karşılanması amacıyla, kanunda belirtilen esas ve usuller dairesinde idarî vesayet yetkisine sahiptir.</div>
+<div>
+Mahalli idarelerin belirli kamu hizmetlerinin görülmesi amacı ile, kendi aralarında Cumhurbaşkanının izni ile birlik kurmaları, görevleri, yetkileri, maliye ve kolluk işleri ve merkezi idare ile karşılıklı bağ ve ilgileri kanunla düzenlenir. Bu idarelere, görevleri ile orantılı gelir kaynakları sağlanır.(1)</div>
+</div></div><div> <button  onclick="soruyuGoster(336)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+
+
+<div>
+    D. Kamu hizmeti görevlileriyle ilgili hükümler
+	<div>
+Genel ilkeler
+<div>
+MADDE 128- Devletin, kamu iktisadî teşebbüsleri ve diğer kamu tüzelkişilerinin genel idare esaslarına göre yürütmekle yükümlü oldukları kamu hizmetlerinin gerektirdiği aslî ve sürekli görevler, memurlar ve diğer kamu görevlileri eliyle görülür.</div>
+<div>
+Memurların ve diğer kamu görevlilerinin nitelikleri, atanmaları, görev ve yetkileri, hakları ve yükümlülükleri, aylık ve ödenekleri ve diğer özlük işleri kanunla düzenlenir. (Ek cümle: 7/5/2010-5982/12 md.) Ancak, malî ve sosyal haklara ilişkin toplu sözleşme hükümleri saklıdır.</div>
+<div> <span class="kim">
+Üst kademe yöneticilerinin yetiştirilme usul ve esasları,</span> <span class="mavi"> kanunla özel olarak düzenlenir.</span></div></div>
+<div>
+Görev ve sorumlulukları, disiplin kovuşturulmasında güvence
+<div>
+MADDE 129- Memurlar ve diğer kamu görevlileri Anayasa ve kanunlara sadık kalarak faaliyette bulunmakla yükümlüdürler.</div>
+<div>
+Memurlar ve diğer kamu görevlileri ile kamu kurumu niteliğindeki meslek kuruluşları ve bunların üst kuruluşları mensuplarına savunma hakkı tanınmadıkça disiplin cezası verilemez.</div>
+<div>
+(Değişik üçüncü fıkra: 7/5/2010-5982/13 md.) Disiplin kararları yargı denetimi dışında bırakılamaz.</div>
+<div>
+Silahlı Kuvvetler mensupları ile hâkimler ve savcılar hakkındaki hükümler saklıdır.</div>
+<div>
+Memurlar ve diğer kamu görevlilerinin yetkilerini kullanırken işledikleri kusurlardan doğan tazminat davaları, kendilerine rücu edilmek kaydıyla ve kanunun gösterdiği şekil ve şartlara uygun olarak, ancak idare aleyhine açılabilir.</div>
+<div>
+Memurlar ve diğer kamu görevlileri hakkında işledikleri iddia edilen suçlardan ötürü ceza kovuşturması açılması, kanunla belirlenen istisnalar dışında, kanunun gösterdiği idarî merciin iznine bağlıdır.</div></div></div>
+<div>
+    E. Yükseköğretim kurumları ve üst kuruluşları
+	<div>
+Yükseköğretim kurumları
+<div>
+MADDE 130- Çağdaş eğitim-öğretim esaslarına dayanan bir düzen içinde milletin ve ülkenin ihtiyaçlarına uygun insan gücü yetiştirmek amacı ile; ortaöğretime dayalı çeşitli düzeylerde eğitim-öğretim, bilimsel araştırma, yayın ve danışmanlık yapmak, ülkeye ve insanlığa hizmet etmek üzere çeşitli birimlerden oluşan kamu tüzelkişiliğine ve bilimsel özerkliğe sahip <span class="mavi"> üniversiteler Devlet tarafından kanunla kurulur.</span></div>
+<div>
+Kanunda gösterilen usul ve esaslara göre, kazanç amacına yönelik olmamak şartı ile vakıflar tarafından, Devletin gözetim ve denetimine tâbi yükseköğretim kurumları kurulabilir.</div>
+<div>
+Kanun, üniversitelerin ülke sathına dengeli bir biçimde yayılmasını gözetir.</div>
+<div>
+Üniversiteler ile öğretim üyeleri ve yardımcıları serbestçe her türlü bilimsel araştırma ve yayında bulunabilirler. Ancak, bu yetki, Devletin varlığı ve bağımsızlığı ve milletin ve ülkenin bütünlüğü ve bölünmezliği aleyhinde faaliyette bulunma serbestliği vermez.</div>
+<div>
+Üniversiteler ve bunlara bağlı birimler, Devletin gözetimi ve denetimi altında olup, <span class="mavi"> güvenlik hizmetleri Devletçe sağlanır.</span></div>
+<div>
+Kanunun belirlediği usul ve esaslara göre; <span class="kim"> rektörler </span> <span class="mavi">Cumhurbaşkanınca,</span> <span class="kim"> dekanlar ise</span> <span class="mavi"> Yükseköğretim Kurulunca seçilir ve atanır.</span></div>
+<div> <span class="kim">
+Üniversite yönetim ve denetim organları ile öğretim elemanları;</span>  Yükseköğretim Kurulunun veya üniversitelerin yetkili organlarının dışında kalan makamlarca <span class="mavi"> her ne suretle olursa olsun görevlerinden uzaklaştırılamazlar.</span></div>
+<div> <span class="kim">
+Üniversitelerin hazırladığı bütçeler;</span> <span class="ark"> Yükseköğretim Kurulunca tetkik ve onaylandıktan sonra</span> <span class="mavi"> Milli Eğitim Bakanlığına sunulur</span>  ve merkezi yönetim bütçesinin bağlı olduğu esaslara uygun olarak işleme tabi tutularak yürürlüğe konulur ve denetlenir.(1)</div>
+<div>
+Yükseköğretim kurumlarının kuruluş ve organları ile işleyişleri ve bunların seçimleri, görev, yetki ve sorumlulukları üniversiteler üzerinde Devletin gözetim ve denetim hakkını kullanma usulleri, öğretim elemanlarının görevleri, unvanları, atama, yükselme ve emeklilikleri, öğretim elemanı yetiştirme, üniversitelerin ve öğretim elemanlarının kamu kuruluşları ve diğer kurumlar ile ilişkileri, öğretim düzeyleri ve süreleri, yükseköğretime giriş, devam ve alınacak harçlar, Devletin yapacağı yardımlar ile ilgili ilkeler, disiplin ve ceza işleri, malî işler, özlük hakları, öğretim elemanlarının uyacakları koşullar, üniversitelerarası ihtiyaçlara göre öğretim elemanlarının görevlendirilmesi, öğrenimin ve öğretimin hürriyet ve teminat içinde ve çağdaş bilim ve teknoloji gereklerine göre yürütülmesi, Yükseköğretim Kuruluna ve üniversitelere Devletin sağladığı malî kaynakların kullanılması kanunla düzenlenir.</div>
+<div> <span class="kim">
+Vakıflar tarafından kurulan yükseköğretim kurumları,</span>  malî ve idarî konuları dışındaki akademik çalışmaları, öğretim elemanlarının sağlanması ve güvenlik yönlerinden, <span class="mavi"> Devlet eliyle kurulan yükseköğretim kurumları için Anayasada belirtilen hükümlere tâbidir.</span></div>
+</div>
+
+
+<div>
+Yükseköğretim üst kuruluşları
+<div>
+MADDE 131- Yükseköğretim kurumlarının öğretimini planlamak, düzenlemek, yönetmek, denetlemek, yükseköğretim kurumlarındaki eğitim- öğretim ve bilimsel araştırma faaliyetlerini yönlendirmek bu kurumların kanunda belirtilen amaç ve ilkeler doğrultusunda kurulmasını, geliştirilmesini ve üniversitelere tahsis edilen kaynakların etkili bir biçimde kullanılmasını sağlamak ve öğretim elemanlarının yetiştirilmesi için planlama yapmak maksadı ile Yükseköğretim Kurulu kurulur.</div>
+<div>
+(Değişik ikinci fıkra: 7/5/2004-5170/8 md.) Yükseköğretim Kurulu, üniversiteler tarafından seçilen ve sayıları, nitelikleri, seçilme usulleri kanunla belirlenen adaylar arasından rektörlük ve öğretim üyeliğinde başarılı hizmet yapmış profesörlere öncelik vermek sureti ile <span class="mavi"> Cumhurbaşkanınca atanan üyeler ve Cumhurbaşkanınca doğrudan doğruya seçilen üyelerden kurulur.</span>(1)</div>
+<div> <span class="mavi">
+Kurulun teşkilatı, görev, yetki, sorumluluğu ve çalışma esasları kanunla düzenlenir.</span></div>
+</div>
+
+
+<div>
+Yükseköğretim kurumlarından özel hükümlere tâbi olanlar
+<div>
+MADDE 132- <span class="mavi"> Türk Silahlı Kuvvetleri ve emniyet teşkilatına bağlı yükseköğretim kurumları özel kanunlarının hükümlerine tâbidir.</span></div></div></div>
+<div>
+    F. Radyo ve Televizyon Üst Kurulu, radyo ve televizyon kuruluşları ve kamuyla ilişkili haber ajansları(1)
+	<div>
+MADDE 133- (Değişik: 8/7/1993-3913/1 md.) <br>
+
+Radyo ve televizyon istasyonları kurmak ve işletmek kanunla düzenlenecek şartlar çerçevesinde serbesttir.</div>
+<div>
+(Ek fıkra: 21/6/2005-5370/1 md.) Radyo ve televizyon faaliyetlerini düzenlemek ve denetlemek amacıyla kurulan <span class="kim"> Radyo ve Televizyon Üst Kurulu</span> <span class="mavi"> dokuz üyeden oluşur.</span>  <span class="kim"> Üyeler,</span> siyasî parti gruplarının üye sayısı oranında belirlenecek üye sayısının ikişer katı olarak gösterecekleri adaylar arasından, her siyasî parti grubuna düşen üye sayısı esas alınmak suretiyle <span class="mavi"> Türkiye Büyük Millet Meclisi Genel Kurulunca seçilir.</span> Radyo ve Televizyon Üst Kurulunun kuruluşu, görev ve yetkileri, üyelerinin nitelikleri, seçim usulleri ve görev süreleri kanunla düzenlenir.</div>
+<div>
+Devletçe kamu tüzelkişiliği olarak kurulan tek radyo ve televizyon kurumu ile kamu tüzelkişilerinden yardım gören haber ajanslarının özerkliği ve yayınlarının tarafsızlığı esastır.</div>
+</div>
+
+
+<div>
+    G. Atatürk Kültür, Dil ve Tarih Yüksek Kurumu
+	<div>
+MADDE 134- Atatürkçü düşünceyi, Atatürk ilke ve inkılâplarını, Türk kültürünü, Türk tarihini ve Türk dilini bilimsel yoldan araştırmak, tanıtmak ve yaymak ve yayınlar yapmak amacıyla; Atatürk’ün manevî himayelerinde, <span class="mavi"> Cumhurbaşkanının gözetim ve desteğinde, Cumhurbaşkanının görevlendireceği bakana bağlı;</span> <span class="ark"> Atatürk Araştırma Merkezi, Türk Dil Kurumu, Türk Tarih Kurumu ve Atatürk Kültür Merkezinden oluşan</span> , <span class="mavi"> kamu tüzelkişiliğine sahip “Atatürk Kültür, Dil ve Tarih Yüksek Kurumu” kurulur.</span>(1)</div>
+<div>
+Türk Dil Kurumu ile Türk Tarih Kurumu için Atatürk’ün vasiyetnamesinde belirtilen malî menfaatler saklı olup kendilerine tahsis edilir.</div>
+<div>
+Atatürk Kültür, Dil ve Tarih Yüksek Kurumunun; kuruluşu, organları, çalışma usulleri ve özlük işleri ile kuruluşuna dahil kurumlar üzerindeki <span class="mavi"> yetkileri kanunla düzenlenir.</span></div>
+</div>
+
+
+<div>
+    H. Kamu kurumu niteliğindeki meslek kuruluşları
+	<div>
+MADDE 135- Kamu kurumu niteliğindeki meslek kuruluşları ve üst kuruluşları; belli bir mesleğe mensup olanların müşterek ihtiyaçlarını karşılamak, meslekî faaliyetlerini kolaylaştırmak, mesleğin genel menfaatlere uygun olarak gelişmesini sağlamak, meslek mensuplarının birbirleri ile ve halk ile olan ilişkilerinde dürüstlüğü ve güveni hâkim kılmak üzere meslek disiplini ve ahlâkını korumak maksadı ile kanunla kurulan ve organları <span class="mavi"> kendi üyeleri tarafından kanunda gösterilen usullere göre yargı gözetimi altında, gizli oyla seçilen kamu tüzelkişilikleridir.</span></div>
+<div>
+Kamu kurum ve kuruluşları ile kamu iktisadî teşebbüslerinde aslî ve sürekli görevlerde çalışanların meslek kuruluşlarına girme mecburiyeti aranmaz.</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/13 md.) <span class="ark"> Bu meslek kuruluşları, kuruluş amaçları dışında faaliyette bulunamazlar.</span></div> <div> <button  onclick="soruyuGoster(21)" class="soru" >2023 yılı çıkmış soru</button> </div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/13 md.) Bu meslek kuruluşları ve üst kuruluşları organlarının seçimlerinde <span class="mavi"> siyasî partiler aday gösteremezler.</span> </div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/13 md.) Bu meslek kuruluşları üzerinde Devletin idarî ve malî denetimine ilişkin kurallar kanunla düzenlenir.</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/13 md.) Amaçları dışında faaliyet gösteren meslek kuruluşlarının sorumlu organlarının görevine, kanunun belirlediği merciin veya Cumhuriyet savcısının istemi üzerine mahkeme kararıyla son verilir ve yerlerine yenileri seçtirilir.</div>
+<div>
+(Değişik fıkra: 23/7/1995-4121/13 md.) Ancak, millî güvenliğin, kamu düzeninin, suç işlenmesini veya suçun devamını önlemenin yahut yakalamanın gerektirdiği hallerde gecikmede sakınca varsa, <span class="mavi"> kanunla bir merci, meslek kuruluşlarını veya üst kuruluşlarını faaliyetten men ile yetkilendirilebilir.</span>  Bu merciin kararı, <span class="mavi"> yirmidört saat içerisinde görevli hâkimin onayına sunulur. Hâkim, kararını kırksekiz saat içinde açıklar; aksi halde, bu idarî karar kendiliğinden yürürlükten kalkar.</span></div></div>
+<div>
+   İ. Diyanet İşleri Başkanlığı
+   <div>
+MADDE 136- Genel idare içinde yer alan Diyanet İşleri Başkanlığı, lâiklik ilkesi doğrultusunda, bütün siyasî görüş ve düşünüşlerin dışında kalarak ve milletçe dayanışma ve bütünleşmeyi amaç edinerek, özel kanununda gösterilen görevleri yerine getirir.</div></div>
+<div>
+   J. Kanunsuz emir
+   <div>
+MADDE 137- Kamu hizmetlerinde herhangi bir sıfat ve suretle çalışmakta olan kimse, üstünden aldığı emri, yönetmelik, Cumhurbaşkanlığı kararnamesi, kanun veya Anayasa hükümlerine aykırı görürse, yerine getirmez ve bu aykırılığı o emri verene bildirir. Ancak, üstü emrinde ısrar eder ve bu emrini yazı ile yenilerse, emir yerine getirilir; <span class="mavi"> bu halde, emri yerine getiren sorumlu olmaz.</span>(1)</div>
+<div> <span class="kim">
+Konusu suç teşkil eden emir,</span> <span class="mavi"> hiçbir suretle yerine getirilmez; yerine getiren kimse sorumluluktan kurtulamaz.</span></div>
+<div>
+Askerî hizmetlerin görülmesi ve acele hallerde kamu düzeni ve kamu güvenliğinin korunması için kanunla gösterilen istisnalar saklıdır.</div>
+</div></div></div>
+
+<div>
+
+ÜÇÜNCÜ BÖLÜM <br>
+
+Yargı
+<div>
+I. Genel hükümler
+<div>
+    A. Mahkemelerin bağımsızlığı
+	<div>
+MADDE 138- Hâkimler, görevlerinde bağımsızdırlar; Anayasaya, kanuna ve hukuka uygun olarak vicdanî kanaatlerine göre hüküm verirler.</div>
+<div>
+Hiçbir organ, makam, merci veya kişi, yargı yetkisinin kullanılmasında mahkemelere ve hâkimlere emir ve talimat veremez; genelge gönderemez; tavsiye ve telkinde bulunamaz.</div>
+<div>
+Görülmekte olan bir dava hakkında Yasama Meclisinde yargı yetkisinin kullanılması ile ilgili soru sorulamaz, görüşme yapılamaz veya herhangi bir beyanda bulunulamaz.</div>
+<div>
+Yasama ve yürütme organları ile idare, mahkeme kararlarına uymak zorundadır; bu organlar ve idare, mahkeme kararlarını hiçbir suretle değiştiremez ve bunların yerine getirilmesini geciktiremez.</div></div>
+<div>
+    B. Hâkimlik ve savcılık teminatı
+	<div>
+MADDE 139- Hâkimler ve savcılar <span class="ark"> azlolunamaz</span>, kendileri istemedikçe Anayasada gösterilen <span class="ark"> yaştan önce emekliye ayrılamaz</span>; bir mahkemenin veya kadronun kaldırılması sebebiyle de olsa, aylık, ödenek ve diğer özlük haklarından yoksun kılınamaz.</div>
+<div>
+Meslekten çıkarılmayı gerektiren bir suçtan dolayı hüküm giymiş olanlar, görevini sağlık bakımından yerine getiremeyeceği kesin olarak anlaşılanlar veya meslekte kalmalarının uygun olmadığına karar verilenler hakkında kanundaki <span class="ark"> istisnalar saklıdır</span>.</div></div>
+<div> <div> <button  onclick="soruyuGoster(115)" class="soru" >2016 yılı çıkmış soru</button> </div>
+    C. Hâkimlik ve savcılık mesleği
+	<div>
+MADDE 140- Hâkimler ve savcılar adlî ve idarî yargı hâkim ve savcıları olarak görev yaparlar. Bu görevler meslekten hâkim ve savcılar eliyle yürütülür.</div>
+<div>
+Hâkimler, mahkemelerin bağımsızlığı ve hâkimlik teminatı esaslarına göre görev ifa ederler.</div>
+<div>
+Hâkim ve savcıların nitelikleri, atanmaları, hakları ve ödevleri, aylık ve ödenekleri, meslekte ilerlemeleri, görevlerinin ve görev yerlerinin geçici veya sürekli olarak değiştirilmesi, haklarında disiplin kovuşturması açılması ve disiplin cezası verilmesi, görevleriyle ilgili veya görevleri sırasında işledikleri suçlarından dolayı soruşturma yapılması ve yargılanmalarına karar verilmesi, meslekten çıkarmayı gerektiren suçluluk veya yetersizlik halleri ve meslek içi eğitimleri ile diğer özlük işleri mahkemelerin bağımsızlığı ve hâkimlik teminatı esaslarına göre kanunla düzenlenir.</div>
+<div>
+Hâkimler ve savcılar altmışbeş yaşını bitirinceye kadar hizmet görürler; askerî hâkimlerin yaş haddi, yükselme ve emeklilikleri kanunda gösterilir.</div>
+<div>
+Hâkimler ve savcılar, kanunda belirtilenlerden başka, resmî ve özel hiçbir görev alamazlar.</div>
+<div>
+Hâkimler ve savcılar idarî görevleri yönünden <span class="ark"> Adalet Bakanlığına</span> bağlıdırlar.<div> <button  onclick="soruyuGoster(15)" class="soru" font-size="large" >2023 yılı çıkmış soru</button> </div> </div>
+<div>
+Hâkim ve savcı olup da adalet hizmetindeki idarî görevlerde çalışanlar, hâkimler ve savcılar hakkındaki hükümlere tâbidirler. Bunlar, hâkimler ve savcılara ait esaslar dairesinde sınıflandırılır ve derecelendirilirler, hâkimlere ve savcılara tanınan her türlü haklardan yararlanırlar.</div></div>
+<div>
+    D. Duruşmaların açık ve kararların gerekçeli olması
+	<div>
+MADDE 141- Mahkemelerde duruşmalar herkese açıktır. Duruşmaların bir kısmının veya tamamının kapalı yapılmasına <span class="kim"> ancak genel ahlâkın veya kamu güvenliğinin kesin olarak gerekli kıldığı hallerde karar verilebilir.</span></div>
+<div>
+Küçüklerin yargılanması hakkında kanunla özel hükümler konulur.</div>
+<div>
+Bütün mahkemelerin her türlü kararları gerekçeli olarak yazılır.</div>
+<div>
+Davaların en az giderle ve mümkün olan süratle sonuçlandırılması, yargının görevidir.<div> <button  onclick="soruyuGoster(176)" class="soru" >2016 yılı çıkmış soru</button> </div></div></div>
+<div>
+    E. Mahkemelerin kuruluşu
+	<div>
+MADDE 142- Mahkemelerin kuruluşu, görev ve yetkileri, işleyişi ve yargılama usulleri kanunla düzenlenir.</div>
+<div>
+(Ek fıkra: 21/1/2017-6771/13 md.) <span class="kim"> Disiplin mahkemeleri dışında</span> <span class="mavi"> askerî mahkemeler kurulamaz.</span> <span class="kim"> Ancak</span> <span class="mavi"> savaş halinde, asker kişilerin görevleriyle ilgili olarak işledikleri suçlara ait davalara bakmakla görevli askerî mahkemeler kurulabilir.</span></div></div>
+<div>
+    F. Devlet Güvenlik Mahkemeleri <br>
+
+MADDE 143- (Mülga: 7/5/2004-5170/9 md.)</div>
+<div>
+    G. Adalet hizmetlerinin denetimi(1)
+	<div>
+MADDE 144 – (Değişik: 7/5/2010-5982/14 md.) <br>
+
+Adalet hizmetleri ile savcıların <span class="kim"> idarî görevleri yönünden </span> <span class="ark">Adalet Bakanlığınca denetimi,</span> <span class="mavi"> adalet müfettişleri ile hâkim ve savcı mesleğinden olan iç denetçiler;</span> <span class="kim"> araştırma, inceleme ve soruşturma işlemleri ise</span> <span class="mavi"> adalet müfettişleri eliyle yapılır.</span>  Buna ilişkin usul ve esaslar kanunla düzenlenir.</div>
+</div>
+
+
+<div>
+    H. Askerî yargı
+	<div>
+MADDE 145 – (Mülga: 21/1/2017-6771/16 md.)</div></div>
+
+II. Yüksek mahkemeler
+<div>
+    A. Anayasa Mahkemesi
+	<div>
+Kuruluşu
+<div>
+MADDE 146- (Değişik: 7/5/2010-5982/16 md.) <br>
+
+Anayasa Mahkemesi <span class="mavi"> onbeş üyeden kurulur.</span>(1)</div>
+<div>
+    <span class="kim">
+Türkiye Büyük Millet Meclisi;</span>  <span class="ark"> iki üyeyi</span> <span class="mavi"> Sayıştay </span> Genel Kurulunun kendi başkan ve üyeleri arasından, her boş yer için gösterecekleri üçer aday içinden, <span class="ark"> bir üyeyi ise</span> <span class="mavi"> baro başkanlarının serbest avukatlar arasından gösterecekleri</span>  üç aday içinden yapacağı gizli oylamayla seçer. Türkiye Büyük Millet Meclisinde yapılacak bu seçimde, her boş üyelik için <span class="kim"> ilk oylamada</span> üye tam sayısının  <span class="mavi"> üçte iki</span>  ve <span class="kim"> ikinci oylamada</span> üye tam sayısının <span class="mavi"> salt çoğunluğu aranır.</span>  İkinci oylamada salt çoğunluk sağlanamazsa, bu oylamada <span class="kim"> en çok oy alan iki aday için üçüncü oylama yapılır;</span> üçüncü oylamada <span class="mavi"> en fazla oy alan aday üye seçilmiş olur</span>.</div>
+<div> <span class="kim">
+Cumhurbaşkanı; </span> <span class="ark"> üç üyeyi</span> <span class="mavi"> Yargıtay,</span> <span class="ark"> iki üyeyi</span> <span class="mavi"> Danıştay </span> (…)(2) genel kurullarınca kendi başkan ve üyeleri arasından her boş yer için gösterecekleri üçer aday içinden; <span class="span"> <strong> en az ikisi hukukçu olmak üzere</strong></span> <span class="ark"> üç üyeyi</span> <span class="mavi"> Yükseköğretim Kurulunun </span> kendi üyesi olmayan yükseköğretim kurumlarının hukuk, iktisat ve siyasal bilimler dallarında görev yapan öğretim üyeleri arasından göstereceği üçer aday içinden; <span class="ark"> dört üyeyi </span> <span class="mavi"> üst kademe yöneticileri, serbest avukatlar, birinci sınıf hâkim ve savcılar ile en az beş yıl raportörlük yapmış Anayasa Mahkemesi raportörleri arasından seçer.</span> (2)</div>
+<div>
+Yargıtay, Danıştay (…)(3) ve Sayıştay genel kurulları ile Yükseköğretim Kurulundan Anayasa Mahkemesi üyeliğine aday göstermek için yapılacak seçimlerde, her boş üyelik için, (…)(4) en fazla oy alan üç kişi aday gösterilmiş sayılır. Baro başkanlarının serbest avukatlar arasından gösterecekleri üç aday için yapılacak seçimde (…)(4) en fazla oy alan üç kişi aday gösterilmiş sayılır.(3)(4)</div>
+<div> <span class="kim">
+Anayasa Mahkemesine üye seçilebilmek için,</span> <span class="mavi"> kırkbeş yaşın doldurulmuş olması kaydıyla;</span>  yükseköğretim kurumları öğretim üyelerinin profesör veya doçent unvanını kazanmış, avukatların <span class="mavi"> en az yirmi yıl</span> fiilen avukatlık yapmış, üst kademe yöneticilerinin yükseköğrenim görmüş ve <span class="mavi"> en az yirmi yıl</span> kamu hizmetinde fiilen çalışmış, birinci sınıf hâkim ve savcıların adaylık dahil <span class="mavi"> en az yirmi yıl</span> çalışmış olması şarttır.</div>
+<div>
+Anayasa Mahkemesi üyeleri arasından gizli oyla ve üye tam sayısının salt çoğunluğu ile <span class="kim"> dört yıl için</span> <span class="mavi"> bir Başkan ve iki başkanvekili seçilir.</span> Süresi bitenler yeniden seçilebilirler.</div>
+<div>
+Anayasa Mahkemesi üyeleri aslî görevleri dışında resmî veya özel hiçbir görev alamazlar.</div>
+
+
+
+<div>
+(4) Bu fıkranın birinci cümlesinde yer alan “… bir üye ancak bir aday için oy kullanabilir; …” ibaresi ile ikinci cümlesinde yer alan “… de her bir baro başkanı ancak bir aday için oy kullanabilir ve …” ibaresi, 1/8/2010 tarihli ve 27659 Mükerrer sayılı Resmî Gazete’de yayımlanan Anayasa Mahkemesinin 7/7/2010 tarihli ve E.: 2010/49, K.: 2010/87 sayılı Kararı ile iptal edilmiştir.</div></div>
+
+
+<div>
+Üyelerin görev süresi ve üyeliğin sona ermesi(1)
+<div>
+MADDE 147- (Değişik birinci fıkra: 7/5/2010-5982/17 md.) Anayasa Mahkemesi üyeleri <span class="mavi"> oniki yıl için seçilirler.</span>  Bir kimse iki defa Anayasa Mahkemesi üyesi seçilemez. Anayasa Mahkemesi üyeleri <span class="mavi"> altmışbeş yaşını doldurunca emekliye ayrılırlar.</span>  Zorunlu emeklilik yaşından önce görev süresi dolan üyelerin başka bir görevde çalışmaları ve özlük işleri kanunla düzenlenir.</div>
+<div>
+Anayasa Mahkemesi üyeliği, bir üyenin hâkimlik mesleğinden çıkarılmayı gerektiren bir suçtan dolayı <span class="kim"> hüküm giymesi halinde kendiliğinden;</span> <span class="kim"> görevini sağlık bakımından yerine getiremeyeceğinin kesin olarak anlaşılması halinde de,</span> <span class="mavi"> Anayasa Mahkemesi üye tamsayısının salt çoğunluğunun kararı ile sona erer.</span> </div>
+</div>
+	<div>
+ 3. Görev ve yetkileri (1)
+ <div>
+MADDE 148- Anayasa Mahkemesi, <span class="kim"> kanunların, Cumhurbaşkanlığı kararnamelerinin ve Türkiye Büyük Millet Meclisi İçtüzüğünün </span> <span class="mavi"> Anayasaya şekil ve esas bakımlarından uygunluğunu denetler ve bireysel başvuruları karara bağlar.</span> <span class="kim"> Anayasa değişikliklerini ise</span> <span class="mavi"> sadece şekil bakımından inceler ve denetler.</span> <span class="kim"> Ancak, olağanüstü hallerde (…)(2) ve savaş hallerinde çıkarılan Cumhurbaşkanlığı kararnamelerinin</span> <span class="mavi"> şekil ve esas bakımından Anayasaya aykırılığı iddiasıyla, Anayasa Mahkemesinde dava açılamaz.</span>(2)</div>
+<div>  <span class="kim">
+Kanunların şekil bakımından denetlenmesi</span>, <span class="mavi"> son oylamanın, öngörülen çoğunlukla yapılıp yapılmadığı;</span>  <span class="kim"> Anayasa değişikliklerinde ise,</span> <span class="mavi"> teklif ve oylama çoğunluğuna ve ivedilikle görüşülemeyeceği şartına uyulup uyulmadığı hususları ile sınırlıdır.</span>  Şekil bakımından denetleme, Cumhurbaşkanınca veya Türkiye Büyük Millet Meclisi üyelerinin beşte biri tarafından istenebilir. Kanunun yayımlandığı tarihten itibaren <span class="mavi"> on gün geçtikten sonra, şekil bozukluğuna dayalı iptal davası açılamaz;</span>  def’i yoluyla da ileri sürülemez.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/18 md.) Herkes, Anayasada güvence altına alınmış temel hak ve özgürlüklerinden, Avrupa İnsan Hakları Sözleşmesi kapsamındaki herhangi birinin kamu gücü tarafından, ihlal edildiği iddiasıyla Anayasa Mahkemesine başvurabilir. Başvuruda bulunabilmek için olağan kanun yollarının tüketilmiş olması şarttır.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/18 md.) Bireysel başvuruda, kanun yolunda gözetilmesi gereken hususlarda inceleme yapılamaz.</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/18 md.) Bireysel başvuruya ilişkin usul ve esaslar kanunla düzenlenir.</div>
+<div>
+Anayasa Mahkemesi Cumhurbaşkanını, Türkiye Büyük Millet Meclisi Başkanını, Cumhurbaşkanı yardımcılarını, bakanları, Anayasa Mahkemesi, Yargıtay, Danıştay (…)(5) Başkan ve üyelerini, Başsavcılarını, Cumhuriyet Başsavcıvekilini, Hakimler ve Savcılar (…)(6) Kurulu ve Sayıştay Başkan ve üyelerini görevleriyle ilgili suçlardan dolayı Yüce Divan sıfatıyla yargılar.(3)(4)(5)(6)</div>
+<div>
+(Ek fıkra: 7/5/2010-5982/18 md.) Genelkurmay Başkanı, Kara, Deniz ve Hava Kuvvetleri Komutanları (…)(7) da görevleriyle ilgili suçlardan dolayı Yüce Divanda yargılanırlar. (7)</div>
+<div>
+Yüce Divanda, savcılık görevini Cumhuriyet Başsavcısı veya Cumhuriyet Başsavcıvekili yapar.</div>
+<div>
+(Değişik beşinci fıkra: 7/5/2010-5982/18 md.) <span class="kim"> Yüce Divan kararlarına karşı yeniden inceleme başvurusu yapılabilir.</span> <span class="mavi"> Genel Kurulun yeniden inceleme sonucunda verdiği kararlar kesindir.</span></div>
+<div>
+Anayasa Mahkemesi, Anayasa ile verilen diğer görevleri de yerine getirir.</div>
+</div>
+
+
+<div>
+Çalışma ve yargılama usulü
+<div>
+MADDE 149- (Değişik: 7/5/2010-5982/19 md.) <br>
+
+Anayasa Mahkemesi, <span class="mavi"> iki bölüm ve Genel Kurul halinde çalışır.</span> <span class="kim"> Bölümler,</span> <span class="mavi"> başkanvekili başkanlığında dört üyenin katılımıyla toplanır.</span> <span class="kim"> Genel Kurul,</span>  Mahkeme Başkanının veya Başkanın belirleyeceği başkanvekilinin başkanlığında  <span class="mavi"> en az on üye ile toplanır.</span>  <span class="kim"> Bölümler ve Genel Kurul,</span> <span class="mavi"> kararlarını  salt çoğunlukla alır.</span> <span class="kim"> Bireysel başvuruların kabul edilebilirlik incelemesi için </span> <span class="mavi">komisyonlar oluşturulabilir.</span> (1)</div>
+<div>
+Siyasî partilere ilişkin dava ve başvurulara, iptal ve itiraz davaları ile Yüce Divan sıfatıyla yürütülecek yargılamalara Genel Kurulca bakılır, bireysel başvurular ise bölümlerce karara bağlanır.</div>
+<div>
+Anayasa değişikliğinde iptale, siyasî partilerin kapatılmasına ya da Devlet yardımından yoksun bırakılmasına karar verilebilmesi için <span class="kim"> toplantıya katılan üyelerin</span> <span class="mavi"> üçte iki oy çokluğu şarttır.</span></div>
+<div> <span class="kim">
+Şekil bozukluğuna dayalı iptal davaları</span> <span class="mavi"> Anayasa Mahkemesince öncelikle incelenip karara bağlanır.</span> </div>
+<div>
+Anayasa Mahkemesinin kuruluşu, Genel Kurul ve bölümlerin yargılama usulleri, <span class="mavi"> Başkan, başkanvekilleri ve üyelerin disiplin işleri kanunla;</span> <span class="kim"> Mahkemenin çalışma esasları, bölüm ve komisyonların oluşumu ve işbölümü </span> <span class="mavi"> kendi yapacağı İçtüzükle düzenlenir.</span></div>
+<div>
+Anayasa Mahkemesi Yüce Divan sıfatıyla baktığı davalar dışında kalan işleri dosya üzerinde inceler. Ancak, bireysel başvurularda duruşma yapılmasına karar verilebilir. Mahkeme ayrıca, gerekli gördüğü hallerde sözlü açıklamalarını dinlemek üzere ilgilileri ve konu üzerinde bilgisi olanları çağırabilir ve siyasî partilerin kapatılmasına ilişkin davalarda, Yargıtay Cumhuriyet Başsavcısından sonra kapatılması istenen siyasî partinin genel başkanlığının veya tayin edeceği bir vekilin savunmasını dinler.</div>
+</div><div> <button  onclick="soruyuGoster(56)" class="soru" >2023 yılı çıkmış soru</button> </div>
+
+
+<div>
+İptal davası
+<div>
+MADDE 150- Kanunların, Cumhurbaşkanlığı kararnamelerinin, Türkiye Büyük Millet Meclisi İçtüzüğünün veya bunların belirli madde ve hükümlerinin şekil ve esas bakımından Anayasaya aykırılığı iddiasıyla Anayasa Mahkemesinde doğrudan doğruya iptal davası açabilme hakkı, <span class="mavi"> Cumhurbaşkanına, Türkiye Büyük Millet Meclisinde en fazla üyeye sahip iki siyasi parti grubuna ve üye tamsayısının en az beşte biri (%20) tutarındaki üyelere aittir.</span> (Mülga son cümle: 21/1/2017-6771/16 md.) (…) (1)</div>
+</div>
+
+
+<div>
+Dava açma süresi
+<div>
+MADDE 151- Anayasa Mahkemesinde doğrudan doğruya iptal davası açma hakkı, iptali istenen kanun, Cumhurbaşkanlığı kararnamesi veya içtüzüğün <span class="kim"> Resmî Gazetede yayımlanmasından başlayarak</span> <span class="mavi"> altmış gün sonra düşer.</span> (1)</div>
+</div>
+
+
+	<div>
+Anayasaya aykırılığın diğer mahkemelerde ileri sürülmesi
+<div>
+MADDE 152- Bir davaya bakmakta olan mahkeme, uygulanacak bir kanun veya Cumhurbaşkanlığı kararnamesinin hükümlerini Anayasaya aykırı görürse veya taraflardan birinin ileri sürdüğü aykırılık iddiasının ciddi olduğu kanısına varırsa, Anayasa Mahkemesinin bu konuda vereceği karara kadar davayı geri bırakır. (1)</div>
+<div>
+Mahkeme, Anayasaya aykırılık iddiasını ciddî görmezse bu iddia, temyiz merciince esas hükümle birlikte karara bağlanır.</div>
+<div>
+Anayasa Mahkemesi, işin kendisine gelişinden başlamak üzere <span class="mavi"> beş ay içinde kararını verir ve açıklar.</span>  Bu süre içinde  <span class="kim"> karar verilmezse</span> <span class="mavi"> mahkeme davayı yürürlükteki kanun hükümlerine göre sonuçlandırır.</span> <span class="kim"> Ancak, Anayasa Mahkemesinin kararı, esas hakkındaki karar kesinleşinceye kadar gelirse,</span> <span class="mavi"> mahkeme buna uymak zorundadır.</span> </div>
+<div>
+    <span class="kim">
+Anayasa Mahkemesinin işin esasına girerek verdiği red kararının Resmî Gazetede yayımlanmasından sonra</span> <span class="mavi"> on yıl geçmedikçe aynı kanun hükmünün Anayasaya aykırılığı iddiasıyla tekrar başvuruda bulunulamaz.</span></div>
+</div>
+
+
+<div>
+Anayasa Mahkemesinin kararları
+<div>
+MADDE 153- <span class="mavi"> Anayasa Mahkemesinin kararları kesindir.</span> <span class="mavi"> İptal kararları gerekçesi yazılmadan açıklanamaz.</span> </div>
+<div>
+Anayasa Mahkemesi bir kanun veya Cumhurbaşkanlığı kararnamesinin tamamını veya bir hükmünü iptal ederken, kanun koyucu gibi hareketle, yeni bir uygulamaya yol açacak biçimde hüküm tesis edemez.(1)</div>
+<div>
+Kanun, Cumhurbaşkanlığı kararnamesi veya Türkiye Büyük Millet Meclisi İçtüzüğü ya da bunların hükümleri, iptal kararlarının <span class="mavi"> Resmî Gazetede yayımlandığı tarihte yürürlükten kalkar.</span>  Gereken hallerde Anayasa Mahkemesi iptal hükmünün yürürlüğe gireceği tarihi ayrıca kararlaştırabilir. <span class="mavi"> Bu tarih, kararın Resmî Gazetede yayımlandığı günden başlayarak bir yılı geçemez.</span> (2)</div>
+<div>
+İptal kararının yürürlüğe girişinin ertelendiği durumlarda, Türkiye Büyük Millet Meclisi, iptal kararının ortaya çıkardığı hukuki boşluğu dolduracak kanun (…)(3) teklifini öncelikle görüşüp karara bağlar.(3)</div>
+<div> <span class="mavi">
+İptal kararları geriye yürümez.</span></div>
+<div>
+Anayasa Mahkemesi kararları Resmî Gazetede hemen yayımlanır ve yasama, yürütme ve yargı organlarını, idare makamlarını, gerçek ve tüzelkişileri bağlar.</div>
+
+
+</div>
+
+
+
+    B. Yargıtay
+	<div>
+
+MADDE 154- Yargıtay, adliye mahkemelerince verilen ve kanunun başka bir adlî yargı merciine bırakmadığı karar ve hükümlerin son inceleme merciidir. Kanunla gösterilen belli davalara da ilk ve son derece mahkemesi olarak bakar.</div>
+<div> <span class="kim">
+Yargıtay üyeleri, </span> birinci sınıfa ayrılmış adli yargı hakim ve Cumhuriyet savcıları ile bu meslekten sayılanlar arasından <span class="kim"> Hakimler ve Savcılar Kurulunca </span><span class="mavi"> üye tamsayısının salt çoğunluğu ile ve gizli oyla seçilir.</span><div> <button  onclick="soruyuGoster(255)" class="soru" >2017 yılı çıkmış soru</button> </div> </div>
+<div>
+Yargıtay Birinci Başkanı, birinci başkanvekilleri ve daire başkanları <span class="mavi"> kendi üyeleri arasından Yargıtay Genel Kurulunca üye tamsayısının salt çoğunluğu ve gizli oyla dört yıl için seçilirler;</span>  süresi bitenler yeniden seçilebilirler.</div>
+<div>  <span class="kim">
+Yargıtay Cumhuriyet Başsavcısı ve Cumhuriyet Başsavcıvekili,</span>  Yargıtay Genel Kurulunun kendi üyeleri arasından gizli oyla belirleyeceği <span class="kim"> beşer aday arasından</span> <span class="mavi"> Cumhurbaşkanı tarafından dört yıl için seçilirler.</span>  Süresi bitenler yeniden seçilebilirler.</div>
+<div>
+Yargıtayın kuruluşu, işleyişi, Başkan, başkanvekilleri, daire başkanları ve üyeleri ile Cumhuriyet Başsavcısı ve Cumhuriyet Başsavcıvekilinin nitelikleri ve seçim usulleri, mahkemelerin bağımsızlığı ve hâkimlik teminatı esaslarına göre kanunla düzenlenir.</div>
+
+
+
+
+    C. Danıştay
+	<div>
+MADDE 155- Danıştay, idarî mahkemelerce verilen ve kanunun başka bir idarî yargı merciine bırakmadığı karar ve hükümlerin son inceleme merciidir. Kanunla gösterilen belli davalara da ilk ve son derece mahkemesi olarak bakar.</div>
+<div>
+(Değişik ikinci fıkra: 13/8/1999-4446/3 md.) <span class="mavi"> Danıştay, davaları görmek, kamu hizmetleri ile ilgili imtiyaz şartlaşma ve sözleşmeleri hakkında <span class="dik"> iki ay</span> içinde düşüncesini bildirmek,</span>  idari uyuşmazlıkları çözmek ve kanunla gösterilen diğer işleri yapmakla görevlidir.(1)</div>
+<div>
+Danıştay üyelerinin <span class="kim"> dörtte üçü,</span> birinci sınıf idari yargı hakim ve savcıları ile bu meslekten sayılanlar arasından <span class="mavi"> Hakimler ve Savcılar  Kurulu;</span> <span class="kim"> dörtte biri,</span>  nitelikleri kanunda belirtilen görevliler arasından <span class="mavi">Cumhurbaşkanı; tarafından seçilir.</span></div>
+<div>
+Danıştay Başkanı, Başsavcı, başkanvekilleri ve daire başkanları, kendi üyeleri arasından Danıştay Genel Kurulunca üye tamsayısının salt çoğunluğu ve gizli oyla dört yıl için seçilirler. Süresi bitenler yeniden seçilebilirler.</div>
+<div>
+Danıştayın, kuruluşu, işleyişi, Başkan, Başsavcı, başkanvekilleri, daire başkanları ile üyelerinin nitelikleri ve seçim usulleri, idarî yargının özelliği, mahkemelerin bağımsızlığı ve hâkimlik teminatı esaslarına göre kanunla düzenlenir.</div>
+
+
+
+
+    D. Askerî Yargıtay
+	<div>
+
+MADDE 156- (Mülga: 21/1/2017-6771/16 md.)</div>
+
+    E. Askerî Yüksek İdare Mahkemesi
+	<div>
+MADDE 157- (Mülga: 21/1/2017-6771/16 md.)</div>
+
+    F. Uyuşmazlık Mahkemesi
+	<div>
+MADDE 158- Uyuşmazlık Mahkemesi adli ve idari yargı mercileri arasındaki görev ve hüküm uyuşmazlıklarını kesin olarak çözümlemeye yetkilidir.(1)</div>
+<div>
+Uyuşmazlık Mahkemesinin kuruluşu, üyelerinin nitelikleri ve seçimleri ile işleyişi kanunla düzenlenir. <span class="mavi"> Bu mahkemenin <span class="dik"> Başkanlığını Anayasa Mahkemesince,</span> kendi üyeleri arasından görevlendirilen üye yapar.</span></div>
+<div>  <span class="kim">
+Diğer mahkemelerle, Anayasa Mahkemesi arasındaki görev uyuşmazlıklarında,</span> <span class="mavi"> Anayasa Mahkemesinin kararı esas alınır.</span></div>
+
+</div>
+
+
+III. Hakimler ve Savcılar  Kurulu (1)
+<div>
+MADDE 159- (Değişik: 7/5/2010-5982/22 md.) <br>
+
+Hâkimler ve Savcılar  Kurulu, mahkemelerin bağımsızlığı ve hâkimlik teminatı esaslarına göre kurulur ve görev yapar. (1)</div>
+<div>
+(Değişik fıkra: 21/1/2017-6771/14 md.) <span class="mavi"> Hâkimler ve Savcılar Kurulu onüç üyeden oluşur; iki daire halinde çalışır.</span> </div>
+<div>
+(Değişik fıkra: 21/1/2017-6771/14 md.) Kurulun Başkanı Adalet Bakanıdır. Adalet Bakanlığı Müsteşarı Kurulun tabiî üyesidir. Kurulun, <span class="kim"> üç üyesi</span> birinci sınıf olup, birinci sınıfa ayrılmayı gerektiren nitelikleri yitirmemiş <span class="mavi"> adlî yargı hâkim ve savcıları arasından</span>, <span class="kim"> bir üyesi</span>  birinci sınıf olup, birinci sınıfa ayrılmayı gerektiren nitelikleri yitirmemiş <span class="mavi"> idarî yargı hâkim ve savcıları arasından</span> <span class="mavi"> Cumhurbaşkanınca;</span> <span class="kim"> üç üyesi</span> <span class="mavi"> Yargıtay üyeleri,</span> <span class="kim"> bir üyesi</span> <span class="mavi"> Danıştay üyeleri</span>, <span class="kim"> üç üyesi</span>  nitelikleri kanunda belirtilen yükseköğretim kurumlarının hukuk dallarında görev yapan <span class="mavi"> öğretim üyeleri ile avukatlar arasından</span> <span class="mavi"> Türkiye Büyük Millet Meclisi tarafından seçilir.</span> Öğretim üyeleri ile avukatlar arasından seçilen üyelerden, <span class="mavi"> en az birinin öğretim üyesi ve en az birinin de avukat olması zorunludur.</span>  Kurulun Türkiye Büyük Millet Meclisi tarafından seçilecek üyeliklerine ilişkin başvurular, Meclis Başkanlığına yapılır. Başkanlık, başvuruları Anayasa ve Adalet Komisyonları Üyelerinden Kurulu Karma Komisyona gönderir. Komisyon her bir üyelik için üç adayı, üye tamsayısının <span class="mavi"> üçte iki</span> çoğunluğuyla belirler. Birinci oylamada aday belirleme işleminin sonuçlandırılamaması halinde ikinci oylamada üye tamsayısının <span class="mavi"> beşte üç</span> çoğunluğu aranır. Bu oylamada da aday belirlenemediği takdirde, her bir üyelik için en çok oyu alan iki aday arasında <span class="mavi"> ad çekme usulü ile aday belirleme işlemi tamamlanır.</span>  Türkiye Büyük Millet Meclisi, Komisyon tarafından belirlenen adaylar arasından, her bir üye için ayrı ayrı <span class="mavi"> gizli oyla seçim yapar.</span>  Birinci oylamada üye tamsayısının <span class="mavi"> üçte iki</span> çoğunluğu; bu oylamada seçimin sonuçlandırılamaması halinde, ikinci oylamada üye tamsayısının <span class="mavi"> beşte üç</span> çoğunluğu aranır. İkinci oylamada da üye seçilemediği takdirde en çok oyu alan iki aday arasında <span class="mavi"> ad çekme usulü ile üye seçimi tamamlanır.</span></div>
+<div>
+(Değişik fıkra: 21/1/2017-6771/14 md.) <span class="mavi"> Üyeler dört yıl için seçilir. Süresi biten üyeler bir kez daha seçilebilir</span>.</div>
+<div> <div> <button  onclick="soruyuGoster(216)" class="soru" >2017 yılı çıkmış soru</button> </div>
+(Değişik fıkra: 21/1/2017-6771/14 md.) Kurul üyeliği seçimi, üyelerin görev süresinin <span class="mavi"> dolmasından önceki otuz gün içinde yapılır.</span>  Seçilen üyelerin görev süreleri dolmadan Kurul üyeliğinin boşalması durumunda, <span class="mavi"> boşalmayı takip eden otuz gün içinde, yeni üyelerin seçimi yapılır</span>.</div>
+<div>
+Kurulun, Adalet Bakanı ile Adalet Bakanlığı Müsteşarı dışındaki (…)(2) üyeleri, görevlerinin devamı süresince; kanunda belirlenenler dışında başka bir görev alamazlar veya Kurul tarafından başka bir göreve atanamaz ve seçilemezler. (2)</div>
+<div>
+Kurulun yönetimi ve temsili Kurul Başkanına aittir. Kurul Başkanı dairelerin çalışmalarına katılamaz. Kurul, kendi üyeleri arasından daire başkanlarını ve daire başkanlarından birini de başkanvekili olarak seçer. Başkan, yetkilerinden bir kısmını başkanvekiline devredebilir.</div>
+<div>
+Kurul, adlî ve idarî yargı hâkim ve savcılarını mesleğe kabul etme, atama ve nakletme, geçici yetki verme, yükselme ve birinci sınıfa ayırma, kadro dağıtma, meslekte kalmaları uygun görülmeyenler hakkında karar verme, disiplin cezası verme, görevden uzaklaştırma işlemlerini yapar; Adalet Bakanlığının, bir mahkemenin kaldırılması veya yargı çevresinin değiştirilmesi konusundaki tekliflerini karara bağlar; ayrıca, Anayasa ve kanunlarla verilen diğer görevleri yerine getirir.</div>
+<div>
+Hâkim ve savcıların görevlerini; kanun ve diğer mevzuata (hâkimler için idarî nitelikteki genelgelere) uygun olarak yapıp yapmadıklarını denetleme; görevlerinden dolayı veya görevleri sırasında suç işleyip işlemediklerini, hal ve eylemlerinin sıfat ve görevleri icaplarına uyup uymadığını araştırma ve gerektiğinde haklarında inceleme ve soruşturma işlemleri, ilgili dairenin teklifi ve Hâkimler ve Savcılar (…)(3) Kurulu Başkanının oluru ile Kurul müfettişlerine yaptırılır. Soruşturma ve inceleme işlemleri, hakkında soruşturma ve inceleme yapılacak olandan daha kıdemli hâkim veya savcı eliyle de yaptırılabilir. (3)</div>
+<div>  <span class="kim">
+Kurulun meslekten çıkarma cezasına ilişkin olanlar dışındaki kararlarına karşı</span> <span class="mavi"> yargı mercilerine başvurulamaz.</span></div>
+<div>
+Kurula bağlı <span class="kim"> Genel Sekreterlik kurulur.</span>  Genel <span class="kim"> Sekreter,</span> birinci sınıf hâkim ve savcılardan Kurulun teklif ettiği <span class="mavi"> üç aday arasından Kurul Başkanı tarafından atanır.</span> Kurul müfettişleri ile Kurulda geçici veya sürekli olarak çalıştırılacak hâkim ve savcıları, muvafakatlerini alarak atama yetkisi Kurula aittir.</div>
+<div>
+Adalet Bakanlığının merkez, bağlı ve ilgili kuruluşlarında geçici veya sürekli olarak çalıştırılacak hâkim ve savcılar ile adalet müfettişlerini ve hâkim ve savcı mesleğinden olan iç denetçileri, muvafakatlerini alarak atama yetkisi Adalet Bakanına aittir.</div><div> <button  onclick="soruyuGoster(337)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+<div>
+Kurul üyelerinin seçimi, dairelerin oluşumu ve işbölümü, Kurulun ve dairelerin görevleri, toplantı ve karar yeter sayıları, çalışma usul ve esasları, dairelerin karar ve işlemlerine karşı yapılacak itirazlar ve bunların incelenmesi usulü ile Genel Sekreterliğin kuruluş ve görevleri kanunla düzenlenir.</div>
+
+
+
+
+
+
+IV. Sayıştay
+<div>
+MADDE 160- Sayıştay, merkezî yönetim bütçesi kapsamındaki kamu idareleri ile sosyal güvenlik kurumlarının bütün gelir ve giderleri ile mallarını <span class="mavi"> Türkiye Büyük Millet Meclisi adına denetlemek ve sorumluların hesap ve işlemlerini kesin hükme bağlamak ve kanunlarla verilen inceleme, denetleme ve hükme bağlama işlerini yapmakla görevlidir.</span>  Sayıştayın kesin hükümleri hakkında ilgililer yazılı bildirim tarihinden itibaren <span class="mavi"> onbeş gün içinde bir kereye mahsus olmak üzere karar düzeltilmesi isteminde bulunabilirler.</span>  Bu kararlar dolayısıyla idari yargı yoluna başvurulamaz.(1)</div><div> <button  onclick="soruyuGoster(338)" class="soru" >2020 yılı Aralık ayı çıkmış soru</button> </div>
+<div>  <span class="mavi">
+Vergi, benzeri malî yükümlülükler ve ödevler hakkında Danıştay ile Sayıştay kararları arasındaki uyuşmazlıklarda Danıştay kararları esas alınır.</span></div>
+<div>
+(Ek üçüncü fıkra: 29/10/2005-5428/2 md.) Mahallî idarelerin hesap ve işlemlerinin denetimi ve kesin hükme bağlanması Sayıştay tarafından yapılır.</div>
+<div>
+Sayıştayın kuruluşu, işleyişi, denetim usulleri, mensuplarının nitelikleri, atanmaları, ödev ve yetkileri, hakları ve yükümlülükleri ve diğer özlük işleri, Başkan ve üyelerinin teminatı kanunla düzenlenir.</div>
+
+<div class="ort" >	<button onclick="YAZDIR()" class="yaz" >YAZDIR</button>
+</div>
+
+<script>
+var surukleniyor = false;
+var offsetX, offsetY;
+
+// Tüm soru göster butonlarını seç
+const soruGosterButtons = document.querySelectorAll('.soru');
+
+// Her bir buton için event listener ekle
+soruGosterButtons.forEach(function (button, index) {
+button.addEventListener('click', function() {
+const soruContainer = document.querySelector('.soruContainer');
+
+// Eğer gösteriliyorsa gizle, gizliyse göster
+	if (soruContainer.style.display === "none") {
+	  soruContainer.style.display = "block";
+	} else {
+	  soruContainer.style.display = "none";
+}
+});
+});
+
+
+soruContainer.addEventListener('mousedown', function(e) {  surukleniyor = true;	  offsetX = e.clientX - soruContainer.getBoundingClientRect().left;	  offsetY = e.clientY - soruContainer.getBoundingClientRect().top;});
+
+document.addEventListener('mousemove', function(e) {  if (surukleniyor) {soruContainer.style.left = (e.clientX - offsetX) + 'px';
+		soruContainer.style.top = (e.clientY - offsetY) + 'px'; }});
+
+	document.addEventListener('mouseup', function() { surukleniyor = false;	});
+</script>
+
+
+</body>
+</html>
+{% endblock%}
